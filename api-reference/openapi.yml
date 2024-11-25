@@ -625,7 +625,6 @@ paths:
         - default
       summary: Categorize Resource
       description: >-
-        ### Create a New Category
 
 
         This endpoint allows you to create a new category by providing the
@@ -852,8 +851,6 @@ paths:
         - default
       summary: Delete Collection
       description: |-
-        ### Delete Collection
-
         This endpoint is used to delete a collection.
 
         #### Request Body
