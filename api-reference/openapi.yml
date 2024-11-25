@@ -656,28 +656,6 @@ paths:
             
         - `success`: Indicates the success status of the request.
             
-
-        #### JSON Schema
-
-
-        ``` json
-
-        {
-          "type": "object",
-          "properties": {
-            "response": {
-              "type": "object",
-              "properties": {
-                "label": { "type": "string" }
-              }
-            },
-            "tokens": { "type": "integer" },
-            "success": { "type": "boolean" }
-          },
-          "required": ["response", "tokens", "success"]
-        }
-
-         ```
       requestBody:
         content:
           multipart/form-data:
