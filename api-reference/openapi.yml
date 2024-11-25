@@ -1,0 +1,1056 @@
+openapi: 3.0.0
+info:
+  title: WetroCloud
+  version: 1.0.0
+servers:
+  - url: https://api.wetrocloud.com
+components:
+  securitySchemes:
+    ApiKeyAuth:
+      type: apiKey
+      in: header
+      name: Authorization
+
+security:
+  - ApiKeyAuth: []
+
+paths:
+  /v1/create/:
+    post:
+      tags:
+        - default
+      summary: Create Collection
+      description: >-
+        This endpoint allows you to create a new item.
+
+
+        #### Request Body
+
+
+        - No request body parameters required.
+            
+
+        #### Response
+
+
+        The response will be a JSON object with the following properties:
+
+
+        - `collection_id` (string): The ID of the created item.
+            
+        - `success` (boolean): Indicates whether the item creation was
+        successful.
+      requestBody:
+        content: {}
+      responses:
+        '201':
+          description: Created
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 15:01:19 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '71'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                collection_id: 72b52a94-9dba-40eb-8018-dc425d173d00
+                success: true
+        '401':
+          description: Unauthorized
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 15:34:21 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '27'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            WWW-Authenticate:
+              schema:
+                type: string
+                example: Token
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                detail: Invalid token.
+  /v1/insert/:
+    post:
+      tags:
+        - default
+      summary: Insert Resource
+      description: >-
+
+        This endpoint allows you to add data to a collection using an HTTP POST
+        request.
+
+
+        #### Request Body
+
+
+        - `collection_id` (text): The ID of the collection to which the data
+        will be added.
+            
+        - `resource` (text): The resource to be added to the collection.
+            
+        - `type` (text): The type of the resource being added.
+            
+
+        #### Response
+
+
+        Upon successful addition, the response will include:
+
+
+        - `success` (boolean): Indicates whether the operation was successful.
+            
+        - `tokens` (number): The number of tokens generated.
+            
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                collection_id:
+                  type: string
+                  example: '{{collection_id}}'
+                resource:
+                  type: string
+                  example: https://en.wikipedia.org/wiki/Elizabeth_II
+                type:
+                  type: string
+                  example: web
+      responses:
+        '202':
+          description: Accepted
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 15:09:31 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '31'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                success: true
+                tokens: 93718
+        '401':
+          description: Unauthorized
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 15:08:56 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '27'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            WWW-Authenticate:
+              schema:
+                type: string
+                example: Token
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                detail: Invalid token.
+  /v1/query/:
+    post:
+      tags:
+        - default
+      summary: Query Resource
+      description: >-
+        This endpoint allows the user to make an HTTP POST request to submit a
+        query to the specified collection.
+
+
+        ### Request Body
+
+
+        - `collection_id` (text): The ID of the collection to which the query is
+        being submitted.
+            
+        - `request_query` (text): The query being submitted to the collection.
+            
+        - `json_schema` (text): The JSON schema for the query response.
+            
+        - `json_schema_rules` (text): Rules for the JSON schema.
+            
+
+        ### Response
+
+
+        The response for this request is a JSON schema with the following
+        structure:
+
+        - `response` (object): The JSON schema for the query response.
+            
+        - `tokens` (number): The number of tokens.
+            
+        - `success` (boolean): Indicates whether the request was successful.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                collection_id:
+                  type: string
+                  example: '{{collection_id}}'
+                request_query:
+                  type: string
+                  example: >-
+                    What were the major milestones during Queen Elizabeth II's
+                    reign?
+                json_schema:
+                  type: string
+                  example: |
+                    {
+                      "type": "object",
+                      "properties": {
+                        "question": {
+                          "type": "string",
+                          "description": "The question being asked."
+                        },
+                        "milestones": {
+                          "type": "array",
+                          "description": "A list of significant milestones during Queen Elizabeth II's reign.",
+                          "items": {
+                            "type": "object",
+                            "properties": {
+                              "year": {
+                                "type": "string",
+                                "description": "The year when the milestone occurred."
+                              },
+                              "event": {
+                                "type": "string",
+                                "description": "A brief description of the milestone or event."
+                              }
+                            },
+                            "required": ["year", "event"]
+                          }
+                        }
+                      },
+                      "required": ["question", "milestones"]
+                    }
+                json_schema_rules:
+                  type: string
+                  example: |
+                    [
+                      "Ask for specific milestones or events during Queen Elizabeth II's reign, including years and brief descriptions.",
+                      "Ensure the year and event description for each milestone is accurate and clear.",
+                      "Limit event descriptions to concise, relevant information without excessive detail.",
+                      "Focus on significant events from Queen Elizabeth II's reign, starting from 1952 onward."
+                    ]
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 15:44:06 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '641'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                example-0:
+                  summary: Free Text Response
+                  value:
+                    response: >-
+                      Queen Elizabeth II was the monarch of the United Kingdom
+                      and other Commonwealth realms. She served as the Supreme
+                      Governor of the Church of England and was a member of the
+                      Church of Scotland. Her reign included significant events
+                      such as her first state visit to China and her address to
+                      a joint meeting of the United States Congress. Elizabeth
+                      was known for her involvement in various state matters and
+                      her response to public scrutiny regarding the royal
+                      family's affairs. She was also noted for her wealth, which
+                      included state assets, and her efforts to modernize the
+                      monarchy during her reign.
+                    tokens: 5224
+                    success: true
+                example-1:
+                  summary: Structured Output
+                  value:
+                    response:
+                      type: object
+                      properties:
+                        question: >-
+                          What are some significant milestones or events during
+                          Queen Elizabeth II's reign?
+                        milestones:
+                          - year: '1952'
+                            event: Queen Elizabeth II ascended to the throne.
+                          - year: '1977'
+                            event: >-
+                              Silver Jubilee celebrated, marking 25 years of her
+                              reign.
+                          - year: '2002'
+                            event: >-
+                              Golden Jubilee celebrated, marking 50 years of her
+                              reign.
+                          - year: '2007'
+                            event: >-
+                              First British monarch to celebrate a diamond
+                              wedding anniversary.
+                          - year: '2012'
+                            event: >-
+                              Diamond Jubilee celebrated, marking 60 years of
+                              her reign.
+                          - year: '2015'
+                            event: Became the longest-reigning British monarch.
+                          - year: '2022'
+                            event: >-
+                              Platinum Jubilee celebrated, marking 70 years of
+                              her reign.
+                    tokens: 6858
+                    success: true
+        '400':
+          description: Bad Request
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 16:41:15 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '90'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                error: >-
+                  Error getting Json schema. Ensure the json_schema field is a
+                  valid Json schema
+        '401':
+          description: Unauthorized
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 16:51:23 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '27'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            WWW-Authenticate:
+              schema:
+                type: string
+                example: Token
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                detail: Invalid token.
+  /v1/category/:
+    post:
+      tags:
+        - default
+      summary: Categorize Resource
+      description: >-
+        ### Create a New Category
+
+
+        This endpoint allows you to create a new category by providing the
+        necessary details in the request body.
+
+
+        #### Request Body
+
+
+        - `resource` (text): Description of the resource.
+            
+        - `type` (text): Type of the category.
+            
+        - `json_schema` (text): JSON schema for the category.
+            
+        - `json_schema_rules` (text): Rules for the JSON schema.
+            
+
+        #### Response
+
+
+        The response is a JSON object with the following properties:
+
+
+        - `label`: The label of the response.
+            
+        - `tokens`: The number of tokens.
+            
+        - `success`: Indicates the success status of the request.
+            
+
+        #### JSON Schema
+
+
+        ``` json
+
+        {
+          "type": "object",
+          "properties": {
+            "response": {
+              "type": "object",
+              "properties": {
+                "label": { "type": "string" }
+              }
+            },
+            "tokens": { "type": "integer" },
+            "success": { "type": "boolean" }
+          },
+          "required": ["response", "tokens", "success"]
+        }
+
+         ```
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                resource:
+                  type: string
+                  example: 'match review: John Cena vs. The Rock.'
+                type:
+                  type: string
+                  example: text
+                json_schema:
+                  type: string
+                  example: '{"label":"string" }'
+                json_schema_rules:
+                  type: string
+                  example: >
+                    ["never go out of context", "Categorize this data based on
+                    their types like text, youtube, urls, football, coding,
+                    entertainment, basketball, wrestling, information, etc.",
+                    "Always return json", "Always return one word answers"]
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 16:29:51 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '63'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                response:
+                  label: wrestling
+                tokens: 1746
+                success: true
+        '400':
+          description: Bad Request
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 16:43:29 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '45'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                json_schema:
+                  - Value must be valid JSON.
+        '401':
+          description: Unauthorized
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 16:53:21 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '27'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            WWW-Authenticate:
+              schema:
+                type: string
+                example: Token
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                detail: Invalid token.
+  /v1/delete/:
+    delete:
+      tags:
+        - default
+      summary: Delete Collection
+      description: |-
+        ### Delete Collection
+
+        This endpoint is used to delete a collection.
+
+        #### Request Body
+
+        - `collection_id` (text) - The ID of the collection to be deleted.
+            
+
+        #### Response
+
+        - `message` - A message indicating the result of the deletion.
+            
+        - `success` - Indicates whether the deletion was successful.
+            
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 16:34:19 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '60'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            Allow:
+              schema:
+                type: string
+                example: DELETE, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Collection deleted successfully
+                success: true
+        '401':
+          description: Unauthorized
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 16:52:33 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '27'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            WWW-Authenticate:
+              schema:
+                type: string
+                example: Token
+            Allow:
+              schema:
+                type: string
+                example: DELETE, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                detail: Invalid token.
+        '404':
+          description: Not Found
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 16:34:46 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '74'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            Allow:
+              schema:
+                type: string
+                example: DELETE, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                error: Collection Id [72b52a94-9dba-40eb-8018-dc425d173d00] not found
