@@ -1,33 +1,22 @@
 ---
 title: 'Introduction'
-description: 'Example section for showcasing API endpoints'
+description: 'Learn how to easily integrate Retrieval Augmented Generation (RAG) into your applications.'
 ---
 
 <Note>
-  If you're not looking to build API reference documentation, you can delete
-  this section by removing the api-reference folder.
+Before you begin!<br />
+Visit the [Wetrocloud console](https://console.wetrocloud.com/) to get your API key. If you have trouble obtaining it, refer to this [Guide](/development.mdx). 
 </Note>
 
-## Welcome
+The WetroCloud API provides access to core features for building RAG systems that you can integrate directly into your application. It follows a clean, organized structure around the main resources you'll work with, designed to keep things simple and efficient.
 
-There are two ways to build API documentation: [OpenAPI](https://mintlify.com/docs/api-playground/openapi/setup) and [MDX components](https://mintlify.com/docs/api-playground/mdx/configuration). For the starter kit, we are using the following OpenAPI specification.
+### Sample Requests
+We provide sample API calls next to each method, using cURL. Simply replace the placeholders with your specific parameters and test the calls directly from the command line. If you're new to cURL, check out this tutorial on [using cURL with APIs](https://www.baeldung.com/curl-rest).
 
-<Card
-  title="Plant Store Endpoints"
-  icon="leaf"
-  href="https://github.com/mintlify/starter/blob/main/api-reference/openapi.json"
->
-  View the OpenAPI specification file
-</Card>
+If you're more comfortable with graphical tools, you can also [use Postman](https://www.postman.com/downloads/) if you aren't familiar with cURL. Postman is a user-friendly platform for developing and testing APIs. You can explore the [Wetrocloud Postman Collection](https://www.wetrocloud.com) to see how our API works.
 
-## Authentication
+<Warning>
+  Important! <br />Always prefix your API key with `Token ` (including a space). Example: `Token YOUR_API_KEY`. Requests without this format will be rejected.
+</Warning>
 
-All API endpoints are authenticated using Bearer tokens and picked up from the specification file.
 
-```json
-"security": [
-  {
-    "bearerAuth": []
-  }
-]
-```

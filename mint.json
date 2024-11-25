@@ -1,9 +1,20 @@
 {
   "$schema": "https://mintlify.com/schema.json",
-  "name": "Starter Kit",
+  "api": {
+    "baseUrl": "https://api.wetrocloud.com",
+    "auth": {
+      "method": "key",
+      "name": "Api Key"
+    }
+  },
+  "modeToggle": {
+  "default": "light",
+  "isHidden": true
+  },
+  "name": "Wetrocloud",
   "logo": {
-    "dark": "/logo/dark.svg",
-    "light": "/logo/light.svg"
+    "dark": "/logo/logo.svg",
+    "light": "/logo/logo.svg"
   },
   "favicon": "/favicon.svg",
   "colors": {
@@ -23,7 +34,7 @@
   ],
   "topbarCtaButton": {
     "name": "Dashboard",
-    "url": "https://dashboard.mintlify.com"
+    "url": "https://console.wetrocloud.com"
   },
   "tabs": [
     {
@@ -53,39 +64,30 @@
       "group": "Get Started",
       "pages": [
         "introduction",
-        "quickstart",
-        "development"
-      ]
-    },
-    {
-      "group": "Essentials",
-      "pages": [
-        "essentials/markdown",
-        "essentials/code",
-        "essentials/images",
-        "essentials/settings",
-        "essentials/navigation",
-        "essentials/reusable-snippets"
+        "development",
+        "quickstart"
+        
       ]
     },
     {
       "group": "API Documentation",
       "pages": [
-        "api-reference/introduction"
+        "api-reference/introduction",
+        "api-reference/request-and-responses",
+        "api-reference/api-endpoints"
       ]
     },
     {
       "group": "Endpoint Examples",
       "pages": [
-        "api-reference/endpoint/get",
-        "api-reference/endpoint/create",
-        "api-reference/endpoint/delete"
+        "api-reference/endpoints/create-collection",
+        "api-reference/endpoints/insert-resource",
+        "api-reference/endpoints/query-resource",
+        "api-reference/endpoints/categorize-resource",
+        "api-reference/endpoints/delete-collection"
       ]
     }
   ],
-  "footerSocials": {
-    "x": "https://x.com/mintlify",
-    "github": "https://github.com/mintlify",
-    "linkedin": "https://linkedin.com/company/mintlify"
-  }
+  "openapi": "/api-reference/openapi.yml"
+
 }
