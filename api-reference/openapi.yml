@@ -625,7 +625,6 @@ paths:
         - default
       summary: Categorize Resource
       description: >-
-        ### Create a New Category
 
 
         This endpoint allows you to create a new category by providing the
@@ -656,28 +655,6 @@ paths:
             
         - `success`: Indicates the success status of the request.
             
-
-        #### JSON Schema
-
-
-        ``` json
-
-        {
-          "type": "object",
-          "properties": {
-            "response": {
-              "type": "object",
-              "properties": {
-                "label": { "type": "string" }
-              }
-            },
-            "tokens": { "type": "integer" },
-            "success": { "type": "boolean" }
-          },
-          "required": ["response", "tokens", "success"]
-        }
-
-         ```
       requestBody:
         content:
           multipart/form-data:
@@ -874,8 +851,6 @@ paths:
         - default
       summary: Delete Collection
       description: |-
-        ### Delete Collection
-
         This endpoint is used to delete a collection.
 
         #### Request Body
