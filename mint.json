@@ -49,7 +49,7 @@
       "group": "Get Started",
       "pages": [
         "introduction",
-        "development",
+        "how-to-access-your-API-Key",
         "quickstart"
         
       ]
@@ -59,7 +59,9 @@
       "pages": [
         "api-reference/introduction",
         "api-reference/request-and-responses",
+        "api-reference/supported-resource-types",
         "api-reference/api-endpoints"
+        
       ]
     },
     {

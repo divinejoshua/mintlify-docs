@@ -21,7 +21,7 @@ paths:
         - default
       summary: Create Collection
       description: >-
-        This endpoint allows you to create a new item.
+        This endpoint allows you to create a new collection_id.
 
 
         #### Request Body
@@ -454,7 +454,7 @@ paths:
               schema:
                 type: object
               examples:
-                example-0:
+                Free Text Response:
                   summary: Free Text Response
                   value:
                     response: >-
@@ -471,7 +471,7 @@ paths:
                       monarchy during her reign.
                     tokens: 5224
                     success: true
-                example-1:
+                Structured Output:
                   summary: Structured Output
                   value:
                     response:
@@ -863,7 +863,15 @@ paths:
         - `message` - A message indicating the result of the deletion.
             
         - `success` - Indicates whether the deletion was successful.
-            
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                collection_id:
+                  type: string
+                  example: '{{collection_id}}'    
       responses:
         '200':
           description: OK

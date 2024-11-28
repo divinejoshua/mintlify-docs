@@ -1,19 +1,23 @@
 ---
 title: 'API Endpoints'
-description: 'Explore the available WetroCloud API endpoints for creating, managing, querying, and categorizing collections, with detailed response formats for seamless integration.'
+description: 'Explore the available WetroCloud API endpoints for creating, inserting, querying, and categorizing resources, with detailed response formats.'
 ---
 ### Endpoints
-||                                                        |
-|---------------------|-----------------------------------------------------------------------------|
-| **`/create`**  | Used to create a new collection where your resources will be organized.     |
-| **`/insert`**  | Allows you to add resources, such as documents or files, into a specified collection. |
-| **`/query`**     | Enables you to search or retrieve information from your collections based on specific prompts. |
-| **`/delete`**   | Removes an entire collection and its associated resources.                 |
-| **`/category`** | Categorizes your data according to specific rules or schema definitions. |
+| Endpoint           | Method    | Description                                                                 |
+|:-------------------|:----------|:----------------------------------------------------------------------------|
+| **`/create`**      | POST      | Used to create a new collection where your resources will be organized.     |
+| **`/insert`**      | POST      | Allows you to add resources, such as documents or files, into a specified collection. |
+| **`/query`**       | POST      | Enables you to search or retrieve information from your collections based on specific prompts. |
+| **`/delete`**      | DELETE    | Removes an entire collection and its associated resources.                  |
+| **`/category`**    | POST      | Categorizes your data according to specific rules or schema definitions.    |
+
+
 ### Response Formats by Endpoint
 The WetroCloud API returns responses in a consistent JSON format. Each endpoint includes fields relevant to the specific operation.
 
-#### Create Endpoint (`/create`)
+#### Create Endpoint (`/create`) <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
+
+
 
 Used to create a new collection. The response includes the unique ID of the collection and a success status.
 <Frame>
@@ -31,7 +35,7 @@ Used to create a new collection. The response includes the unique ID of the coll
 
 ---
 
-#### Insert Endpoint (`/insert`)
+#### Insert Endpoint (`/insert`)  <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
 <Frame>
   <img
     src="/images/postman-images/Insert-response.png"
@@ -49,7 +53,7 @@ Adds resources to a collection. The response confirms success and tracks token u
 
 ---
 
-#### Query Endpoint (`/query`)
+#### Query Endpoint (`/query`)  <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
 
 Fetches information from a collection based on a query. The response contains the result, token usage, and success status.
 <Frame>
@@ -68,10 +72,15 @@ Fetches information from a collection based on a query. The response contains th
 
 ---
 
-#### Delete Endpoint (`/delete`)
+#### Delete Endpoint (`/delete`)  <img src="/logo/DELETE.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
 
 Removes a collection and returns the operation status with a message.
-
+<Frame>
+  <img
+    src="/images/postman-images/delete-response.png"
+    alt="Postmandocs"
+  />
+</Frame>
 ```json
 {
   "success": boolean,
@@ -81,10 +90,15 @@ Removes a collection and returns the operation status with a message.
 
 ---
 
-#### Categorize Endpoint (`/category`)
+#### Categorize Endpoint (`/category`) <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
 
 Categorizes data according to rules or schemas. The response provides the assigned label, token usage, and success status.
-
+<Frame>
+  <img
+    src="/images/postman-images/category-response.png"
+    alt="Postmandocs"
+  />
+</Frame>
 ```json
 {
   "response": // This structure is defined by the schema,

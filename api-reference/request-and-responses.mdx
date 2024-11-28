@@ -3,8 +3,10 @@ title: 'Request and Response Formats'
 description: 'Understand the structure of JSON request bodies and responses, including key details for success, tokens, and identifiers.'
 ---
 ### Request and Responses
+<Frame caption="Request and Response Format general structure">
+    ![Image](/images/get-api-key/request-and-response.png)
+</Frame>
 Both request body and response data are formatted as JSON, with the content type for responses set to `application/json`. Most responses will follow a standard format, except for specific endpoints like the `query` endpoint that includes a `response` key and the `create` endpoint, which returns a `collection_id` as the response. 
-
 #### Keys
 || |
 |------------|------------|
@@ -12,3 +14,4 @@ Both request body and response data are formatted as JSON, with the content type
 | **tokens**  <br />integer | This provides the number of tokens used in processing your request. You can use this to monitor usage and manage limits effectively. |
 | **response**  <br />string | This contains the main output or message from the API based on your request. It could be a generated answer, or error details. |
 | **collection_id** <br />string | This is the unique identifier for the collection being referenced or created. Use this to specify which collection you’re interacting with. |
+
