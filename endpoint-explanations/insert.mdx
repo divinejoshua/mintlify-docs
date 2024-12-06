@@ -1,0 +1,94 @@
+---
+title: 'Insert a Resource'
+description: 'Learn how to insert resources using the Wetrocloud API'
+---
+<Info>
+At a glance: <br/> Use the `/insert` endpoint to add resources (URLs, files, text or JSON) to a collection for indexing and retrieval. Simply provide a `collection_id`, `resource`, and `type`.
+</Info>
+
+**Inserting resources** is a core operation that enables you to populate a collection with the data you want to organize and query.
+By default, Wetrocloud API supports 4 major types of resources:
+
+| **Resource** | **Description**                                                                                                            |
+|--------------------|:----------------------------------------------------------------------------------------------------------------------------|
+| **File**           | Supports various file types including `.csv`, `.docx`, `.epub`, `.hwp`, `.ipynb`, `.jpeg`, `.jpg`, `.mbox`, `.md`, `.mp3`, `.mp4`, `.pdf`, `.png`, `.ppt`, `.pptm`, `.pptx`. |
+| **Text**           | Plain text content.                                                                                                       |
+| **JSON**           | Structured data in JSON format.                                                                                           |
+| **Web**       | Web-based resources, such as websites.                                                                |
+
+<Note> To use the `file` type, all files must be provided as URLs. You can consider services like Amazon S3, Cloudinary, or similar platforms to host your files and provide their URLs to the API. </Note>
+
+Once inserted, these resources are indexed for use in Retrieval-Augmented Generation (RAG) workflows.
+
+## When to Use the Insert Endpoint
+
+Use the `/v1/insert/` endpoint when you need to:
+
+- Add data to a specific collection identified by `collection_id`.
+- Prepare a dataset for RAG workflows.
+
+## How to Insert a Resource
+
+To insert a resource into a collection, make a `POST` request to the `/v1/insert/` endpoint with the required parameters in the body.
+
+### Required Parameters
+
+| Parameter       | Type   | Description                                            |
+|------------------|--------|--------------------------------------------------------|
+| `collection_id` | String | The unique ID obtained from the `/create` endpoint. |
+| `resource` | String | The resource (e.g., a website). |
+| `type` | String | The type of resource to insert (e.g., `WEB`, `FILE`, `TEXT`, `JSON`). |
+
+### Request Example
+<CodeGroup>
+    ```python python
+    import requests
+
+    url = "https://api.wetrocloud.com/v1/insert/"
+    headers = {
+        "Authorization": "Token YOUR_API_KEY",
+    }
+    payload = {
+        "collection_id": "YOUR_COLLECTION_ID",
+        "resource": "YOUR_RESOURCE",
+        "type": "YOUR_RESOURCE_TYPE"
+    }
+    response = requests.post(url, headers=headers, payload=payload)
+    print(response.json())
+    ```
+    ```bash cURL
+    curl --request POST \
+      --url https://api.wetrocloud.com/v1/insert/ \
+      --header 'Authorization: Token YOUR_API_KEY' \
+      --header 'Content-Type: application/json' \
+      --data '{
+        "collection_id": "YOUR_COLLECTION_ID",
+        "resource": "YOUR_RESOURCE",
+        "type": "YOUR_RESOURCE_TYPE"
+      }'
+    ```
+</CodeGroup>
+
+### Successful Response
+
+A successful response confirms the operation and tracks token usage.
+
+**Example Response**
+
+```json
+{
+  "success": true,
+  "tokens": 35
+}
+```
+
+| Field      | Description                                     |
+|------------|-------------------------------------------------|
+| `success`  | Indicates whether the resource was inserted successfully. |
+| `tokens`   | Number of tokens consumed during the operation. |
+
+## Related Operations
+
+- **[Create Collection](#)**: Start by creating a collection to hold your resources.
+- **[Query Resources](#)**: Access and retrieve insights from the indexed resources.
+- **[Delete Collection](#)**: Remove collections and their resources when no longer needed.

@@ -1,0 +1,192 @@
+---
+title: 'Structured Output'
+description: 'Learn how to query resources using the Wetrocloud API'
+---
+
+## Structured Output Response
+Structured output is a feature that allows large language models (LLMs) to generate responses in a specific format with your resources. Structured output is best for extracting structured data to fit your application’s needs. It returns data formatted with the `json_schema` and `json_schema_rules` you provide.
+To use the structured output feature you need to provide the following parameters:
+
+| Parameter           | Type   | Description                                                                 |
+|----------------------|--------|-----------------------------------------------------------------------------|
+| `collection_id`      | String | The unique ID of the collection to query.                                   |
+| `request_query`      | String | The search term or query text.                                              |
+| `json_schema`        | String | The desired structure for the JSON response.                                |
+| `json_schema_rules`  | String | Custom rules to guide the response's adherence to the specified JSON schema.|
+
+### `json_schema`
+
+The `json_schema` parameter defines the structure of the response you want the system to return. This parameter helps ensure the output matches your application's requirements.
+
+**Example JSON Schema**
+
+```json
+{
+  "type": "object",
+  "properties": {
+    "sales": { "type": "number" },
+    "growth_rate": { "type": "string" }
+  },
+  "required": ["sales", "growth_rate"]
+}
+```
+
+This schema specifies that the response should be an object with two properties:
+- `sales` (a number)  
+- `growth_rate` (a string)  
+Both properties are required.
+
+---
+
+### `json_schema_rules`
+
+The `json_schema_rules` parameter allows you to define custom rules for how the schema is applied. This can include constraints on the data, additional formatting, or validation logic.
+
+<RequestExample>
+```bash
+curl --request POST \
+  --url https://api.wetrocloud.com/v1/query/ \
+  --header 'Authorization: Token YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+  'collection_id': 'YOUR_COLLECTION_ID,
+  'request_query': 'What were the major milestones during Queen Elizabeth II\'s reign?',
+  'json_schema_rules': '[
+    "Ask for specific milestones or events during Queen Elizabeth II\'s reign, including years and brief descriptions.",
+    "Ensure the year and event description for each milestone is accurate and clear.",
+    "Limit event descriptions to concise, relevant information without excessive detail.",
+    "Focus on significant events from Queen Elizabeth II\'s reign, starting from 1952 onward."
+  ]
+  ',
+  'json_schema': '{
+    "type": "object",
+    "properties": {
+      "question": {
+        "type": "string",
+        "description": "The question being asked."
+      },
+      "milestones": {
+        "type": "array",
+        "description": "A list of significant milestones during Queen Elizabeth II\'s reign.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "year": {
+              "type": "string",
+              "description": "The year when the milestone occurred."
+            },
+            "event": {
+              "type": "string",
+              "description": "A brief description of the milestone or event."
+            }
+          },
+          "required": ["year", "event"]
+        }
+      }
+    },
+    "required": ["question", "milestones"]
+  }
+'}'
+```
+```python
+import requests
+
+url = "https://api.wetrocloud.com/v1/query/"
+
+payload = {
+  'collection_id': 'YOUR_COLLECTION_ID,
+  'request_query': 'What were the major milestones during Queen Elizabeth II\'s reign?',
+  'json_schema_rules': '[
+    "Ask for specific milestones or events during Queen Elizabeth II\'s reign, including years and brief descriptions.",
+    "Ensure the year and event description for each milestone is accurate and clear.",
+    "Limit event descriptions to concise, relevant information without excessive detail.",
+    "Focus on significant events from Queen Elizabeth II\'s reign, starting from 1952 onward."
+  ]
+  ',
+  'json_schema': '{
+    "type": "object",
+    "properties": {
+      "question": {
+        "type": "string",
+        "description": "The question being asked."
+      },
+      "milestones": {
+        "type": "array",
+        "description": "A list of significant milestones during Queen Elizabeth II\'s reign.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "year": {
+              "type": "string",
+              "description": "The year when the milestone occurred."
+            },
+            "event": {
+              "type": "string",
+              "description": "A brief description of the milestone or event."
+            }
+          },
+          "required": ["year", "event"]
+        }
+      }
+    },
+    "required": ["question", "milestones"]
+  }
+'}
+headers = {}
+
+response = requests.request("POST", url, headers=headers, data=payload,)
+
+print(response.json())
+
+```
+</RequestExample>
+
+<ResponseExample>
+ ```json
+{
+    "response": {
+        "type": "object",
+        "properties": {
+            "question": "What are some significant milestones or events during Queen Elizabeth II's reign?",
+            "milestones": [
+                {
+                    "year": "1952",
+                    "event": "Queen Elizabeth II ascended to the throne."
+                },
+                {
+                    "year": "1977",
+                    "event": "Silver Jubilee celebrated, marking 25 years of her reign."
+                },
+                {
+                    "year": "2002",
+                    "event": "Golden Jubilee celebrated, marking 50 years of her reign."
+                },
+                {
+                    "year": "2007",
+                    "event": "First British monarch to celebrate a diamond wedding anniversary."
+                },
+                {
+                    "year": "2012",
+                    "event": "Diamond Jubilee celebrated, marking 60 years of her reign."
+                },
+                {
+                    "year": "2015",
+                    "event": "Became the longest-reigning British monarch."
+                },
+                {
+                    "year": "2022",
+                    "event": "Platinum Jubilee celebrated, marking 70 years of her reign."
+                }
+            ]
+        }
+    },
+    "tokens": 6858,
+    "success": true
+```   
+</ResponseExample>
+
+| Field     | Description                                           |
+|-----------|-------------------------------------------------------|
+| `response` | JSON object structured as per the provided schema.   |
+| `tokens`   | Number of tokens used for processing.                |
+| `success`  | Indicates whether the query was successful.          |

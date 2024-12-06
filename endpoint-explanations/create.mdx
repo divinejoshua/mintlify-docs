@@ -1,0 +1,61 @@
+---
+title: 'Create a Collection'
+description: 'Learn how to create collections using the Wetrocloud API'
+---
+<Info>
+At a glance: <br/>
+This endpoint allows you to generate a unique `collection_id`. You would use this `collection_id` to insert, query and delete a resource.
+</Info>
+## What is a Collection?
+
+A collection in the WetroCloud API acts as a container for resources such as text, files and the other [supported types](/api-reference/supported-resource-types). Every collection is identified by a unique `collection_id`.
+
+## How to Create a Collection
+
+<Note>
+Before you begin!<br />
+Visit the [Wetrocloud console](https://console.wetrocloud.com/) to get your API key. If you have trouble obtaining it, refer to this [guide](/how-to-access-your-API-Key). 
+</Note>
+
+To create a collection, make a `POST` request to the `/v1/create/` endpoint. This operation is simple, as no body parameters are required—only an authorization token in the header.
+
+### Request Example
+<CodeGroup>
+
+```cURL cURL
+curl --request POST \
+--url https://api.wetrocloud.com/v1/create/ \
+--header 'Authorization: Token YOUR_API_KEY'
+```
+
+```python python
+import requests
+
+url = "https://api.wetrocloud.com/v1/create/"
+headers = {"Authorization": "Token YOUR_API_KEY"}
+
+response = requests.post(url, headers=headers)
+print(response.json())
+```
+</CodeGroup>
+### Successful Response
+
+If the request is valid, the response will include:
+
+- A unique `collection_id` for your new collection.
+- A success confirmation.
+
+**Example Response**
+
+```json
+{
+  "collection_id": "72b52a94-9dba-40eb-8018-dc425d173d00",
+  "success": true
+}
+```
+## Related Operations
+
+- **[Insert Resources](#)**: Add resources like websites, videos, and files to a collection.
+- **[Query Collections](#)**: Retrieve insights or run searches on your collections.
+- **[Delete Collections](#)**: Remove a collection when it's no longer needed.
+

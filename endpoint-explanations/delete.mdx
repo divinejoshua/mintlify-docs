@@ -1,0 +1,71 @@
+---
+title: 'Delete a Collection'
+description: 'Learn how to delete a collection using the Wetrocloud API when they are no longer needed.'
+---
+Collections in WetroCloud store indexed resources for retrieval and query operations. Deleting a collection can help remove outdated data.
+
+## When to Use the Delete Endpoint
+
+Use the `/v1/delete/` endpoint when:
+
+- A collection has served its purpose and is no longer needed.
+- Data in a collection must be  removed.
+
+
+To delete a collection, send a `DELETE` request to the `/v1/delete/` endpoint with the required parameters in the body.
+
+### Required Parameters
+
+| Parameter      | Type   | Description                           |
+|-----------------|--------|---------------------------------------|
+| `collection_id` | String | The unique ID of the collection to delete. |
+
+---
+
+### Request Example
+<CodeGroup>
+```bash cURL
+curl --request DELETE \
+  --url https://api.wetrocloud.com/v1/delete/ \
+  --header 'Authorization: Token YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+        "collection_id": "YOUR_COLLECTION_ID",
+  }'
+```
+```python python
+import requests
+
+url = "https://api.wetrocloud.com/v1/delete/"
+headers = {
+    "Authorization": "Token YOUR_API_KEY",
+}
+payload = {
+        "collection_id": "YOUR_COLLECTION_ID",
+}
+
+response = requests.delete(url, headers=headers, payload=payload)
+print(response.json())
+```
+</CodeGroup>
+
+
+---
+
+### Successful Response
+
+Upon successful deletion, the endpoint returns a confirmation message and a success flag.
+
+**Example Response**
+
+```json
+{
+  "message": "Collection deleted successfully.",
+  "success": true
+}
+```
+
+| Field      | Description                                        |
+|------------|----------------------------------------------------|
+| `message`  | A user-friendly message about the deletion status. |
+| `success`  | Indicates whether the deletion was successful.     |

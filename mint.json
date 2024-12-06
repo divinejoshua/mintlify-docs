@@ -50,8 +50,13 @@
       "pages": [
         "introduction",
         "how-to-access-your-API-Key",
-        "quickstart"
-        
+        "quickstart",
+        "endpoint-explanations/create",
+        "endpoint-explanations/insert",
+        "endpoint-explanations/query",
+        "endpoint-explanations/structured_output",
+        "endpoint-explanations/category",
+        "endpoint-explanations/delete"
       ]
     },
     {

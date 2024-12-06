@@ -1,0 +1,80 @@
+---
+title: 'Categorize your Resources'
+description: 'Learn how to classify and structure resources using WetroCloud.'
+---
+## When to Use the Category Endpoint
+
+Use the `/v1/category/` endpoint when:
+
+- Resources need to be organized into categories.
+- JSON schemas and rules are required to define category structure.
+
+## How to Categorize a Resource
+
+Send a `POST` request to the `/v1/category/` endpoint with the required parameters in the body.
+
+### Required Parameters
+
+| Parameter          | Type   | Description                                    |
+|---------------------|--------|------------------------------------------------|
+| `resource`          | String | Description of the resource to be categorized. |
+| `type`              | String | Type of the category (e.g., "file", "Web").    |
+| `json_schema`       | String | The JSON schema for defining the category.     |
+| `json_schema_rules` | String | Rules to apply to the JSON schema.             |
+
+---
+<RequestExample>
+ ```bash
+curl --request POST \
+  --url https://api.wetrocloud.com/v1/category/ \
+  --header 'Authorization: Token YOUR_API_KEY' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "resource": "match review: John Cena vs. The Rock.",
+    "type": "text",
+    "json_schema": "{'label':'string'}",
+    "json_schema_rules": ["never go out of context", "Categorize this data based on their types like text, youtube, urls, football, coding, entertainment, basketball, wrestling, information, etc.", "Always return json", "Always return one word answers"]
+  }'
+```
+
+**Python**
+
+```python
+import requests
+
+url = "https://api.wetrocloud.com/v1/category/"
+headers = {
+    "Authorization": "Token YOUR_API_KEY",
+}
+data = {
+    "resource": "match review: John Cena vs. The Rock.",
+    "type": "text",
+    "json_schema": "{'label':'string'}",
+    "json_schema_rules": ["never go out of context", "Categorize this data based on their types like text, youtube, urls, football, coding, entertainment, basketball, wrestling, information, etc.", "Always return json", "Always return one word answers"]
+
+}
+
+response = requests.post(url, headers=headers, json=data)
+print(response.json())
+``` 
+</RequestExample>
+
+<ResponseExample>
+```json
+{
+    "response": {
+        "label": "wrestling"
+    },
+    "tokens": 1746,
+    "success": true
+}
+```
+</ResponseExample>
+
+
+| Field     | Description                                           |
+|-----------|-------------------------------------------------------|
+| `response` | JSON object structured as per the provided schema.   |
+| `tokens`  | The number of tokens used for processing the request. |
+| `success` | Indicates whether the operation was successful.       |
+
