@@ -18,9 +18,7 @@ This guide is for developers looking to get started with the WetroCloud API quic
 - Categorize resources
 
 **Prerequisites:**
-- An API key from [Wetrocloud](https://console.wetrocloud.com)
-- cURL installed on your system
-- Basic familiarity with the command line
+- An API key from the [Wetrocloud Console](https://console.wetrocloud.com)
 
 By the end, you’ll have queried your first resource using Wetrocloud API.
 
@@ -29,10 +27,10 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
 <Steps>
   <Step title="Create a Collection">
     First, create a `collection_id` to group your resources.
-    ```bash Create Collection
+    ```bash cURL
         curl --request POST \
         --url https://api.wetrocloud.com/v1/create/ \
-        --header 'Authorization: <api-key>'
+        --header 'Authorization: Token <api-key>'
     ```
   </Step>
   <Step title="Insert a Resource into the Collection">
@@ -40,7 +38,7 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
     ```bash Insert Resource 
         curl --request POST \
           --url https://api.wetrocloud.com/v1/insert/ \
-          --header 'Authorization: <api-key>' \
+          --header 'Authorization: Token <api-key>' \
           --header 'Content-Type: multipart/form-data' \
           --form 'collection_id=<collection_id>' \
           --form 'resource=https://en.wikipedia.org/wiki/Elizabeth_II' \
@@ -52,7 +50,7 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
     ```bash
       curl --request POST \
       --url https://api.wetrocloud.com/v1/query/ \
-      --header 'Authorization: <api-key>' \
+      --header 'Authorization: Token <api-key>' \
       --header 'Content-Type: multipart/form-data' \
       --form 'collection_id=<collection_id>' \
       --form 'request_query=<request_query>' \
@@ -65,7 +63,7 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
     ```bash
     curl --request POST \
   --url https://api.wetrocloud.com/v1/category/ \
-  --header 'Authorization: <api-key>' \
+  --header 'Authorization: Token <api-key>' \
   --header 'Content-Type: multipart/form-data' \
   --form 'resource=match review: John Cena vs. The Rock.' \
   --form type=text \
@@ -79,7 +77,7 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
     ```bash
     curl --request DELETE \
   --url https://api.wetrocloud.com/v1/delete/ \
-  --header 'Authorization: <api-key>'
+  --header 'Authorization: Token <api-key>'
     ```
   </Step>
 </Steps>

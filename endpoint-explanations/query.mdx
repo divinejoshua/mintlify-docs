@@ -17,7 +17,7 @@ Free text response provides natural, conversational-style answers to your querie
 
 ### Request Example: Free Text Response
 <RequestExample>
-```bash Free Text cURL request
+```bash cURL
 curl --request POST \
   --url https://api.wetrocloud.com/v1/query/ \
   --header 'Authorization: Token YOUR_API_KEY' \
@@ -27,7 +27,7 @@ curl --request POST \
     "request_query": "What are the sales trends for Q1?"
   }'
 ```
-```python Free
+```python Python
 import requests
 
 url = "https://api.wetrocloud.com/v1/query/"
@@ -36,12 +36,38 @@ headers = {
     "Content-Type": "application/json"
 }
 data = {
-    "collection_id": "abc123",
+    "collection_id": "YOUR_COLLECTION_ID",
     "request_query": "What are the sales trends for Q1?"
 }
 
 response = requests.post(url, headers=headers, json=data)
 print(response.json())
+```
+```javascript JavaScript
+const axios = require('axios');
+
+const apiKey = 'YOUR_API_KEY';
+const collectionId = 'YOUR_COLLECTION_ID';
+const query = 'What are the sales trends for Q1?';
+
+const requestData = {
+  collection_id: collectionId,
+  request_query: query
+};
+
+axios.post('https://api.wetrocloud.com/v1/query/', requestData, {
+  headers: {
+    'Authorization': `Token ${apiKey}`,
+    'Content-Type': 'application/json'
+  }
+})
+.then(response => {
+  console.log('Response:', response.data);
+})
+.catch(error => {
+  console.error('Error:', error.response ? error.response.data : error.message);
+});
+
 ```
 </RequestExample>
 
