@@ -18,48 +18,72 @@ Send a `POST` request to the `/v1/category/` endpoint with the required paramete
 | Parameter          | Type   | Description                                    |
 |---------------------|--------|------------------------------------------------|
 | `resource`          | String | Description of the resource to be categorized. |
-| `type`              | String | Type of the category (e.g., "file", "Web").    |
+| `type`              | String | Type of resource (e.g., "file", "Web"). see full list of accepted types [here](/insert)    |
 | `json_schema`       | String | The JSON schema for defining the category.     |
 | `json_schema_rules` | String | Rules to apply to the JSON schema.             |
 
 ---
-<RequestExample>
- ```bash
+**Request Example**
+
+<CodeGroup>
+ ```bash cURL
 curl --request POST \
   --url https://api.wetrocloud.com/v1/category/ \
-  --header 'Authorization: Token YOUR_API_KEY' \
+  --header 'Authorization: Token <api-key>' \
   --header 'Content-Type: application/json' \
   --data '{
     "resource": "match review: John Cena vs. The Rock.",
     "type": "text",
     "json_schema": "{'label':'string'}",
-    "json_schema_rules": ["never go out of context", "Categorize this data based on their types like text, youtube, urls, football, coding, entertainment, basketball, wrestling, information, etc.", "Always return json", "Always return one word answers"]
+    "json_schema_rules": ["never go out of context", "Categorize this data based on their types like football, coding, entertainment, basketball, wrestling, information, etc.", "Always return json", "Always return one word answers"]
   }'
 ```
-
-**Python**
-
-```python
+```python Python
 import requests
 
 url = "https://api.wetrocloud.com/v1/category/"
 headers = {
-    "Authorization": "Token YOUR_API_KEY",
+    "Authorization": "Token <api-key>",
 }
 data = {
     "resource": "match review: John Cena vs. The Rock.",
     "type": "text",
     "json_schema": "{'label':'string'}",
-    "json_schema_rules": ["never go out of context", "Categorize this data based on their types like text, youtube, urls, football, coding, entertainment, basketball, wrestling, information, etc.", "Always return json", "Always return one word answers"]
-
+    "json_schema_rules": ["never go out of context", "Categorize this data based on their types like football, coding, entertainment, basketball, wrestling, information, etc.", "Always return json", "Always return one word answers"]
 }
 
 response = requests.post(url, headers=headers, json=data)
 print(response.json())
-``` 
-</RequestExample>
+```
+```javascript JavaScript
+const axios = require('axios');
 
-<ResponseExample>
+axios.post('https://api.wetrocloud.com/v1/category/', {
+  resource: "match review: John Cena vs. The Rock.",
+  type: "text",
+  json_schema: "{'label':'string'}",
+  json_schema_rules: [
+    "never go out of context", 
+    "Categorize this data based on their types like football, coding, entertainment, basketball, wrestling, information, etc.", 
+    "Always return json", 
+    "Always return one word answers"
+  ]
+}, {
+  headers: {
+    'Authorization': 'Token <api-key>',
+    'Content-Type': 'application/json'
+  }
+})
+.then(response => {
+  console.log(response.data);
+})
+.catch(error => {
+  console.error('Error:', error);
+});
+```
+</CodeGroup>
+
+**Successful Response**
 ```json
 {
     "response": {
@@ -69,8 +93,6 @@ print(response.json())
     "success": true
 }
 ```
-</ResponseExample>
-
 
 | Field     | Description                                           |
 |-----------|-------------------------------------------------------|
