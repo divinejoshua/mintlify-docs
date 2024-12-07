@@ -33,54 +33,219 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
     --url https://api.wetrocloud.com/v1/create/ \
     --header 'Authorization: Token <api-key>'
     ```
+    ```python Python
+    import requests
+
+    url = "https://api.wetrocloud.com/v1/create/"
+    headers = {"Authorization": "Token <api-key>"}
+
+    response = requests.post(url, headers=headers)
+    print(response.json())
+    ```
+    ```javascript JavaScript
+    const axios = require('axios');
+
+    const url = 'https://api.wetrocloud.com/v1/create/';
+    const headers = { 'Authorization': 'Token <api-key>' };
+
+    axios.post(url, {}, { headers })
+      .then(response => console.log(response.data))
+      .catch(error => console.error(error));
+    ```
     </CodeGroup>
   </Step>
   <Step title="Insert a Resource into the Collection">
     Add a resource to your collection using the `collection_id` you created earlier
+    <CodeGroup>
     ```bash cURL
-        curl --request POST \
-          --url https://api.wetrocloud.com/v1/insert/ \
-          --header 'Authorization: Token <api-key>' \
-          --header 'Content-Type: multipart/form-data' \
-          --form 'collection_id=<collection_id>' \
-          --form 'resource=https://en.wikipedia.org/wiki/Elizabeth_II' \
-          --form 'type=web'
-    ```
-  </Step>
-  <Step title="Query a Resource">
-    Query your resource using the `collection_id` created earlier by providing a query in the `request_query` field.
-    ```bash cURL
-      curl --request POST \
-      --url https://api.wetrocloud.com/v1/query/ \
+    curl --request POST \
+      --url https://api.wetrocloud.com/v1/insert/ \
       --header 'Authorization: Token <api-key>' \
       --header 'Content-Type: multipart/form-data' \
       --form 'collection_id=<collection_id>' \
-      --form 'request_query=<request_query>' \
+      --form 'resource=https://en.wikipedia.org/wiki/Elizabeth_II' \
+      --form 'type=web'
     ```
+    ```python Python
+    import requests
+
+    url = "https://api.wetrocloud.com/v1/insert/"
+    headers = {
+        "Authorization": "Token <api-key>"
+    }
+    data = {
+        "collection_id": "<collection_id>",
+        "resource": "https://en.wikipedia.org/wiki/Elizabeth_II",
+        "type": "web"
+    }
+
+    response = requests.post(url, headers=headers, data=data)
+    print(response.json())
+    ```
+    ```javascript JavaScript
+    const axios = require('axios');
+    const FormData = require('form-data');
+
+    const url = 'https://api.wetrocloud.com/v1/insert/';
+    const formData = new FormData();
+    formData.append('collection_id', '<collection_id>');
+    formData.append('resource', 'https://en.wikipedia.org/wiki/Elizabeth_II');
+    formData.append('type', 'web');
+
+    const headers = {
+        'Authorization': 'Token <api-key>',
+        ...formData.getHeaders()
+    };
+
+    axios.post(url, formData, { headers })
+        .then(response => console.log(response.data))
+        .catch(error => console.error(error));
+    ```
+    </CodeGroup>
+  </Step>
+  <Step title="Query a Resource">
+    Query your resource using the `collection_id` created earlier by providing a query in the `request_query` field.
+    <CodeGroup>
+    ```bash cURL
+    curl --request POST \
+    --url https://api.wetrocloud.com/v1/query/ \
+    --header 'Authorization: Token <api-key>' \
+    --header 'Content-Type: multipart/form-data' \
+    --form 'collection_id=<collection_id>' \
+    --form 'request_query=What is this all about?' \
+    ```
+    ```python Python
+    import requests
+
+    url = "https://api.wetrocloud.com/v1/query/"
+    headers = {
+        "Authorization": "Token <api-key>"
+    }
+    data = {
+        "collection_id": "<collection_id>",
+        "request_query": "What is this all about?"
+    }
+
+    response = requests.post(url, headers=headers, data=data)
+    print(response.json())
+    ```
+    ```javascript JavaScript
+    const axios = require('axios');
+    const FormData = require('form-data');
+
+    const url = 'https://api.wetrocloud.com/v1/query/';
+    const formData = new FormData();
+    formData.append('collection_id', '<collection_id>');
+    formData.append('request_query', 'What is this all about?');
+
+    const headers = {
+        'Authorization': 'Token <api-key>',
+        ...formData.getHeaders()
+    };
+
+    axios.post(url, formData, { headers })
+        .then(response => console.log(response.data))
+        .catch(error => console.error(error));
+    ```
+    
+    </CodeGroup>
   <Info>
     To keep things simple we made use of the `/query/` endpoint without `structured output`
   </Info>
   </Step>
   <Step title="Categorize a Resource">
+    <CodeGroup>
     ```bash cURL
-    curl --request POST \
-  --url https://api.wetrocloud.com/v1/category/ \
-  --header 'Authorization: Token <api-key>' \
-  --header 'Content-Type: multipart/form-data' \
-  --form 'resource=match review: John Cena vs. The Rock.' \
-  --form type=text \
-  --form 'json_schema={"label":"string" }' \
-  --form 'json_schema_rules=["never go out of context", "Categorize this data based on their types like text, youtube, urls, football, coding, entertainment, basketball, wrestling, information, etc.", "Always return json", "Always return one word answers"]
-'
+      curl --request POST \
+    --url https://api.wetrocloud.com/v1/category/ \
+    --header 'Authorization: Token <api-key>' \
+    --header 'Content-Type: multipart/form-data' \
+    --form 'resource=match review: John Cena vs. The Rock.' \
+    --form type=text \
+    --form 'json_schema={"label":"string" }' \
+    --form 'json_schema_rules=["never go out of context", "Categorize this data based on their types like football, coding, entertainment, basketball, wrestling, information, etc.", "Always return json", "Always return one word answers"]'
     ```
+    ```python Python
+    import requests
+
+    url = "https://api.wetrocloud.com/v1/category/"
+    headers = {
+        "Authorization": "Token <api-key>"
+    }
+    data = {
+        "resource": "match review: John Cena vs. The Rock.",
+        "type": "text",
+        "json_schema": {"label": "string"},
+        "json_schema_rules": [
+            "never go out of context",
+            "Categorize this data based on their types like football, coding, entertainment, basketball, wrestling, information, etc.",
+            "Always return json",
+            "Always return one word answers"
+        ]
+    }
+
+    response = requests.post(url, headers=headers, data=data)
+    print(response.json())
+    ```
+    ```javascript JavaScript
+    const axios = require('axios');
+    const FormData = require('form-data');
+
+    const url = 'https://api.wetrocloud.com/v1/category/';
+    const formData = new FormData();
+    formData.append('resource', 'match review: John Cena vs. The Rock.');
+    formData.append('type', 'text');
+    formData.append('json_schema', JSON.stringify({"label": "string"}));
+    formData.append('json_schema_rules', JSON.stringify([
+        "never go out of context",
+        "Categorize this data based on their types like football, coding, entertainment, basketball, wrestling, information, etc.",
+        "Always return json", 
+        "Always return one word answers"
+    ]));
+
+    const headers = {
+        'Authorization': 'Token <api-key>',
+        ...formData.getHeaders()
+    };
+
+    axios.post(url, formData, { headers })
+        .then(response => console.log(response.data))
+        .catch(error => console.error(error));
+    ```
+    </CodeGroup>
   </Step>
   <Step>
   This endpoint is used to delete a collection
+    <CodeGroup>
     ```bash cURL
     curl --request DELETE \
   --url https://api.wetrocloud.com/v1/delete/ \
   --header 'Authorization: Token <api-key>'
     ```
+    ```python Python
+    import requests
+
+    url = "https://api.wetrocloud.com/v1/delete/"
+    headers = {
+        "Authorization": "Token <api-key>"
+    }
+
+    response = requests.delete(url, headers=headers)
+    print(response.json())
+    ```
+    ```javascript JavaScript
+    const axios = require('axios');
+
+    const url = 'https://api.wetrocloud.com/v1/delete/';
+    const headers = {
+        'Authorization': 'Token <api-key>'
+    };
+
+    axios.delete(url, { headers })
+        .then(response => console.log(response.data))
+        .catch(error => console.error(error));
+    ```
+    </CodeGroup>
   </Step>
 </Steps>
 
