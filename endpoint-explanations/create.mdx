@@ -25,14 +25,14 @@ To create a collection, make a `POST` request to the `/v1/create/` endpoint. Thi
 ```cURL cURL
 curl --request POST \
 --url https://api.wetrocloud.com/v1/create/ \
---header 'Authorization: Token YOUR_API_KEY'
+--header 'Authorization: Token <api-key>'
 ```
 
 ```python Python
 import requests
 
 url = "https://api.wetrocloud.com/v1/create/"
-headers = {"Authorization": "Token YOUR_API_KEY"}
+headers = {"Authorization": "Token <api-key>"}
 
 response = requests.post(url, headers=headers)
 print(response.json())
@@ -42,7 +42,7 @@ print(response.json())
 const axios = require('axios');
 
 const url = 'https://api.wetrocloud.com/v1/create/';
-const headers = { 'Authorization': 'Token YOUR_API_KEY' };
+const headers = { 'Authorization': 'Token <api-key>' };
 
 axios.post(url, {}, { headers })
   .then(response => console.log(response.data))
