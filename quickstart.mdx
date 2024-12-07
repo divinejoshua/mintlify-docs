@@ -27,11 +27,13 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
 <Steps>
   <Step title="Create a Collection">
     First, create a `collection_id` to group your resources.
+    <CodeGroup>
     ```bash cURL
-        curl --request POST \
-        --url https://api.wetrocloud.com/v1/create/ \
-        --header 'Authorization: Token <api-key>'
+    curl --request POST \
+    --url https://api.wetrocloud.com/v1/create/ \
+    --header 'Authorization: Token <api-key>'
     ```
+    </CodeGroup>
   </Step>
   <Step title="Insert a Resource into the Collection">
     Add a resource to your collection using the `collection_id` you created earlier

@@ -4,12 +4,13 @@ description: 'Learn about the resources wetrocloud API supports'
 ---
 By default, Wetrocloud API supports 4 major types of resources:
 
-| **Resource** | **Description**                                                                                                            |
-|--------------------|:----------------------------------------------------------------------------------------------------------------------------|
-| **File**           | Supports various file types including `.csv`, `.docx`, `.epub`, `.hwp`, `.ipynb`, `.jpeg`, `.jpg`, `.mbox`, `.md`, `.mp3`, `.mp4`, `.pdf`, `.png`, `.ppt`, `.pptm`, `.pptx`. |
-| **Text**           | Plain text content.                                                                                                       |
-| **JSON**           | Structured data in JSON format.                                                                                           |
-| **Web**       | Web-based resources, such as websites.                                                                |
+| **Resource** | **Parameter** | **Description**                                                                                                            |
+|--------------------|-------------------|:----------------------------------------------------------------------------------------------------------------------------|
+| **File**           | file             | Supports various file types including `.csv`, `.docx`, `.epub`, `.hwp`, `.ipynb`, `.jpeg`, `.jpg`, `.mbox`, `.md`, `.mp3`, `.mp4`, `.pdf`, `.png`, `.ppt`, `.pptm`, `.pptx`. |
+| **Text**           | text             | Plain text content.                                                                                                       |
+| **JSON**           | json             | Structured data in JSON format.                                                                                           |
+| **Web**            | web              | Web-based resources, such as websites.                                                                |
+| **Youtube**        | youtube          | Youtube videos with youtube URLs.                                                                     |
 
 <Note> To use the `file` type, all files must be provided as URLs. You can consider services like Amazon S3, Cloudinary, or similar platforms to host your files and provide their URLs to the API. </Note>
 

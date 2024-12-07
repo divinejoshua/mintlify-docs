@@ -28,7 +28,7 @@ curl --request POST \
 --header 'Authorization: Token YOUR_API_KEY'
 ```
 
-```python python
+```python Python
 import requests
 
 url = "https://api.wetrocloud.com/v1/create/"
@@ -36,6 +36,17 @@ headers = {"Authorization": "Token YOUR_API_KEY"}
 
 response = requests.post(url, headers=headers)
 print(response.json())
+```
+
+```javascript Javascript
+const axios = require('axios');
+
+const url = 'https://api.wetrocloud.com/v1/create/';
+const headers = { 'Authorization': 'Token YOUR_API_KEY' };
+
+axios.post(url, {}, { headers })
+  .then(response => console.log(response.data))
+  .catch(error => console.error(error));
 ```
 </CodeGroup>
 ### Successful Response
