@@ -35,7 +35,7 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
   </Step>
   <Step title="Insert a Resource into the Collection">
     Add a resource to your collection using the `collection_id` you created earlier
-    ```bash Insert Resource 
+    ```bash cURL
         curl --request POST \
           --url https://api.wetrocloud.com/v1/insert/ \
           --header 'Authorization: Token <api-key>' \
@@ -47,7 +47,7 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
   </Step>
   <Step title="Query a Resource">
     Query your resource using the `collection_id` created earlier by providing a query in the `request_query` field.
-    ```bash
+    ```bash cURL
       curl --request POST \
       --url https://api.wetrocloud.com/v1/query/ \
       --header 'Authorization: Token <api-key>' \
@@ -60,7 +60,7 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
   </Info>
   </Step>
   <Step title="Categorize a Resource">
-    ```bash
+    ```bash cURL
     curl --request POST \
   --url https://api.wetrocloud.com/v1/category/ \
   --header 'Authorization: Token <api-key>' \
@@ -74,7 +74,7 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
   </Step>
   <Step>
   This endpoint is used to delete a collection
-    ```bash
+    ```bash cURL
     curl --request DELETE \
   --url https://api.wetrocloud.com/v1/delete/ \
   --header 'Authorization: Token <api-key>'
