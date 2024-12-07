@@ -7,14 +7,14 @@ At a glance: <br/> Use the `/insert` endpoint to add resources (URLs, files, tex
 </Info>
 
 **Inserting resources** is a core operation that enables you to populate a collection with the data you want to organize and query.
-By default, Wetrocloud API supports 4 major types of resources:
-
-| **Resource** | **Description**                                                                                                            |
-|--------------------|:----------------------------------------------------------------------------------------------------------------------------|
-| **File**           | Supports various file types including `.csv`, `.docx`, `.epub`, `.hwp`, `.ipynb`, `.jpeg`, `.jpg`, `.mbox`, `.md`, `.mp3`, `.mp4`, `.pdf`, `.png`, `.ppt`, `.pptm`, `.pptx`. |
-| **Text**           | Plain text content.                                                                                                       |
-| **JSON**           | Structured data in JSON format.                                                                                           |
-| **Web**       | Web-based resources, such as websites.                                                                |
+By default, Wetrocloud API supports these types of resources:
+| **Resource** | **Parameter** | **Description**                                                                                                            |
+|--------------------|-------------------|:----------------------------------------------------------------------------------------------------------------------------|
+| **File**           | file             | Supports various file types including `.csv`, `.docx`, `.epub`, `.hwp`, `.ipynb`, `.jpeg`, `.jpg`, `.mbox`, `.md`, `.mp3`, `.mp4`, `.pdf`, `.png`, `.ppt`, `.pptm`, `.pptx`. |
+| **Text**           | text             | Plain text content.                                                                                                       |
+| **JSON**           | json             | Structured data in JSON format.                                                                                           |
+| **Web**            | web              | Web-based resources, such as websites.                                                                |
+| **Youtube**        | youtube          | Youtube videos with youtube URLs.                                                                |
 
 <Note> To use the `file` type, all files must be provided as URLs. You can consider services like Amazon S3, Cloudinary, or similar platforms to host your files and provide their URLs to the API. </Note>
 
@@ -37,7 +37,7 @@ To insert a resource into a collection, make a `POST` request to the `/v1/insert
 |------------------|--------|--------------------------------------------------------|
 | `collection_id` | String | The unique ID obtained from the `/create` endpoint. |
 | `resource` | String | The resource (e.g., a website). |
-| `type` | String | The type of resource to insert (e.g., `WEB`, `FILE`, `TEXT`, `JSON`). |
+| `type` | String | The type of resource to insert (e.g., `web`, `file`, `text`, `json`, `youtube`). |
 
 ### Request Example
 <CodeGroup>
