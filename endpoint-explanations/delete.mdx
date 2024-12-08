@@ -27,28 +27,39 @@ To delete a collection, send a `DELETE` request to the `/v1/delete/` endpoint wi
 ```bash cURL
 curl --request DELETE \
   --url https://api.wetrocloud.com/v1/delete/ \
-  --header 'Authorization: Token YOUR_API_KEY' \
+  --header 'Authorization: Token <api-key>' \
   --header 'Content-Type: application/json' \
   --data '{
-        "collection_id": "YOUR_COLLECTION_ID",
+        "collection_id": "<collection_id>",
   }'
 ```
+
 ```python python
 import requests
 
 url = "https://api.wetrocloud.com/v1/delete/"
 headers = {
-    "Authorization": "Token YOUR_API_KEY",
+    "Authorization": "Token <api-key>",
 }
 payload = {
-        "collection_id": "YOUR_COLLECTION_ID",
+        "collection_id": "<collection_id>",
 }
 
 response = requests.delete(url, headers=headers, payload=payload)
 print(response.json())
 ```
-</CodeGroup>
+```javascript javascript
+const axios = require('axios');
 
+const url = 'https://api.wetrocloud.com/v1/delete/';
+const headers = { 'Authorization': 'Token <api-key>' };
+const payload = { collection_id: '<collection_id>' };
+
+axios.delete(url, { headers, data: payload })
+  .then(response => console.log(response.data))
+  .catch(error => console.error(error));
+```
+</CodeGroup>
 
 ---
 
