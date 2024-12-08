@@ -22,13 +22,24 @@ The `json_schema` parameter defines the structure of the response you want the s
 
 ```json
 {
-  "type": "object",
-  "properties": {
-    "sales": { "type": "number" },
-    "growth_rate": { "type": "string" }
-  },
-  "required": ["sales", "growth_rate"]
+    "topic" : "string",
+    "description" : "string",
+    "description" : "int"
 }
+```
+
+**Example JSON Schema (List)**
+
+If you want a list of items and not just a single item, you can specify the json schema by putting the entire object in a list
+
+```json
+[
+  {
+    "topic" : "string",
+    "description" : "string",
+    "description" : "int"
+  }
+]
 ```
 
 This schema specifies that the response should be an object with two properties:
@@ -40,151 +51,115 @@ Both properties are required.
 
 ### `json_schema_rules`
 
-The `json_schema_rules` parameter allows you to define custom rules for how the schema is applied. This can include constraints on the data, additional formatting, or validation logic.
+The `json_schema_rules` parameter allows you to define custom rules for how the schema is applied. Another way to think about this is that it is a set of instructions for the LLM to follow when generating the response. This can also be in form of a more detailed prompt This can include constraints on the data, additional formatting, or validation logic.
 
-<RequestExample>
-```bash
+
+---
+**Example Requests**
+
+<CodeGroup>
+```bash cURL
 curl --request POST \
-  --url https://api.wetrocloud.com/v1/query/ \
-  --header 'Authorization: Token YOUR_API_KEY' \
-  --header 'Content-Type: application/json' \
-  --data '{
-  'collection_id': 'YOUR_COLLECTION_ID,
-  'request_query': 'What were the major milestones during Queen Elizabeth II\'s reign?',
-  'json_schema_rules': '[
-    "Ask for specific milestones or events during Queen Elizabeth II\'s reign, including years and brief descriptions.",
-    "Ensure the year and event description for each milestone is accurate and clear.",
-    "Limit event descriptions to concise, relevant information without excessive detail.",
-    "Focus on significant events from Queen Elizabeth II\'s reign, starting from 1952 onward."
-  ]
-  ',
-  'json_schema': '{
-    "type": "object",
-    "properties": {
-      "question": {
-        "type": "string",
-        "description": "The question being asked."
-      },
-      "milestones": {
-        "type": "array",
-        "description": "A list of significant milestones during Queen Elizabeth II\'s reign.",
-        "items": {
-          "type": "object",
-          "properties": {
-            "year": {
-              "type": "string",
-              "description": "The year when the milestone occurred."
-            },
-            "event": {
-              "type": "string",
-              "description": "A brief description of the milestone or event."
-            }
-          },
-          "required": ["year", "event"]
-        }
-      }
-    },
-    "required": ["question", "milestones"]
-  }
-'}'
+ --url 'https://api.wetrocloud.com/v1/query/' \
+ --form 'collection_id=<collection_id>' \
+ --form 'request_query=What is this about?' \
+ --form 'json_schema=[{"topic":"","description":""}]' \
+ --form 'json_schema_rules=Give a very short description of every page on the document from' \
+ --header 'Authorization: Token <api-key>'
 ```
-```python
+```python python
 import requests
+import json
 
-url = "https://api.wetrocloud.com/v1/query/"
+form_data = {
+    'collection_id': '<collection_id>',
+    'request_query': 'What is this about?',
+    'json_schema': json.dumps([{'topic': '', 'description': ''}]),
+    'json_schema_rules': 'Give a very short description of every page on the document from'
+}
 
-payload = {
-  'collection_id': 'YOUR_COLLECTION_ID,
-  'request_query': 'What were the major milestones during Queen Elizabeth II\'s reign?',
-  'json_schema_rules': '[
-    "Ask for specific milestones or events during Queen Elizabeth II\'s reign, including years and brief descriptions.",
-    "Ensure the year and event description for each milestone is accurate and clear.",
-    "Limit event descriptions to concise, relevant information without excessive detail.",
-    "Focus on significant events from Queen Elizabeth II\'s reign, starting from 1952 onward."
-  ]
-  ',
-  'json_schema': '{
-    "type": "object",
-    "properties": {
-      "question": {
-        "type": "string",
-        "description": "The question being asked."
-      },
-      "milestones": {
-        "type": "array",
-        "description": "A list of significant milestones during Queen Elizabeth II\'s reign.",
-        "items": {
-          "type": "object",
-          "properties": {
-            "year": {
-              "type": "string",
-              "description": "The year when the milestone occurred."
-            },
-            "event": {
-              "type": "string",
-              "description": "A brief description of the milestone or event."
-            }
-          },
-          "required": ["year", "event"]
-        }
-      }
-    },
-    "required": ["question", "milestones"]
-  }
-'}
-headers = {}
+response = requests.post(
+    'https://api.wetrocloud.com/v1/query/',
+    data=form_data,
+    headers={
+        'Authorization': 'Token <api-key>'
+    }
+)
 
-response = requests.request("POST", url, headers=headers, data=payload,)
-
-print(response.json())
-
+try:
+    print(response.json())
+except ValueError:
+    print(response.text)
 ```
-</RequestExample>
 
-<ResponseExample>
+
+```javascript javascript
+const axios = require('axios');
+const FormData = require('form-data');
+
+const formData = new FormData();
+formData.append('collection_id', '<collection_id>');
+formData.append('request_query', 'What is this about?');
+formData.append('json_schema', JSON.stringify([{topic: '', description: ''}]));
+formData.append('json_schema_rules', 'Give a very short description of every page on the document from');
+
+axios.post('https://api.wetrocloud.com/v1/query/', formData, {
+ headers: {
+   'Authorization': 'Token <api-key>',
+   ...formData.getHeaders()
+ }
+})
+.then(response => {
+ console.log(response.data);
+})
+.catch(error => {
+ console.error('Error:', error);
+});
+```
+</CodeGroup>
+
+
+**Example Response**
  ```json
 {
-    "response": {
-        "type": "object",
-        "properties": {
-            "question": "What are some significant milestones or events during Queen Elizabeth II's reign?",
-            "milestones": [
-                {
-                    "year": "1952",
-                    "event": "Queen Elizabeth II ascended to the throne."
-                },
-                {
-                    "year": "1977",
-                    "event": "Silver Jubilee celebrated, marking 25 years of her reign."
-                },
-                {
-                    "year": "2002",
-                    "event": "Golden Jubilee celebrated, marking 50 years of her reign."
-                },
-                {
-                    "year": "2007",
-                    "event": "First British monarch to celebrate a diamond wedding anniversary."
-                },
-                {
-                    "year": "2012",
-                    "event": "Diamond Jubilee celebrated, marking 60 years of her reign."
-                },
-                {
-                    "year": "2015",
-                    "event": "Became the longest-reigning British monarch."
-                },
-                {
-                    "year": "2022",
-                    "event": "Platinum Jubilee celebrated, marking 70 years of her reign."
-                }
-            ]
+    "response": [
+        {
+            "topic": "Introduction to Corporate Bonds",
+            "description": "An overview of what corporate bonds are and their significance in the investment landscape."
+        },
+        {
+            "topic": "How Corporate Bonds Work",
+            "description": "Explanation of the mechanics of corporate bonds, including issuance, interest payments, and maturity."
+        },
+        {
+            "topic": "Types of Corporate Bonds",
+            "description": "Discussion of various types of corporate bonds, such as investment-grade and high-yield bonds."
+        },
+        {
+            "topic": "Risks Associated with Corporate Bonds",
+            "description": "Insight into the risks involved in investing in corporate bonds, including credit risk and interest rate risk."
+        },
+        {
+            "topic": "Benefits of Investing in Corporate Bonds",
+            "description": "Highlighting the advantages of corporate bonds, such as income generation and portfolio diversification."
+        },
+        {
+            "topic": "Corporate Bond Market Overview",
+            "description": "A look at the corporate bond market, including market size, participants, and trends."
+        },
+        {
+            "topic": "How to Invest in Corporate Bonds",
+            "description": "Guidance on the methods and platforms available for investing in corporate bonds."
+        },
+        {
+            "topic": "Conclusion",
+            "description": "Summary of key points regarding corporate bonds and their role in investment strategies."
         }
-    },
-    "tokens": 6858,
+    ],
+    "tokens": 4007,
     "success": true
-```   
-</ResponseExample>
-
+}
+```
 | Field     | Description                                           |
 |-----------|-------------------------------------------------------|
 | `response` | JSON object structured as per the provided schema.   |
