@@ -1,0 +1,104 @@
+---
+title: 'List collections'
+description: 'This API endpoint displays a list of all your existing collections.'
+---
+Collections in WetroCloud store indexed resources for retrieval and query operations.
+
+## When to Use the List Collection Endpoint
+
+Use the `/v1/collection/` endpoint when:
+
+- To get a list of all existing collections.
+
+
+To get the list of all your collections, send a `GET` request to the `/v1/collection/` . There is no required parameter
+
+<Note>
+This list has a pagination of up to 20 items per request. `Next` and `Previous` urls will be provided on every response
+</Note>
+---
+
+### Request Example
+<CodeGroup>
+    ```bash cURL
+    curl --request GET \
+    --url 'https://api.wetrocloud.com/v1/collection/' \
+    --header 'Authorization: Token <api-token>'
+    ```
+    ```python Python
+    import requests
+
+    response = requests.get(
+        'https://api.wetrocloud.com/v1/collection/',
+        headers={
+            'Authorization': 'Token <api-token>'
+        }
+    )
+
+    try:
+        print(response.json())
+    except ValueError:
+        print(response.text)
+    ```
+
+    ```javascript JavaScript
+    const axios = require('axios');
+
+    axios.get('https://api.wetrocloud.com/v1/collection/', {
+      headers: {
+        'Authorization': 'Token <api-token>'
+      }
+    })
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+    ```
+</CodeGroup>
+
+---
+
+### Successful Response
+
+Upon success, the endpoint returns a list of all active collections and a confirmation message and a success flag.
+
+**Example Response**
+
+```json
+{
+    "count": 5,
+    "next": null,
+    "previous": null,
+    "results": [
+        {
+            "collection_id": "175af194-2784-4090-bcec-cefe56ddd222",
+            "created_at": "2024-12-07T12:23:03.196238Z"
+        },
+        {
+            "collection_id": "4fdb1296-adc8-463c-834d-b76c3831e1f0",
+            "created_at": "2024-11-24T14:59:24.047852Z"
+        },
+        {
+            "collection_id": "0873619c-bf1c-41e0-9e92-f14ebc9d6a4a",
+            "created_at": "2024-11-24T14:36:16.759668Z"
+        },
+        {
+            "collection_id": "3235da7c-bff9-4a55-8478-ffa0fa1172d8",
+            "created_at": "2024-11-17T18:58:41.199564Z"
+        },
+        {
+            "collection_id": "da43a055-d064-4d38-8feb-783ad2b3fce2",
+            "created_at": "2024-11-16T13:10:18.679598Z"
+        }
+    ]
+}
+```
+
+| Field      | Description                                        |
+|------------|----------------------------------------------------|
+| `count`  | The total collections on your Wetrocloud account. |
+| `next`  | The next link for pagination.     |
+| `previous`  | The previous link for pagination.     |
+| `results`  | A list of all available collections.     |
