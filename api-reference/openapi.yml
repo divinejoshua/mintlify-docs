@@ -154,6 +154,173 @@ paths:
                 type: object
               example:
                 detail: Invalid token.
+
+  /v1/collection/:
+    get:
+      tags:
+        - default
+      summary: List all Collections
+      description: >-
+        This endpoint allows you to list all your existing collections.
+
+        <Note>
+        This list has a pagination of up to <b>20</b> items per request. `Next` and `Previous` urls will be provided on every response
+        </Note>
+
+        #### Request Body
+
+        - No request body parameters required.
+            
+
+        #### Response
+
+
+        The response will be a JSON object with the following properties:
+
+
+        - `count` (number): Total number of collections.
+        - `next` (string): URL for the next pagination item.
+        - `previous` (string): URL for the previous pagination item.
+        - `results` (list): A list of all available collections.
+ 
+      requestBody:
+        content: {}
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 15:01:19 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '71'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                count: 5
+                next: null
+                previous: null
+                results: [
+                  {
+                              "collection_id": "175af194-2784-4090-bcec-cefe56ddd222",
+                              "created_at": "2024-12-07T12:23:03.196238Z"
+                          },
+                          {
+                              "collection_id": "4fdb1296-adc8-463c-834d-b76c3831e1f0",
+                              "created_at": "2024-11-24T14:59:24.047852Z"
+                          },
+                          {
+                              "collection_id": "0873619c-bf1c-41e0-9e92-f14ebc9d6a4a",
+                              "created_at": "2024-11-24T14:36:16.759668Z"
+                          },
+                          {
+                              "collection_id": "3235da7c-bff9-4a55-8478-ffa0fa1172d8",
+                              "created_at": "2024-11-17T18:58:41.199564Z"
+                          },
+                          {
+                              "collection_id": "da43a055-d064-4d38-8feb-783ad2b3fce2",
+                              "created_at": "2024-11-16T13:10:18.679598Z"
+                          }
+                    ]
+        '401':
+          description: Unauthorized
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 15:34:21 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '27'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            WWW-Authenticate:
+              schema:
+                type: string
+                example: Token
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                detail: Invalid token.
+
   /v1/insert/:
     post:
       tags:
