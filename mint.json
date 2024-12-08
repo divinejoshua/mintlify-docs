@@ -57,7 +57,8 @@
         "endpoint-explanations/query",
         "endpoint-explanations/structured_output",
         "endpoint-explanations/category",
-        "endpoint-explanations/delete"
+        "endpoint-explanations/delete",
+        "token-optimization"
       ]
     },
     {
