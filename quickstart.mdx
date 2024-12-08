@@ -54,6 +54,49 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
     ```
     </CodeGroup>
   </Step>
+
+  <Step title="List all available collections">
+    After creating a collection, you can get all your available collections on wetrocloud.
+    <CodeGroup>
+    ```bash cURL
+    curl --request GET \
+    --url 'https://api.wetrocloud.com/v1/collection/' \
+    --header 'Authorization: Token <api-token>'
+    ```
+    ```python Python
+    import requests
+
+    response = requests.get(
+        'https://api.wetrocloud.com/v1/collection/',
+        headers={
+            'Authorization': 'Token <api-token>'
+        }
+    )
+
+    try:
+        print(response.json())
+    except ValueError:
+        print(response.text)
+    ```
+
+    ```javascript JavaScript
+    const axios = require('axios');
+
+    axios.get('https://api.wetrocloud.com/v1/collection/', {
+      headers: {
+        'Authorization': 'Token <api-token>'
+      }
+    })
+    .then(response => {
+      console.log(response.data);
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+    ```
+    </CodeGroup>
+  </Step>
+
   <Step title="Insert a Resource into the Collection">
     Add a resource to your collection using the `collection_id` you created earlier
     <CodeGroup>
