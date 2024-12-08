@@ -20,10 +20,10 @@ Free text response provides natural, conversational-style answers to your querie
 ```bash cURL
 curl --request POST \
   --url https://api.wetrocloud.com/v1/query/ \
-  --header 'Authorization: Token YOUR_API_KEY' \
+  --header 'Authorization: Token <api-key>' \
   --header 'Content-Type: application/json' \
   --data '{
-    "collection_id": "YOUR_COLLECTION_ID",
+    "collection_id": "<collection_id>",
     "request_query": "What are the sales trends for Q1?"
   }'
 ```
@@ -32,11 +32,11 @@ import requests
 
 url = "https://api.wetrocloud.com/v1/query/"
 headers = {
-    "Authorization": "Token YOUR_API_KEY",
+    "Authorization": "Token <api-key>",
     "Content-Type": "application/json"
 }
 data = {
-    "collection_id": "YOUR_COLLECTION_ID",
+    "collection_id": "<collection_id>",
     "request_query": "What are the sales trends for Q1?"
 }
 
@@ -46,8 +46,8 @@ print(response.json())
 ```javascript JavaScript
 const axios = require('axios');
 
-const apiKey = 'YOUR_API_KEY';
-const collectionId = 'YOUR_COLLECTION_ID';
+const apiKey = '<api-key>';
+const collectionId = '<collection_id>';
 const query = 'What are the sales trends for Q1?';
 
 const requestData = {

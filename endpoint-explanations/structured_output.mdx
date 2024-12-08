@@ -42,11 +42,6 @@ If you want a list of items and not just a single item, you can specify the json
 ]
 ```
 
-This schema specifies that the response should be an object with two properties:
-- `sales` (a number)  
-- `growth_rate` (a string)  
-Both properties are required.
-
 ---
 
 ### `json_schema_rules`
@@ -67,7 +62,7 @@ curl --request POST \
  --form 'json_schema_rules=Give a very short description of every page on the document from' \
  --header 'Authorization: Token <api-key>'
 ```
-```python python
+```python Python
 import requests
 import json
 
@@ -93,7 +88,7 @@ except ValueError:
 ```
 
 
-```javascript javascript
+```javascript Javascript
 const axios = require('axios');
 const FormData = require('form-data');
 
