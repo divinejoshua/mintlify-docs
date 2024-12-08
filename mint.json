@@ -73,6 +73,7 @@
       "group": "Endpoint Examples",
       "pages": [
         "api-reference/endpoints/create-collection",
+        "api-reference/endpoints/list-collections",
         "api-reference/endpoints/insert-resource",
         "api-reference/endpoints/query-resource",
         "api-reference/endpoints/categorize-resource",

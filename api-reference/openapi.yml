@@ -154,6 +154,147 @@ paths:
                 type: object
               example:
                 detail: Invalid token.
+
+  /v1/collection/:
+    get:
+      tags:
+        - default
+      summary: List all Collections
+      description: >-
+        This endpoint allows you to create a new collection_id.
+
+
+        #### Request Body
+
+
+        - No request body parameters required.
+            
+
+        #### Response
+
+
+        The response will be a JSON object with the following properties:
+
+
+        - `collection_id` (string): The ID of the created item.
+            
+        - `success` (boolean): Indicates whether the item creation was
+        successful.
+      requestBody:
+        content: {}
+      responses:
+        '201':
+          description: Created
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 15:01:19 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '71'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                collection_id: 72b52a94-9dba-40eb-8018-dc425d173d00
+                success: true
+        '401':
+          description: Unauthorized
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 15:34:21 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '27'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            WWW-Authenticate:
+              schema:
+                type: string
+                example: Token
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                detail: Invalid token.
+
   /v1/insert/:
     post:
       tags:
