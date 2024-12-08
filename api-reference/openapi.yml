@@ -161,11 +161,13 @@ paths:
         - default
       summary: List all Collections
       description: >-
-        This endpoint allows you to create a new collection_id.
+        This endpoint allows you to list all your existing collections.
 
+        <Note>
+        This list has a pagination of up to <b>20</b> items per request. `Next` and `Previous` urls will be provided on every response
+        </Note>
 
         #### Request Body
-
 
         - No request body parameters required.
             
@@ -176,15 +178,16 @@ paths:
         The response will be a JSON object with the following properties:
 
 
-        - `collection_id` (string): The ID of the created item.
-            
-        - `success` (boolean): Indicates whether the item creation was
-        successful.
+        - `count` (number): Total number of collections.
+        - `next` (string): URL for the next pagination item.
+        - `previous` (string): URL for the previous pagination item.
+        - `results` (list): A list of all available collections.
+ 
       requestBody:
         content: {}
       responses:
-        '201':
-          description: Created
+        '200':
+          description: OK
           headers:
             Date:
               schema:
@@ -235,8 +238,31 @@ paths:
               schema:
                 type: object
               example:
-                collection_id: 72b52a94-9dba-40eb-8018-dc425d173d00
-                success: true
+                count: 5
+                next: null
+                previous: null
+                results: [
+                  {
+                              "collection_id": "175af194-2784-4090-bcec-cefe56ddd222",
+                              "created_at": "2024-12-07T12:23:03.196238Z"
+                          },
+                          {
+                              "collection_id": "4fdb1296-adc8-463c-834d-b76c3831e1f0",
+                              "created_at": "2024-11-24T14:59:24.047852Z"
+                          },
+                          {
+                              "collection_id": "0873619c-bf1c-41e0-9e92-f14ebc9d6a4a",
+                              "created_at": "2024-11-24T14:36:16.759668Z"
+                          },
+                          {
+                              "collection_id": "3235da7c-bff9-4a55-8478-ffa0fa1172d8",
+                              "created_at": "2024-11-17T18:58:41.199564Z"
+                          },
+                          {
+                              "collection_id": "da43a055-d064-4d38-8feb-783ad2b3fce2",
+                              "created_at": "2024-11-16T13:10:18.679598Z"
+                          }
+                    ]
         '401':
           description: Unauthorized
           headers:
