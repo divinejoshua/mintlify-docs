@@ -58,6 +58,8 @@
         "endpoint-explanations/structured_output",
         "endpoint-explanations/category",
         "endpoint-explanations/delete",
+        "endpoint-explanations/text-generation",
+        "endpoint-explanations/image-to-text",
         "token-optimization"
       ]
     },
