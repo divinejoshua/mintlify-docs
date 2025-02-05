@@ -9,12 +9,13 @@ At a glance: <br/> Use the `/insert` endpoint to add resources (URLs, files, tex
 **Inserting resources** is a core operation that enables you to populate a collection with the data you want to organize and query.
 By default, Wetrocloud API supports these types of resources:
 | **Resource** | **Parameter** | **Description**                                                                                                            |
-|--------------------|-------------------|:----------------------------------------------------------------------------------------------------------------------------|
+|:--------------------|:-------------------|:----------------------------------------------------------------------------------------------------------------------------|
 | **File**           | file             | Supports various file types including `.csv`, `.docx`, `.epub`, `.hwp`, `.ipynb`, `.jpeg`, `.jpg`, `.mbox`, `.md`, `.mp3`, `.mp4`, `.pdf`, `.png`, `.ppt`, `.pptm`, `.pptx`. |
 | **Text**           | text             | Plain text content.                                                                                                       |
 | **JSON**           | json             | Structured data in JSON format.                                                                                           |
 | **Web**            | web              | Web-based resources, such as websites.                                                                |
 | **Youtube**        | youtube          | Youtube videos with youtube URLs.                                                                |
+| **Audio**          | audio | Supports various audio file types including `.3ga`, `.8svx`, `.aac`, `.ac3`, `.aif`, `.aiff`, `.alac`, `.amr`, `.ape`, `.au`, `.dss`, `.flac`, `.flv`, `.m4a`, `.m4b`, `.m4p`, `.m4r`, `.mp3`, `.mpga`, `.ogg`, `.oga`, `.mogg`, `.opus`, `.qcp`, `.tta`, `.voc`, `.wav`, `.wma`, `.wv`|
 
 <Note> To use the `file` type, all files must be provided as URLs. You can consider services like Amazon S3, Cloudinary, or similar platforms to host your files and provide their URLs to the API. </Note>
 
