@@ -1,90 +1,113 @@
 ---
-title: 'Models'
-description: 'Learn how to query your collections in WetroCloud for both free text and structured responses.'
+title: 'Insert a Resource'
+description: 'Learn how to insert resources using the Wetrocloud API'
 ---
-The `query` endpoint allows you to retrieve information from a collection (your resources) via the WetroCloud API.  
-This endpoint supports two response formats to suit different use cases:  
+<Info>
+At a glance: <br/> Use the `/insert` endpoint to add resources (URLs, files, text or JSON) to a collection for indexing and retrieval. Simply provide a `collection_id`, `resource`, and `type`.
+</Info>
 
-- **Free Text Response**: A natural language answer to your query.  
-- **Structured Output Response**: A structured JSON output.
+**Inserting resources** is a core operation that enables you to populate a collection with the data you want to organize and query.
+By default, Wetrocloud API supports these types of resources:
+| **Resource** | **Parameter** | **Description**                                                                                                            |
+|:--------------------|:-------------------|:----------------------------------------------------------------------------------------------------------------------------|
+| **File**           | file             | Supports various file types including `.csv`, `.docx`, `.epub`, `.hwp`, `.ipynb`, `.jpeg`, `.jpg`, `.mbox`, `.md`, `.mp3`, `.mp4`, `.pdf`, `.png`, `.ppt`, `.pptm`, `.pptx`. |
+| **Text**           | text             | Plain text content.                                                                                                       |
+| **JSON**           | json             | Structured data in JSON format.                                                                                           |
+| **Web**            | web              | Web-based resources, such as websites.                                                                |
+| **Youtube**        | youtube          | Youtube videos with youtube URLs.                                                                |
+| **Audio**          | audio | Supports various audio file types including `.3ga`, `.8svx`, `.aac`, `.ac3`, `.aif`, `.aiff`, `.alac`, `.amr`, `.ape`, `.au`, `.dss`, `.flac`, `.flv`, `.m4a`, `.m4b`, `.m4p`, `.m4r`, `.mp3`, `.mpga`, `.ogg`, `.oga`, `.mogg`, `.opus`, `.qcp`, `.tta`, `.voc`, `.wav`, `.wma`, `.wv`|
 
-Each response type has unique request and response formats, which are explained in detail on their respective pages.  
+<Note> To use the `file` type, all files must be provided as URLs. You can consider services like Amazon S3, Cloudinary, or similar platforms to host your files and provide their URLs to the API. </Note>
 
+Once inserted, these resources are indexed for use in Retrieval-Augmented Generation (RAG) workflows.
 
-## Free Text Response
+## When to Use the Insert Endpoint
 
-Free text response provides natural, conversational-style answers to your queries. It is ideal for general Q&A and scenarios where a narrative or contextualized explanation is needed. Unlike structured output, free text does not require additional parameters like `json_schema` and `json_schema_rules`.
+Use the `/v1/insert/` endpoint when you need to:
+
+- Add data to a specific collection identified by `collection_id`.
+- Prepare a dataset for RAG workflows.
+
+## How to Insert a Resource
+
+To insert a resource into a collection, make a `POST` request to the `/v1/insert/` endpoint with the required parameters in the body.
+
+### Required Parameters
+
+| Parameter       | Type   | Description                                            |
+|------------------|--------|--------------------------------------------------------|
+| `collection_id` | String | The unique ID obtained from the `/create` endpoint. |
+| `resource` | String | The resource (e.g., a website). |
+| `type` | String | The type of resource to insert (e.g., `web`, `file`, `text`, `json`, `youtube`). |
 
 ### Request Example
 <CodeGroup>
-```bash cURL
-curl --request POST \
-  --url https://api.wetrocloud.com/v1/query/ \
-  --header 'Authorization: Token <api-key>' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "collection_id": "<collection_id>",
-    "request_query": "What are the sales trends for Q1?"
-  }'
-```
-```python Python
-import requests
+    ```bash cURL
+    curl --request POST \
+      --url https://api.wetrocloud.com/v1/insert/ \
+      --header 'Authorization: Token <api-key>' \
+      --header 'Content-Type: application/json' \
+      --data '{
+        "collection_id": "<collection_id>",
+        "resource": "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
+        "type": "web"
+      }'
+    ```
+    ```python Python
+    import requests
 
-url = "https://api.wetrocloud.com/v1/query/"
-headers = {
-    "Authorization": "Token <api-key>",
-    "Content-Type": "application/json"
-}
-data = {
-    "collection_id": "<collection_id>",
-    "request_query": "What are the sales trends for Q1?"
-}
+    url = "https://api.wetrocloud.com/v1/insert/"
+    headers = {
+        "Authorization": "Token <api-key>",
+    }
+    payload = {
+        "collection_id": "<collection_id>",
+        "resource": "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
+        "type": "web"
+    }
+    response = requests.post(url, headers=headers, payload=payload)
+    print(response.json())
+    ```
+    ```javascript JavaScript
+    const axios = require('axios');
 
-response = requests.post(url, headers=headers, json=data)
-print(response.json())
-```
-```javascript JavaScript
-const axios = require('axios');
+    const url = 'https://api.wetrocloud.com/v1/insert/';
+    const headers = {
+        'Authorization': 'Token <api-key>',
+        'Content-Type': 'application/json'
+    };
+    const data = {
+        collection_id: '<collection_id>',
+        resource: 'https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.',
+        type: 'web'
+    };
 
-const apiKey = '<api-key>';
-const collectionId = '<collection_id>';
-const query = 'What are the sales trends for Q1?';
-
-const requestData = {
-  collection_id: collectionId,
-  request_query: query
-};
-
-axios.post('https://api.wetrocloud.com/v1/query/', requestData, {
-  headers: {
-    'Authorization': `Token ${apiKey}`,
-    'Content-Type': 'application/json'
-  }
-})
-.then(response => {
-  console.log('Response:', response.data);
-})
-.catch(error => {
-  console.error('Error:', error.response ? error.response.data : error.message);
-});
-
-```
+    axios.post(url, data, { headers })
+        .then(response => console.log(response.data))
+        .catch(error => console.error(error));
+    ```
 </CodeGroup>
 
----
+### Successful Response
 
-### Response Example: Free Text
+A successful response confirms the operation and tracks token usage.
+
+**Example Response**
 
 ```json
 {
-  "response": "The sales for Q1 increased by 20% compared to last year, with online channels contributing significantly.",
-  "tokens": 120,
-  "success": true
+  "success": true,
+  "tokens": 35
 }
 ```
 
-| Field     | Description                                           |
-|-----------|-------------------------------------------------------|
-| `response` | Conversational response to the query.                |
-| `tokens`   | Number of tokens used for processing.                |
-| `success`  | Indicates whether the query was successful.          |
+| Field      | Description                                     |
+|------------|-------------------------------------------------|
+| `success`  | Indicates whether the resource was inserted successfully. |
+| `tokens`   | Number of tokens consumed during the operation. |
+
+## Related Operations
+
+- **[Create Collection](create)**: Start by creating a collection to hold your resources.
+- **[Query Resources](query)**: Access and retrieve insights from the indexed resources.
+- **[Delete Collection](delete)**: Remove collections and their resources when no longer needed.

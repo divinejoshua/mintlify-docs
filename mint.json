@@ -51,7 +51,6 @@
         "introduction",
         "how-to-access-your-API-Key",
         "quickstart",
-        "endpoint-explanations/models",
         "endpoint-explanations/create",
         "endpoint-explanations/list-collections",
         "endpoint-explanations/insert",
@@ -83,7 +82,10 @@
         "api-reference/endpoints/insert-resource",
         "api-reference/endpoints/query-resource",
         "api-reference/endpoints/categorize-resource",
-        "api-reference/endpoints/delete-collection"
+        "api-reference/endpoints/delete-collection",
+        "api-reference/endpoints/webscrape",
+        "api-reference/endpoints/image-to-text",
+        "api-reference/endpoints/text-generation"
       ]
     }
   ],

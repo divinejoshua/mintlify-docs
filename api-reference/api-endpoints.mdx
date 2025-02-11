@@ -65,8 +65,8 @@ Fetches information from a collection based on a query. The response contains th
 </Frame>
 ```json
 {
+  "response": // This structure is defined by the schema
   "success": boolean,
-  "response": "string",
   "tokens": integer
 }
 ```
@@ -109,3 +109,56 @@ Categorizes data according to rules or schemas. The response provides the assign
 
 ```
 
+#### Text Generation Endpoint (`/text-generation/`) <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
+
+Generates a text response to any query (Without RAG) and supports conversational interactions. The response is the result, token usage, and success status.
+<Frame>
+  <img
+    src="/images/postman-images/text-generation-response.png"
+    alt="Postmandocs"
+  />
+</Frame>
+```json
+{
+  "response": string,
+  "tokens": integer,
+  "success": boolean
+}
+
+```
+
+#### Image to Text (OCR) Endpoint (`/image-to-text/`) <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
+
+Analyzes and fetch information from an image based on a query. The response provides the result, token usage, and success status.
+<Frame>
+  <img
+    src="/images/postman-images/image-to-text-response.png"
+    alt="Postmandocs"
+  />
+</Frame>
+```json
+{
+  "response": string,
+  "tokens": integer,
+  "success": boolean
+}
+
+```
+
+#### Web Scrape Endpoint (`/scrape/`) <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
+
+Extracts content from websites according to rules or schemas. The response provides the result, token usage, and success status.
+<Frame>
+  <img
+    src="/images/postman-images/webscrape-response.png"
+    alt="Postmandocs"
+  />
+</Frame>
+```json
+{
+  "response": // This structure is defined by the schema,
+  "tokens": integer,
+  "success": boolean
+}
+
+```
