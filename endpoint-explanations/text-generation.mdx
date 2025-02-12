@@ -1,0 +1,124 @@
+---
+title: 'Text Generation (Without RAG)'
+description: 'Learn how to generate free text responses using the Wetrocloud API.'
+---
+The `text generation` endpoint allows you to generate natural language responses using open source language models provided by Wetrocloud. 
+This API supports conversational interactions through a messages-based format.
+
+## Endpoint
+```
+POST /v1/text-generation/
+```
+
+
+## Request Format
+The request should be sent as `multipart/form-data` with the following parameters:
+
+| Parameter | Type | Description |
+|-----------|------|-------------|
+| `messages` | string (JSON) | Array of message objects representing the conversation |
+| `model` | string | Identifier for the language model to use (e.g., "llama-3.3-70b") |
+
+### Message Object Format
+Each message in the `messages` array should have the following structure:
+```json
+[
+  {
+    "role": "system",
+    "content": "System response here"
+  },
+  {
+    "role": "user",
+    "content": "Your message here"
+  },
+  {
+    "role": "assistant",
+    "content": "The assistant's response here"
+  }
+]
+```
+
+### Supported Models
+By default, Wetrocloud API supports these models:
+| **Model Name**               | **Identifier**                  | **Description**                                                   |
+|------------------------------|--------------------------------|-------------------------------------------------------------------------|
+| **LLaMA 3.3 70B**            | `llama-3.3-70b`               | A large, general-purpose language model with 70 billion parameters.     |
+| **LLaMA 3.3 70B Versatile**  | `llama-3.3-70b-versatile`     | Optimized version of LLaMA 3.3 70B for broader tasks and better flexibility. |
+| **DeepSeek R1 Distill LLaMA**| `deepseek-r1-distill-llama-70b` | Distilled version of LLaMA 70B for faster performance and specialized tasks. |
+| **GPT-4o**                   | `gpt-4o`                      | A variant of GPT-4 optimized for performance and versatility.            |
+| **GPT-4o Mini**              | `gpt-4o-mini`                | Lightweight version of GPT-4o for faster response with fewer resources.  |
+
+<Note> These are the language models support at the moment, please use the identifiers above not the model name. </Note>
+
+
+### Request Example
+<CodeGroup>
+```bash curl
+ --location 'https://api.wetrocloud.com/v1/text-generation/' \
+  --header 'Authorization: Token <api-key>' \
+  --form 'messages="[{\"role\": \"user\", \"content\": \"what is a large language model?\"}]"' \
+  --form 'model="llama-3.3-70b"'
+```
+```python Python
+import requests
+
+url = "https://api.wetrocloud.com/v1/text-generation/"
+headers = {
+    "Authorization": "Token <api-key>"
+}
+data = {
+    "messages": [{"role": "user", "content": "what is a large language model?"}],
+    "model": "llama-3.3-70b"
+}
+
+response = requests.post(url, headers=headers, files=data)
+print(response.json())
+```
+```javascript JavaScript
+const axios = require('axios');
+const FormData = require('form-data');
+
+const apiKey = 'YOUR_API_KEY';
+const formData = new FormData();
+
+formData.append('messages', JSON.stringify([
+  { role: 'user', content: 'what is a large language model?' }
+]));
+formData.append('model', 'llama-3.3-70b');
+
+axios.post('https://api.wetrocloud.com/v1/text-generation/', formData, {
+  headers: {
+    'Authorization': 'Token <api-key>',
+    ...formData.getHeaders()
+  }
+})
+.then(response => {
+  console.log('Response:', response.data);
+})
+.catch(error => {
+  console.error('Error:', error.response ? error.response.data : error.message);
+});
+```
+</CodeGroup>
+
+---
+
+### Response Example:Text generation
+
+```json
+{
+    "response": "A large language model is a type of artificial intelligence (AI) designed to process and understand human language. It's a computer program that uses complex algorithms and statistical models to analyze and generate text, often at a scale and sophistication that rivals human language abilities.\n\nLarge language models are typically trained on vast amounts of text data, which can include books, articles, research papers, websites, and more. This training data allows the model to learn patterns, relationships, and structures within language, enabling it to:\n\n1. **Understand context**: Recognize the meaning of words, phrases, and sentences within a given context.\n2. **Generate text**: Produce coherent and natural-sounding text based on a prompt, topic, or style.\n3. **Translate language**: Convert text from one language to another.\n4. **Summarize content**: Distill long pieces of text into concise summaries.\n5. **Answer questions**: Respond to questions and provide relevant information.\n6. **Chat and converse**: Engage in natural-sounding conversations, using context and understanding to respond to questions and statements.\n\nSome key characteristics of large language models include:\n\n* **Scale**: They are trained on massive datasets, often containing billions of words or more.\n* **Depth**: They have many layers of neural networks, which allow them to capture complex patterns and relationships in language.\n* **Generative capabilities**: They can generate text that is often indistinguishable from human-written content.\n\nExamples of large language models include:\n\n* Transformer models (e.g., BERT, RoBERTa)\n* Recurrent neural network (RNN) models (e.g., LSTM, GRU)\n* Generative adversarial network (GAN) models\n\nLarge language models have many applications, such as:\n\n* **Virtual assistants**: Powering chatbots, voice assistants, and other conversational interfaces.\n* **Language translation**: Enabling accurate and efficient translation of text and speech.\n* **Text generation**: Automating content creation, such as articles, social media posts, and product descriptions.\n* **Sentiment analysis**: Analyzing text to determine sentiment, emotion, and opinion.\n\nHowever, large language models also raise important questions and concerns, such as:\n\n* **Bias and fairness**: How do we ensure that these models are fair, transparent, and free from bias?\n* **Explainability**: How can we understand and interpret the decisions made by these complex models?\n* **Security**: How can we protect against potential misuse or manipulation of these powerful models?\n\nI hope this helps! Do you have any specific questions or topics related to large language models that you'd like me to expand on?",
+    "tokens": 1475,
+    "success": true
+}
+```
+
+| Field     | Description                                           |
+|-----------|-------------------------------------------------------|
+| `response` | Conversational response to the query.                |
+| `tokens`   | Number of tokens used for processing.                |
+| `success`  | Indicates whether the query was successful.          |
+
+
+## Available Models
+View models available for text generation [here](/endpoint-explanations/models).

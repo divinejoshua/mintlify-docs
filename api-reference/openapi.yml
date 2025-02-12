@@ -1204,3 +1204,741 @@ paths:
                 type: object
               example:
                 error: Collection Id [72b52a94-9dba-40eb-8018-dc425d173d00] not found
+
+  /v1/scrape/:
+    post:
+      tags:
+        - default
+      summary: Scrape Website
+      description: >-
+
+
+        This endpoint allows you to retrieve specific data from 
+        a web page in a structured JSON format based on your predefined schema.
+
+
+        #### Request Body
+
+
+        - `website` (text): Website url to be scraped.
+            
+        - `json_schema` (text): JSON schema for the response.
+            
+
+        #### Response
+
+
+        The response is a JSON object with the following properties:
+
+
+        - `response`: The JSON object structured as per the provided schema.
+            
+        - `tokens`: The number of tokens.
+            
+        - `success`: Indicates the success status of the request.
+            
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                website:
+                  type: string
+                  example: 'https://www.forbes.com/real-time-billionaires/#7583ee253d78'
+                json_schema:
+                  type: string
+                  example: '[{"name":"<name of rich man>", "networth":"<amount worth>"}]'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 11 Nov 2025 10:56:51 PST
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '63'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                response: [
+                    {
+                        "name": "Elon Musk",
+                        "networth": "$394.8 B"
+                    },
+                    {
+                        "name": "Mark Zuckerberg",
+                        "networth": "$246.3 B"
+                    },
+                    {
+                        "name": "Jeff Bezos",
+                        "networth": "$245.6 B"
+                    },
+                    {
+                        "name": "Larry Ellison",
+                        "networth": "$220.9 B"
+                    },
+                    {
+                        "name": "Bernard Arnault & family",
+                        "networth": "$182.9 B"
+                    },
+                    {
+                        "name": "Larry Page",
+                        "networth": "$154.1 B"
+                    },
+                    {
+                        "name": "Sergey Brin",
+                        "networth": "$147.2 B"
+                    },
+                    {
+                        "name": "Warren Buffett",
+                        "networth": "$147.0 B"
+                    },
+                    {
+                        "name": "Amancio Ortega",
+                        "networth": "$123.3 B"
+                    },
+                    {
+                        "name": "Steve Ballmer",
+                        "networth": "$122.3 B"
+                    },
+                    {
+                        "name": "Rob Walton & family",
+                        "networth": "$120.2 B"
+                    },
+                    {
+                        "name": "Jim Walton & family",
+                        "networth": "$118.9 B"
+                    },
+                    {
+                        "name": "Jensen Huang",
+                        "networth": "$117.4 B"
+                    },
+                    {
+                        "name": "Michael Dell",
+                        "networth": "$115.3 B"
+                    },
+                    {
+                        "name": "Alice Walton",
+                        "networth": "$111.0 B"
+                    },
+                    {
+                        "name": "Bill Gates",
+                        "networth": "$106.5 B"
+                    },
+                    {
+                        "name": "Michael Bloomberg",
+                        "networth": "$104.7 B"
+                    },
+                    {
+                        "name": "Mukesh Ambani",
+                        "networth": "$92.7 B"
+                    },
+                    {
+                        "name": "Carlos Slim Helu & family",
+                        "networth": "$79.2 B"
+                    },
+                    {
+                        "name": "David Thomson & family",
+                        "networth": "$74.6 B"
+                    },
+                    {
+                        "name": "Julia Koch & family",
+                        "networth": "$74.2 B"
+                    },
+                    {
+                        "name": "Francoise Bettencourt Meyers & family",
+                        "networth": "$73.5 B"
+                    },
+                    {
+                        "name": "Charles Koch & family",
+                        "networth": "$67.5 B"
+                    },
+                    {
+                        "name": "Thomas Peterffy",
+                        "networth": "$67.0 B"
+                    },
+                    {
+                        "name": "Changpeng Zhao",
+                        "networth": "$62.4 B"
+                    }
+                  ]
+                tokens: 1746
+                success: true
+        '400':
+          description: Bad Request
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 16:43:29 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '45'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                json_schema:
+                  - Value must be valid JSON.
+        '401':
+          description: Unauthorized
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 16:53:21 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '27'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            WWW-Authenticate:
+              schema:
+                type: string
+                example: Token
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                detail: Invalid token.
+  
+  /v1/image-to-text/:
+    post:
+      tags:
+        - default
+      summary: Analyze Image
+      description: >-
+
+
+        This endpoint allows you to analyze an image and 
+        ask questions about its content 
+
+
+        #### Request Body
+
+
+        - `image_url` (text): Image url to be analyzed.
+            
+        - `request_query` (text): Query been used to analyze image.
+            
+
+        #### Response
+
+
+        The response is a JSON object with the following properties:
+
+
+        - `response`: The result of analysis.
+            
+        - `tokens`: The number of tokens.
+            
+        - `success`: Indicates the success status of the request.
+            
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                image_url:
+                  type: string
+                  example: 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQBQcwHfud1w3RN25Wgys6Btt_Y-4mPrD2kg&s'
+                request_query:
+                  type: string
+                  example: 'What animal is this?'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 11 Nov 2025 10:56:51 PST
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '63'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                response: 'This is a dog, specifically a Labrador Retriever.'
+                tokens: 1746
+                success: true
+        '400':
+          description: Bad Request
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 16:43:29 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '45'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                error:
+                  - Make sure you are sending a valid URL
+        '401':
+          description: Unauthorized
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 16:53:21 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '27'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            WWW-Authenticate:
+              schema:
+                type: string
+                example: Token
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                detail: Invalid token.
+  
+  /v1/text-generation/:
+    post:
+      tags:
+        - default
+      summary: Generate Text
+      description: >-
+
+
+        generate natural language responses using open source language models
+
+
+        #### Request Body
+
+
+        - `messages` (JSON): Array of messages.
+            
+        - `model` (text): Identifier of language model to use (e.g., "llama-3.3-70b")
+            
+
+        #### Response
+
+
+        The response is a JSON object with the following properties:
+
+
+        - `response`: Conversational response to the query.
+            
+        - `tokens`: The number of tokens.
+            
+        - `success`: Indicates the success status of the request.
+            
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                messages:
+                  type: object
+                  example: 
+                    [{"role": "user", "content": "what is a large language model?"}]
+                model:
+                  type: string
+                  example: 'llama-3.3-70b'
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Tue, 11 Nov 2025 10:56:51 PST
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '63'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                response: "A large language model is a type of artificial intelligence (AI) designed to process and understand human language. It's a computer program that uses complex algorithms and statistical models to analyze and generate text, often at a scale and sophistication that rivals human language abilities.\n\nLarge language models are typically trained on vast amounts of text data, which can include books, articles, research papers, websites, and more. This training data allows the model to learn patterns, relationships, and structures within language, enabling it to:\n\n1. **Understand context**: Recognize the meaning of words, phrases, and sentences within a given context.\n2. **Generate text**: Produce coherent and natural-sounding text based on a prompt, topic, or style.\n3. **Translate language**: Convert text from one language to another.\n4. **Summarize content**: Distill long pieces of text into concise summaries.\n5. **Answer questions**: Respond to questions and provide relevant information.\n6. **Chat and converse**: Engage in natural-sounding conversations, using context and understanding to respond to questions and statements.\n\nSome key characteristics of large language models include:\n\n* **Scale**: They are trained on massive datasets, often containing billions of words or more.\n* **Depth**: They have many layers of neural networks, which allow them to capture complex patterns and relationships in language.\n* **Generative capabilities**: They can generate text that is often indistinguishable from human-written content.\n\nExamples of large language models include:\n\n* Transformer models (e.g., BERT, RoBERTa)\n* Recurrent neural network (RNN) models (e.g., LSTM, GRU)\n* Generative adversarial network (GAN) models\n\nLarge language models have many applications, such as:\n\n* **Virtual assistants**: Powering chatbots, voice assistants, and other conversational interfaces.\n* **Language translation**: Enabling accurate and efficient translation of text and speech.\n* **Text generation**: Automating content creation, such as articles, social media posts, and product descriptions.\n* **Sentiment analysis**: Analyzing text to determine sentiment, emotion, and opinion.\n\nHowever, large language models also raise important questions and concerns, such as:\n\n* **Bias and fairness**: How do we ensure that these models are fair, transparent, and free from bias?\n* **Explainability**: How can we understand and interpret the decisions made by these complex models?\n* **Security**: How can we protect against potential misuse or manipulation of these powerful models?\n\nI hope this helps! Do you have any specific questions or topics related to large language models that you'd like me to expand on?"
+                tokens: 1746
+                success: true
+        '400':
+          description: Bad Request
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 16:43:29 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '45'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                error:
+                  - Invalid message format. Messages must be in list format.
+        '401':
+          description: Unauthorized
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 16:53:21 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '27'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            WWW-Authenticate:
+              schema:
+                type: string
+                example: Token
+            Allow:
+              schema:
+                type: string
+                example: POST, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                detail: Invalid token.
+  

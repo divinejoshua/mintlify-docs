@@ -58,6 +58,9 @@
         "endpoint-explanations/structured_output",
         "endpoint-explanations/category",
         "endpoint-explanations/delete",
+        "endpoint-explanations/text-generation",
+        "endpoint-explanations/image-to-text",
+        "endpoint-explanations/webscrape",
         "token-optimization"
       ]
     },
@@ -79,10 +82,13 @@
         "api-reference/endpoints/insert-resource",
         "api-reference/endpoints/query-resource",
         "api-reference/endpoints/categorize-resource",
-        "api-reference/endpoints/delete-collection"
+        "api-reference/endpoints/delete-collection",
+        "api-reference/endpoints/webscrape",
+        "api-reference/endpoints/image-to-text",
+        "api-reference/endpoints/text-generation"
       ]
     }
   ],
-  "openapi": "/api-reference/openapi.yml"
+  "openapi": "api-reference/openapi.yml"
 
 }

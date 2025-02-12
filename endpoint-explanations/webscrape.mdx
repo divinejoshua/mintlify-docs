@@ -1,0 +1,218 @@
+---
+title: 'Scrape Website'
+description: 'Learn how to extract content from websites using the WetroCloud webscrape endpoint.'
+---
+The `scrape` endpoint allows you to retrieve specific data from a web page in a structured JSON format based on your predefined schema.
+This endpoint supports just one response formats to suit different use cases:  
+
+## Structured Output Response
+
+Structured output is a feature that allows large language models (LLMs) to generate responses in a specific format with your resources. Structured output is best for extracting structured data to fit your application’s needs. It returns data formatted with the `json_schema` and `json_schema_rules` you provide.
+To use the structured output feature you need to provide the following parameters:
+
+| Parameter           | Type   | Description                                                                 |
+|----------------------|--------|-----------------------------------------------------------------------------|
+| `website`            | String | The website url to extract from.                                            |
+| `json_schema`        | String | The desired structure for the JSON response.                                |
+
+### `json_schema`
+
+The `json_schema` parameter defines the structure of the response you want the system to return. This parameter helps ensure the output matches your application's requirements.
+
+**Example JSON Schema**
+
+```json
+{
+  "name":"<name of rich man>", 
+  "networth":"<amount worth>"
+}
+```
+
+**Example JSON Schema (List)**
+
+If you want a list of items and not just a single item, you can specify the json schema by putting the entire object in a list
+
+```json
+[
+  {
+    "name":"<name of rich man>", 
+    "networth":"<amount worth>"
+  }
+]
+```
+
+---
+**Example Requests**
+
+<CodeGroup>
+```bash cURL
+curl --request POST \
+ --url 'https://api.wetrocloud.com/v1/scrape/' \
+ --form 'website="https://www.forbes.com/real-time-billionaires/#7583ee253d78"' \
+ --form 'json_schema=[{"name":"<name of rich man>", "networth":"<amount worth>"}]' \
+ --header 'Authorization: Token <api-key>'
+```
+```python Python
+import requests
+import json
+
+form_data = {
+    'website': "https://www.forbes.com/real-time-billionaires/#7583ee253d78",
+    'json_schema': json.dumps([{"name":"<name of rich man>", "networth":"<amount worth>"}])
+}
+
+response = requests.post(
+    'https://api.wetrocloud.com/v1/scrape/',
+    data=form_data,
+    headers={
+        'Authorization': 'Token <api-key>'
+    }
+)
+
+try:
+    print(response.json())
+except ValueError:
+    print(response.text)
+```
+
+
+```javascript Javascript
+const axios = require('axios');
+const FormData = require('form-data');
+
+const formData = new FormData();
+formData.append('website', 'https://www.forbes.com/real-time-billionaires/#7583ee253d78');
+formData.append('json_schema', JSON.stringify([{"name":"<name of rich man>", "networth":"<amount worth>"}]));
+
+axios.post('https://api.wetrocloud.com/v1/scrape/', formData, {
+ headers: {
+   'Authorization': 'Token <api-key>',
+   ...formData.getHeaders()
+ }
+})
+.then(response => {
+ console.log(response.data);
+})
+.catch(error => {
+ console.error('Error:', error);
+});
+```
+</CodeGroup>
+
+
+**Example Response**
+ ```json
+{
+    "response": {
+        "billionaires": [
+            {
+                "name": "Elon Musk",
+                "networth": "$394.8 B"
+            },
+            {
+                "name": "Mark Zuckerberg",
+                "networth": "$246.3 B"
+            },
+            {
+                "name": "Jeff Bezos",
+                "networth": "$245.6 B"
+            },
+            {
+                "name": "Larry Ellison",
+                "networth": "$220.9 B"
+            },
+            {
+                "name": "Bernard Arnault & family",
+                "networth": "$182.9 B"
+            },
+            {
+                "name": "Larry Page",
+                "networth": "$154.1 B"
+            },
+            {
+                "name": "Sergey Brin",
+                "networth": "$147.2 B"
+            },
+            {
+                "name": "Warren Buffett",
+                "networth": "$147.0 B"
+            },
+            {
+                "name": "Amancio Ortega",
+                "networth": "$123.3 B"
+            },
+            {
+                "name": "Steve Ballmer",
+                "networth": "$122.3 B"
+            },
+            {
+                "name": "Rob Walton & family",
+                "networth": "$120.2 B"
+            },
+            {
+                "name": "Jim Walton & family",
+                "networth": "$118.9 B"
+            },
+            {
+                "name": "Jensen Huang",
+                "networth": "$117.4 B"
+            },
+            {
+                "name": "Michael Dell",
+                "networth": "$115.3 B"
+            },
+            {
+                "name": "Alice Walton",
+                "networth": "$111.0 B"
+            },
+            {
+                "name": "Bill Gates",
+                "networth": "$106.5 B"
+            },
+            {
+                "name": "Michael Bloomberg",
+                "networth": "$104.7 B"
+            },
+            {
+                "name": "Mukesh Ambani",
+                "networth": "$92.7 B"
+            },
+            {
+                "name": "Carlos Slim Helu & family",
+                "networth": "$79.2 B"
+            },
+            {
+                "name": "David Thomson & family",
+                "networth": "$74.6 B"
+            },
+            {
+                "name": "Julia Koch & family",
+                "networth": "$74.2 B"
+            },
+            {
+                "name": "Francoise Bettencourt Meyers & family",
+                "networth": "$73.5 B"
+            },
+            {
+                "name": "Charles Koch & family",
+                "networth": "$67.5 B"
+            },
+            {
+                "name": "Thomas Peterffy",
+                "networth": "$67.0 B"
+            },
+            {
+                "name": "Changpeng Zhao",
+                "networth": "$62.4 B"
+            }
+        ]
+    }
+    "tokens": 1594,
+    "success": true
+}
+```
+| Field     | Description                                           |
+|-----------|-------------------------------------------------------|
+| `response` | JSON object structured as per the provided schema.   |
+| `tokens`   | Number of tokens used for processing.                |
+| `success`  | Indicates whether the query was successful.          |
