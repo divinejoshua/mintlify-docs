@@ -39,17 +39,7 @@ Each message in the `messages` array should have the following structure:
 ```
 
 ### Supported Models
-By default, Wetrocloud API supports these models:
-| **Model Name**               | **Identifier**                  | **Description**                                                   |
-|------------------------------|--------------------------------|-------------------------------------------------------------------------|
-| **LLaMA 3.3 70B**            | `llama-3.3-70b`               | A large, general-purpose language model with 70 billion parameters.     |
-| **LLaMA 3.3 70B Versatile**  | `llama-3.3-70b-versatile`     | Optimized version of LLaMA 3.3 70B for broader tasks and better flexibility. |
-| **DeepSeek R1 Distill LLaMA**| `deepseek-r1-distill-llama-70b` | Distilled version of LLaMA 70B for faster performance and specialized tasks. |
-| **GPT-4o**                   | `gpt-4o`                      | A variant of GPT-4 optimized for performance and versatility.            |
-| **GPT-4o Mini**              | `gpt-4o-mini`                | Lightweight version of GPT-4o for faster response with fewer resources.  |
-
-<Note> These are the language models support at the moment, please use the identifiers above not the model name. </Note>
-
+View models supported by WetroCloud [here](/endpoint-explanations/models).
 
 ### Request Example
 <CodeGroup>
@@ -119,6 +109,3 @@ axios.post('https://api.wetrocloud.com/v1/text-generation/', formData, {
 | `tokens`   | Number of tokens used for processing.                |
 | `success`  | Indicates whether the query was successful.          |
 
-
-## Available Models
-View models available for text generation [here](/endpoint-explanations/models).
