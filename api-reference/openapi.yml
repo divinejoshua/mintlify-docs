@@ -1209,7 +1209,7 @@ paths:
     post:
       tags:
         - default
-      summary: Scrape Website
+      summary: Data extraction
       description: >-
 
 

@@ -73,6 +73,28 @@ axios.post('https://api.wetrocloud.com/v1/query/', requestData, {
 
 ---
 
+| Field               | Description                                          |
+|---------------------|------------------------------------------------------|
+| `collection_id`     | Collection Id.                                       |
+| `query`             | This is the prompt.                                  |
+| `model` (optional)  | Pass in the model you want.                          |
+
+
+### Supported Models
+By default, Wetrocloud API supports these models:
+| **Model Name**               | **Identifier**                  | **Description**                                                   |
+|------------------------------|--------------------------------|-------------------------------------------------------------------------|
+| **LLaMA 3.3 70B**            | `llama-3.3-70b`               | A large, general-purpose language model with 70 billion parameters.     |
+| **LLaMA 3.3 70B Versatile**  | `llama-3.3-70b-versatile`     | Optimized version of LLaMA 3.3 70B for broader tasks and better flexibility. |
+| **DeepSeek R1 Distill LLaMA**| `deepseek-r1-distill-llama-70b` | Distilled version of LLaMA 70B for faster performance and specialized tasks. |
+| **GPT-4o**                   | `gpt-4o`                      | A variant of GPT-4 optimized for performance and versatility.            |
+| **GPT-4o Mini**              | `gpt-4o-mini`                | Lightweight version of GPT-4o for faster response with fewer resources.  |
+| **Claude sonnet 3.7**        | `claude-3-7-sonnet-20250219` | Upgraded version of the Claude sonnet 3.5 model  |
+
+<Note> These are the language models support at the moment, please use the identifiers above not the model name. </Note>
+
+
+
 ### Response Example: Free Text
 
 ```json

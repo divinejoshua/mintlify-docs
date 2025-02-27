@@ -85,7 +85,7 @@
         "api-reference/endpoints/query-resource",
         "api-reference/endpoints/categorize-resource",
         "api-reference/endpoints/delete-collection",
-        "api-reference/endpoints/webscrape",
+        "api-reference/endpoints/data-extraction",
         "api-reference/endpoints/image-to-text",
         "api-reference/endpoints/text-generation"
       ]
