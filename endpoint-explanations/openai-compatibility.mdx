@@ -1,0 +1,78 @@
+---
+title: 'OpenAI Compatibility'
+description: "Learn how to use our API keys to develop products using OpenAI SDK"
+---
+<Note>
+Before you begin!<br />
+Visit the [Wetrocloud console](https://console.wetrocloud.com/) to get your API key. If you have trouble obtaining it, refer to this [guide](/how-to-access-your-API-Key). 
+</Note>
+
+import WarningCallout from '/snippets/snippet-warning.mdx';
+
+#### Introduction 
+We designed WetroCloud's API to be mostly compatible with OpenAI's client libraries, making it easy to configure your existing applications to run on WetroCloud and try our inference with 10X speed.
+We supports a multiple of models from OpenAI, Anthopic, Meta etc. Visit [Wetrocloud supported models list](https://console.wetrocloud.com/) to check out our supported models.
+
+
+#### Configuring OpenAI to Use WetroCloud API
+To start using WetroCloud with OpenAI's client libraries, ensure you have the OpenAI SDK installed, then pass your WetroCloud API key to the api_key parameter and change the base_url to https://api.wetrocloud.com/v1/openai:
+
+<Steps>
+  <Step title="Install OpenAI SDK">
+    First, install OpenAI.
+    
+    <CodeGroup>
+    ```python Python
+    pip install openai
+    ```
+    </CodeGroup>
+  </Step>
+
+  <Step title="Configuration">
+    To use WetroCloud with OpenAI’s SDK, set the API base URL to WetroCloud’s endpoint and provide your API key.
+    <CodeGroup>
+    ```python Python
+    import openai
+
+    client = openai.OpenAI(
+        base_url="https://api.wetrocloud.com/v1/openai",
+        api_key=os.environ.get("WETROCLOUD_API_KEY")
+    )
+    ```
+    </CodeGroup>
+  </Step>
+  <Step title="Example: Text Completion">
+    Just use
+    <CodeGroup>
+    ```python Python
+    import openai
+
+    client = openai.OpenAI(
+        base_url="https://api.wetrocloud.com/v1/openai",
+        api_key=os.environ.get("WETROCLOUD_API_KEY")
+    )
+
+    response = client.chat.completions.create(
+    model="gpt-4",
+    messages=[
+            {"role": "system", "content": "You are a helpful assistant."},
+            {"role": "user", "content": "What is WetroCloud?"}
+        ]
+    )
+
+    print(response["choices"][0]["message"]["content"])
+    ```
+    </CodeGroup>
+  </Step>
+</Steps>
+
+#### Benefits of Using WetroCloud with OpenAI SDK 
+- Same OpenAI Functions + inference 10x speed 
+- No Code Changes – Just update api_base to WetroCloud’s endpoint.
+- Access to multiple model – Use latest models from OpenAI,Anthopic,Meta etc. with WetroCloud’s API key.
+- Scalable & Cost-Effective – Optimized for performance at scale.
+
+
+Great, that was easy!
+
+For more details, visit [WetroCloud's website](https://wetrocloud.com/) and [WetroCloud's Documentation](https://docs.wetrocloud.com/).

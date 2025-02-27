@@ -51,6 +51,8 @@
         "introduction",
         "how-to-access-your-API-Key",
         "quickstart",
+        "endpoint-explanations/openai-compatibility",
+        "endpoint-explanations/models",
         "endpoint-explanations/create",
         "endpoint-explanations/list-collections",
         "endpoint-explanations/insert",

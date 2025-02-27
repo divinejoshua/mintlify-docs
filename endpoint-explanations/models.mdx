@@ -1,113 +1,165 @@
 ---
-title: 'Insert a Resource'
-description: 'Learn how to insert resources using the Wetrocloud API'
+title: 'Supported Models'
+description: 'WetroCloud currently supports the following models:'
 ---
-<Info>
-At a glance: <br/> Use the `/insert` endpoint to add resources (URLs, files, text or JSON) to a collection for indexing and retrieval. Simply provide a `collection_id`, `resource`, and `type`.
-</Info>
+## **Meta Models**  
+Meta develops the Llama series of models, which are high-performance, open-weight large language models optimized for various use cases, including chat and code generation.  
 
-**Inserting resources** is a core operation that enables you to populate a collection with the data you want to organize and query.
-By default, Wetrocloud API supports these types of resources:
-| **Resource** | **Parameter** | **Description**                                                                                                            |
-|:--------------------|:-------------------|:----------------------------------------------------------------------------------------------------------------------------|
-| **File**           | file             | Supports various file types including `.csv`, `.docx`, `.epub`, `.hwp`, `.ipynb`, `.jpeg`, `.jpg`, `.mbox`, `.md`, `.mp3`, `.mp4`, `.pdf`, `.png`, `.ppt`, `.pptm`, `.pptx`. |
-| **Text**           | text             | Plain text content.                                                                                                       |
-| **JSON**           | json             | Structured data in JSON format.                                                                                           |
-| **Web**            | web              | Web-based resources, such as websites.                                                                |
-| **Youtube**        | youtube          | Youtube videos with youtube URLs.                                                                |
-| **Audio**          | audio | Supports various audio file types including `.3ga`, `.8svx`, `.aac`, `.ac3`, `.aif`, `.aiff`, `.alac`, `.amr`, `.ape`, `.au`, `.dss`, `.flac`, `.flv`, `.m4a`, `.m4b`, `.m4p`, `.m4r`, `.mp3`, `.mpga`, `.ogg`, `.oga`, `.mogg`, `.opus`, `.qcp`, `.tta`, `.voc`, `.wav`, `.wma`, `.wv`|
+| Model Name               | Identifier                  | Description |
+|--------------------------|----------------------------|-------------|
+| llama-3.3-70b-specdec    | llama-3.3-70b-specdec      | Specialized decoding variant of Llama 3.3 (70B). |
+| llama-3.3-70b-versatile  | llama-3.3-70b-versatile    | Versatile version of Llama 3.3 (70B) for various tasks. |
+| llama-3.3-70b           | llama-3.3-70b              | Standard Llama 3.3 model with 70B parameters. |
+| llama-3.2-90b-vision-preview | llama-3.2-90b-vision-preview | Vision-enabled variant of Llama 3.2 (90B). |
+| llama-3.2-11b-vision-preview | llama-3.2-11b-vision-preview | Smaller vision-based variant of Llama 3.2 (11B). |
+| llama-3.2-3b-preview    | llama-3.2-3b-preview       | Preview version of Llama 3.2 with 3B parameters. |
+| llama-3.2-1b-preview    | llama-3.2-1b-preview       | Lightweight preview of Llama 3.2 (1B parameters). |
+| llama-3.1-8b-instant    | llama-3.1-8b-instant       | Faster and optimized variant of Llama 3.1 (8B). |
+| llama-3.1-8b           | llama-3.1-8b              | Standard Llama 3.1 model with 8B parameters. |
+| llama3-70b-8192        | llama3-70b-8192           | Llama 3 variant with 70B parameters and 8192 token context. |
+| llama3-8b-8192         | llama3-8b-8192            | Llama 3 variant with 8B parameters and 8192 token context. |
+| llama-guard-3-8b       | llama-guard-3-8b          | A specialized Llama 3.3 model focused on content moderation. |
 
-<Note> To use the `file` type, all files must be provided as URLs. You can consider services like Amazon S3, Cloudinary, or similar platforms to host your files and provide their URLs to the API. </Note>
+---
 
-Once inserted, these resources are indexed for use in Retrieval-Augmented Generation (RAG) workflows.
+## **Mistral Models**  
+Mistral specializes in efficient, state-of-the-art transformer models designed for high-speed inference and strong performance.  
 
-## When to Use the Insert Endpoint
+| Model Name            | Identifier             | Description |
+|-----------------------|-----------------------|-------------|
+| mixtral-8x7b-32768   | mixtral-8x7b-32768    | A mixture-of-experts model with 8x7B experts and a 32K token context. |
 
-Use the `/v1/insert/` endpoint when you need to:
+---
 
-- Add data to a specific collection identified by `collection_id`.
-- Prepare a dataset for RAG workflows.
+## **DeepSeek Models**  
+DeepSeek focuses on developing cutting-edge language models with optimized performance for reasoning and efficiency.  
 
-## How to Insert a Resource
+| Model Name                            | Identifier                            | Description |
+|---------------------------------------|---------------------------------------|-------------|
+| deepseek-r1-distill-qwen-32b          | deepseek-r1-distill-qwen-32b         | Distilled version of Qwen-32B optimized by DeepSeek. |
+| deepseek-r1-distill-llama-70b-specdec | deepseek-r1-distill-llama-70b-specdec | Distilled version of Llama 70B with specialized decoding. |
+| deepseek-r1-distill-llama-70b         | deepseek-r1-distill-llama-70b        | Distilled Llama 70B model with improved efficiency. |
 
-To insert a resource into a collection, make a `POST` request to the `/v1/insert/` endpoint with the required parameters in the body.
+---
 
-### Required Parameters
+## **Alibaba Qwen Models**  
+Qwen, developed by Alibaba, is designed for code and general-purpose NLP tasks, with a focus on efficiency and accuracy.  
 
-| Parameter       | Type   | Description                                            |
-|------------------|--------|--------------------------------------------------------|
-| `collection_id` | String | The unique ID obtained from the `/create` endpoint. |
-| `resource` | String | The resource (e.g., a website). |
-| `type` | String | The type of resource to insert (e.g., `web`, `file`, `text`, `json`, `youtube`). |
+| Model Name             | Identifier            | Description |
+|------------------------|----------------------|-------------|
+| qwen-2.5-coder-32b    | qwen-2.5-coder-32b   | A 32B parameter model optimized for code generation. |
+| qwen-2.5-32b          | qwen-2.5-32b         | A 32B parameter model optimized for various NLP tasks. |
 
-### Request Example
+---
+
+## **Anthropic Models**  
+Anthropic develops the Claude series of AI models, focusing on safety, interpretability, and human-like responses.  
+
+| Model Name                   | Identifier                   | Description |
+|------------------------------|-----------------------------|-------------|
+| claude-3-7-sonnet-20250219   | claude-3-7-sonnet-20250219  | Latest Claude 3.7 Sonnet model, optimized for balanced performance. |
+| claude-3-5-sonnet-20241022   | claude-3-5-sonnet-20241022  | Improved version of Claude 3.5 Sonnet. |
+| claude-3-5-haiku-20241022    | claude-3-5-haiku-20241022   | Lightweight and fast Claude 3.5 Haiku model. |
+| claude-3-5-sonnet-20240620   | claude-3-5-sonnet-20240620  | Earlier version of Claude 3.5 Sonnet. |
+| claude-3-opus-20240229       | claude-3-opus-20240229      | Most powerful Claude 3 model for advanced reasoning. |
+| claude-3-sonnet-20240229     | claude-3-sonnet-20240229    | Claude 3 Sonnet model with strong performance. |
+| claude-3-haiku-20240307      | claude-3-haiku-20240307     | Fastest Claude 3 model for quick responses. |
+
+---
+
+## **OpenAI Models**  
+OpenAI develops the GPT series, including GPT-4o and GPT-4, designed for high-performance natural language understanding and generation.  
+
+| Model Name                      | Identifier                      | Description |
+|---------------------------------|--------------------------------|-------------|
+| gpt-4o-realtime-preview        | gpt-4o-realtime-preview        | Latest GPT-4o model with real-time capabilities. |
+| gpt-4o-mini-realtime-preview   | gpt-4o-mini-realtime-preview   | A smaller, faster variant of GPT-4o for real-time use. |
+| gpt-4o-latest                  | chatgpt-4o-latest              | Latest iteration of GPT-4o with enhanced features. |
+| gpt-4o-mini                    | gpt-4o-mini                    | A lightweight version of GPT-4o optimized for efficiency. |
+| gpt-4o                         | gpt-4o                         | Standard GPT-4o model with top-tier performance. |
+| gpt-4o-audio-preview           | gpt-4o-audio-preview           | GPT-4o variant optimized for audio-related tasks. |
+| gpt-4-turbo-preview            | gpt-4-turbo-preview            | A preview of the turbocharged GPT-4 model. |
+| gpt-4-turbo                    | gpt-4-turbo                    | Faster and cheaper variant of GPT-4. |
+| gpt-4                           | gpt-4                           | Standard GPT-4 model with strong reasoning capabilities. |
+| gpt-3.5-turbo                   | gpt-3.5-turbo                   | An efficient version of GPT-3.5 with strong performance. |
+| o3-mini                        | o3-mini                        | Optimized small-scale model for fast inference. |
+| o1-mini                        | o1-mini                        | Mini variant of OpenAI’s "o1" model. |
+| o1                             | o1                             | Standard version of OpenAI’s "o1" model. |
+| o1-preview                     | o1-preview                     | Preview version of OpenAI’s "o1" model. |
+
+---
+
+## **OpenAI Whisper Models**  
+Whisper is OpenAI's automatic speech recognition (ASR) model, capable of transcribing and translating spoken language.  
+
+| Model Name                     | Identifier                     | Description |
+|--------------------------------|--------------------------------|-------------|
+| distil-whisper-large-v3-en    | distil-whisper-large-v3-en    | A distilled, lightweight Whisper model for English transcription. |
+| whisper-large-v3-turbo        | whisper-large-v3-turbo        | High-speed variant of Whisper Large v3. |
+| whisper-large-v3              | whisper-large-v3              | Standard Whisper Large v3 model for speech-to-text tasks. |
+
+
+<Note> These are the language models support at the moment, please use the identifiers above not the model name. </Note>
+
+# Models Usage
+You can use these models in our [Query endpoint](/endpoint-explanations/query) and [OpenAI Compatibility endpoints](/endpoint-explanations/openai-compatibility)
+### Query Endpoint Example 
 <CodeGroup>
-    ```bash cURL
-    curl --request POST \
-      --url https://api.wetrocloud.com/v1/insert/ \
-      --header 'Authorization: Token <api-key>' \
-      --header 'Content-Type: application/json' \
-      --data '{
-        "collection_id": "<collection_id>",
-        "resource": "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
-        "type": "web"
-      }'
-    ```
-    ```python Python
-    import requests
+```bash cURL
+curl --request POST \
+  --url https://api.wetrocloud.com/v1/query/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "<collection_id>",
+    "request_query": "What are the sales trends for Q1?",
+    "model": "claude-3-7-sonnet-20250219"
+  }'
+```
+```python Python
+import requests
 
-    url = "https://api.wetrocloud.com/v1/insert/"
-    headers = {
-        "Authorization": "Token <api-key>",
-    }
-    payload = {
-        "collection_id": "<collection_id>",
-        "resource": "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
-        "type": "web"
-    }
-    response = requests.post(url, headers=headers, payload=payload)
-    print(response.json())
-    ```
-    ```javascript JavaScript
-    const axios = require('axios');
+url = "https://api.wetrocloud.com/v1/query/"
+headers = {
+    "Authorization": "Token <api-key>",
+    "Content-Type": "application/json"
+}
+data = {
+    "collection_id": "<collection_id>",
+    "request_query": "What are the sales trends for Q1?",
+    "model": "claude-3-7-sonnet-20250219"
+}
 
-    const url = 'https://api.wetrocloud.com/v1/insert/';
-    const headers = {
-        'Authorization': 'Token <api-key>',
-        'Content-Type': 'application/json'
-    };
-    const data = {
-        collection_id: '<collection_id>',
-        resource: 'https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.',
-        type: 'web'
-    };
+response = requests.post(url, headers=headers, json=data)
+print(response.json())
+```
+```javascript JavaScript
+const axios = require('axios');
 
-    axios.post(url, data, { headers })
-        .then(response => console.log(response.data))
-        .catch(error => console.error(error));
-    ```
+const apiKey = '<api-key>';
+const collectionId = '<collection_id>';
+const query = 'What are the sales trends for Q1?';
+const model = 'claude-3-7-sonnet-20250219';
+
+const requestData = {
+  collection_id: collectionId,
+  request_query: query
+  model: model
+};
+
+axios.post('https://api.wetrocloud.com/v1/query/', requestData, {
+  headers: {
+    'Authorization': `Token ${apiKey}`,
+    'Content-Type': 'application/json'
+  }
+})
+.then(response => {
+  console.log('Response:', response.data);
+})
+.catch(error => {
+  console.error('Error:', error.response ? error.response.data : error.message);
+});
+
+```
 </CodeGroup>
 
-### Successful Response
-
-A successful response confirms the operation and tracks token usage.
-
-**Example Response**
-
-```json
-{
-  "success": true,
-  "tokens": 35
-}
-```
-
-| Field      | Description                                     |
-|------------|-------------------------------------------------|
-| `success`  | Indicates whether the resource was inserted successfully. |
-| `tokens`   | Number of tokens consumed during the operation. |
-
-## Related Operations
-
-- **[Create Collection](create)**: Start by creating a collection to hold your resources.
-- **[Query Resources](query)**: Access and retrieve insights from the indexed resources.
-- **[Delete Collection](delete)**: Remove collections and their resources when no longer needed.
