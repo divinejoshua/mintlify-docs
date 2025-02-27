@@ -11,7 +11,7 @@ import WarningCallout from '/snippets/snippet-warning.mdx';
 
 #### Introduction 
 We designed WetroCloud's API to be mostly compatible with OpenAI's client libraries, making it easy to configure your existing applications to run on WetroCloud and try our inference with 10X speed.
-We supports a multiple of models from OpenAI, Anthopic, Meta etc. Visit [Wetrocloud supported models list](https://console.wetrocloud.com/) to check out our supported models.
+We supports a multiple of models from OpenAI, Anthopic, Meta etc. Visit [Wetrocloud supported models list](/endpoint-explanations/models) to check out our supported models.
 
 
 #### Configuring OpenAI to Use WetroCloud API
@@ -36,7 +36,7 @@ To start using WetroCloud with OpenAI's client libraries, ensure you have the Op
 
     client = openai.OpenAI(
         base_url="https://api.wetrocloud.com/v1/openai",
-        api_key=os.environ.get("WETROCLOUD_API_KEY")
+        api_key="<wetrotcloud_api_key>"
     )
     ```
     </CodeGroup>
@@ -49,11 +49,11 @@ To start using WetroCloud with OpenAI's client libraries, ensure you have the Op
 
     client = openai.OpenAI(
         base_url="https://api.wetrocloud.com/v1/openai",
-        api_key=os.environ.get("WETROCLOUD_API_KEY")
+        api_key="<wetrotcloud_api_key>"
     )
 
     response = client.chat.completions.create(
-    model="gpt-4",
+    model="llama-3.3-70b",
     messages=[
             {"role": "system", "content": "You are a helpful assistant."},
             {"role": "user", "content": "What is WetroCloud?"}
