@@ -62,7 +62,7 @@
         "endpoint-explanations/delete",
         "endpoint-explanations/text-generation",
         "endpoint-explanations/image-to-text",
-        "endpoint-explanations/webscrape",
+        "endpoint-explanations/text-extraction",
         "token-optimization"
       ]
     },
