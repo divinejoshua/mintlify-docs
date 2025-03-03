@@ -100,6 +100,10 @@
       ]
     }
   ],
-  "openapi": "api-reference/openapi.yml"
-
+  "openapi": "api-reference/openapi.yml",
+  "analytics": {
+      "ga4": {
+        "measurementId": "G-CP7XLD7HG1"
+      }
+    }
 }
