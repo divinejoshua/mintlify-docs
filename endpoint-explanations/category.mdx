@@ -4,14 +4,14 @@ description: 'Learn how to classify and structure resources using WetroCloud.'
 ---
 ## When to Use the Category Endpoint
 
-Use the `/v1/category/` endpoint when:
+Use the `/v1/collection/categorize/` endpoint when:
 
 - Resources need to be organized into categories.
 - JSON schemas and rules are required to define category structure.
 
 ## How to Categorize a Resource
 
-Send a `POST` request to the `/v1/category/` endpoint with the required parameters in the body.
+Send a `POST` request to the `/v1/collection/categorize/` endpoint with the required parameters in the body.
 
 ### Required Parameters
 
@@ -28,7 +28,7 @@ Send a `POST` request to the `/v1/category/` endpoint with the required paramete
 <CodeGroup>
  ```bash cURL
 curl --request POST \
-  --url https://api.wetrocloud.com/v1/category/ \
+  --url https://api.wetrocloud.com/v1/collection/categorize/ \
   --header 'Authorization: Token <api-key>' \
   --header 'Content-Type: application/json' \
   --data '{
@@ -41,7 +41,7 @@ curl --request POST \
 ```python Python
 import requests
 
-url = "https://api.wetrocloud.com/v1/category/"
+url = "https://api.wetrocloud.com/v1/collection/categorize/"
 headers = {
     "Authorization": "Token <api-key>",
 }
@@ -58,7 +58,7 @@ print(response.json())
 ```javascript JavaScript
 const axios = require('axios');
 
-axios.post('https://api.wetrocloud.com/v1/category/', {
+axios.post('https://api.wetrocloud.com/v1/collection/categorize/', {
   resource: "match review: John Cena vs. The Rock.",
   type: "text",
   json_schema: "{'label':'string'}",

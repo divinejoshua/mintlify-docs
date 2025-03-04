@@ -19,7 +19,7 @@ Free text response provides natural, conversational-style answers to your querie
 <CodeGroup>
 ```bash cURL
 curl --request POST \
-  --url https://api.wetrocloud.com/v1/query/ \
+  --url https://api.wetrocloud.com/v1/collection/query/ \
   --header 'Authorization: Token <api-key>' \
   --header 'Content-Type: application/json' \
   --data '{
@@ -30,7 +30,7 @@ curl --request POST \
 ```python Python
 import requests
 
-url = "https://api.wetrocloud.com/v1/query/"
+url = "https://api.wetrocloud.com/v1/collection/query/"
 headers = {
     "Authorization": "Token <api-key>",
     "Content-Type": "application/json"
@@ -55,7 +55,7 @@ const requestData = {
   request_query: query
 };
 
-axios.post('https://api.wetrocloud.com/v1/query/', requestData, {
+axios.post('https://api.wetrocloud.com/v1/collection/query/', requestData, {
   headers: {
     'Authorization': `Token ${apiKey}`,
     'Content-Type': 'application/json'

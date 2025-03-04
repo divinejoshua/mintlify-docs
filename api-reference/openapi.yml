@@ -15,7 +15,7 @@ security:
   - ApiKeyAuth: []
 
 paths:
-  /v1/create/:
+  /v1/collection/:
     post:
       tags:
         - default
@@ -321,7 +321,7 @@ paths:
               example:
                 detail: Invalid token.
 
-  /v1/insert/:
+  /v1/collection/insert/:
     post:
       tags:
         - default
@@ -480,7 +480,7 @@ paths:
                 type: object
               example:
                 detail: Invalid token.
-  /v1/query/:
+  /v1/collection/query/:
     post:
       tags:
         - default
@@ -786,7 +786,7 @@ paths:
                 type: object
               example:
                 detail: Invalid token.
-  /v1/category/:
+  /v1/collection/categorize/:
     post:
       tags:
         - default
@@ -1012,7 +1012,7 @@ paths:
                 type: object
               example:
                 detail: Invalid token.
-  /v1/delete/:
+  /v1/collection/:
     delete:
       tags:
         - default
@@ -1205,7 +1205,7 @@ paths:
               example:
                 error: Collection Id [72b52a94-9dba-40eb-8018-dc425d173d00] not found
 
-  /v1/scrape/:
+  /v1/data-extraction/:
     post:
       tags:
         - default

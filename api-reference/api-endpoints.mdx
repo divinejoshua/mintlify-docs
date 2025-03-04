@@ -5,18 +5,18 @@ description: 'Explore the available WetroCloud API endpoints for creating, inser
 ### Endpoints
 | Endpoint           | Method    | Description                                                                 |
 |:-------------------|:----------|:----------------------------------------------------------------------------|
-| **`/create/`**      | POST      | Used to create a new collection where your resources will be organized.     |
+| **`/collection/`**      | POST      | Used to create a new collection where your resources will be organized.     |
 | **`/collection/`**  | GET       | Returns a list of all existing collections.             |
-| **`/insert/`**      | POST      | Allows you to add resources, such as documents or files, into a specified collection. |
-| **`/query/`**       | POST      | Enables you to search or retrieve information from your collections based on specific prompts. |
-| **`/delete/`**      | DELETE    | Removes an entire collection and its associated resources.                  |
-| **`/category/`**    | POST      | Categorizes your data according to specific rules or schema definitions.    |
+| **`/collection/insert/`**      | POST      | Allows you to add resources, such as documents or files, into a specified collection. |
+| **`/collection/query/`**       | POST      | Enables you to search or retrieve information from your collections based on specific prompts. |
+| **`/collection/`**      | DELETE    | Removes an entire collection and its associated resources.                  |
+| **`/collection/categorize/`**    | POST      | Categorizes your data according to specific rules or schema definitions.    |
 
 
 ### Response Formats by Endpoint
 The WetroCloud API returns responses in a consistent JSON format. Each endpoint includes fields relevant to the specific operation.
 
-#### Create Endpoint (`/create/`) <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
+#### Create Collection Endpoint (`/collection/`) <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
 
 
 
@@ -36,7 +36,7 @@ Used to create a new collection. The response includes the unique ID of the coll
 
 ---
 
-#### Insert Endpoint (`/insert/`)  <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
+#### Insert Endpoint (`/collection/insert/`)  <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
 <Frame>
   <img
     src="/images/postman-images/Insert-response.png"
@@ -54,7 +54,7 @@ Adds resources to a collection. The response confirms success and tracks token u
 
 ---
 
-#### Query Endpoint (`/query/`)  <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
+#### Query Endpoint (`/collection/query/`)  <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
 
 Fetches information from a collection based on a query. The response contains the result, token usage, and success status.
 <Frame>
@@ -73,9 +73,9 @@ Fetches information from a collection based on a query. The response contains th
 
 ---
 
-#### Delete Endpoint (`/delete/`)  <img src="/logo/DELETE.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
+#### Delete Collection Endpoint (`/collection/`)  <img src="/logo/DELETE.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
 
-Removes a collection and returns the operation status with a message.
+Deletes a collection and returns the operation status with a message.
 <Frame>
   <img
     src="/images/postman-images/delete-response.png"
@@ -91,7 +91,7 @@ Removes a collection and returns the operation status with a message.
 
 ---
 
-#### Categorize Endpoint (`/category/`) <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
+#### Categorize Endpoint (`/collection/categorize/`) <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
 
 Categorizes data according to rules or schemas. The response provides the assigned label, token usage, and success status.
 <Frame>
@@ -145,7 +145,7 @@ Analyzes and fetch information from an image based on a query. The response prov
 
 ```
 
-#### Web Scrape Endpoint (`/scrape/`) <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
+#### Data Extraction Endpoint (`/data-extraction/`) <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
 
 Extracts content from websites according to rules or schemas. The response provides the result, token usage, and success status.
 <Frame>

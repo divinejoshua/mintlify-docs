@@ -55,7 +55,7 @@ The `json_schema_rules` parameter allows you to define custom rules for how the 
 <CodeGroup>
 ```bash cURL
 curl --request POST \
- --url 'https://api.wetrocloud.com/v1/query/' \
+ --url 'https://api.wetrocloud.com/v1/collection/query/' \
  --form 'collection_id=<collection_id>' \
  --form 'request_query=What is this about?' \
  --form 'json_schema=[{"topic":"","description":""}]' \
@@ -74,7 +74,7 @@ form_data = {
 }
 
 response = requests.post(
-    'https://api.wetrocloud.com/v1/query/',
+    'https://api.wetrocloud.com/v1/collection/query/',
     data=form_data,
     headers={
         'Authorization': 'Token <api-key>'
@@ -98,7 +98,7 @@ formData.append('request_query', 'What is this about?');
 formData.append('json_schema', JSON.stringify([{topic: '', description: ''}]));
 formData.append('json_schema_rules', 'Give a very short description of every page on the document from');
 
-axios.post('https://api.wetrocloud.com/v1/query/', formData, {
+axios.post('https://api.wetrocloud.com/v1/collection/query/', formData, {
  headers: {
    'Authorization': 'Token <api-key>',
    ...formData.getHeaders()

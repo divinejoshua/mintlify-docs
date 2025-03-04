@@ -23,14 +23,14 @@ Once inserted, these resources are indexed for use in Retrieval-Augmented Genera
 
 ## When to Use the Insert Endpoint
 
-Use the `/v1/insert/` endpoint when you need to:
+Use the `/v1/collection/insert/` endpoint when you need to:
 
 - Add data to a specific collection identified by `collection_id`.
 - Prepare a dataset for RAG workflows.
 
 ## How to Insert a Resource
 
-To insert a resource into a collection, make a `POST` request to the `/v1/insert/` endpoint with the required parameters in the body.
+To insert a resource into a collection, make a `POST` request to the `/v1/collection/insert/` endpoint with the required parameters in the body.
 
 ### Required Parameters
 
@@ -44,7 +44,7 @@ To insert a resource into a collection, make a `POST` request to the `/v1/insert
 <CodeGroup>
     ```bash cURL
     curl --request POST \
-      --url https://api.wetrocloud.com/v1/insert/ \
+      --url https://api.wetrocloud.com/v1/collection/insert/ \
       --header 'Authorization: Token <api-key>' \
       --header 'Content-Type: application/json' \
       --data '{
@@ -56,7 +56,7 @@ To insert a resource into a collection, make a `POST` request to the `/v1/insert
     ```python Python
     import requests
 
-    url = "https://api.wetrocloud.com/v1/insert/"
+    url = "https://api.wetrocloud.com/v1/collection/insert/"
     headers = {
         "Authorization": "Token <api-key>",
     }
@@ -71,7 +71,7 @@ To insert a resource into a collection, make a `POST` request to the `/v1/insert
     ```javascript JavaScript
     const axios = require('axios');
 
-    const url = 'https://api.wetrocloud.com/v1/insert/';
+    const url = 'https://api.wetrocloud.com/v1/collection/insert/';
     const headers = {
         'Authorization': 'Token <api-key>',
         'Content-Type': 'application/json'

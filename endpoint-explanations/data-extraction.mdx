@@ -1,8 +1,8 @@
 ---
 title: 'Data extraction'
-description: 'Learn how to extract content from websites using the WetroCloud scrape endpoint.'
+description: 'Learn how to extract content from websites using the WetroCloud data-extraction endpoint.'
 ---
-The `scrape` endpoint allows you to retrieve specific data from a web page in a structured JSON format based on your predefined schema.
+The `data-extraction` endpoint allows you to retrieve specific data from a web page in a structured JSON format based on your predefined schema.
 This endpoint supports just one response formats to suit different use cases:  
 
 ## Structured Output Response
@@ -47,7 +47,7 @@ If you want a list of items and not just a single item, you can specify the json
 <CodeGroup>
 ```bash cURL
 curl --request POST \
- --url 'https://api.wetrocloud.com/v1/scrape/' \
+ --url 'https://api.wetrocloud.com/v1/data-extraction/' \
  --form 'website="https://www.forbes.com/real-time-billionaires/#7583ee253d78"' \
  --form 'json_schema=[{"name":"<name of rich man>", "networth":"<amount worth>"}]' \
  --header 'Authorization: Token <api-key>'
@@ -62,7 +62,7 @@ form_data = {
 }
 
 response = requests.post(
-    'https://api.wetrocloud.com/v1/scrape/',
+    'https://api.wetrocloud.com/v1/data-extraction/',
     data=form_data,
     headers={
         'Authorization': 'Token <api-key>'
@@ -84,7 +84,7 @@ const formData = new FormData();
 formData.append('website', 'https://www.forbes.com/real-time-billionaires/#7583ee253d78');
 formData.append('json_schema', JSON.stringify([{"name":"<name of rich man>", "networth":"<amount worth>"}]));
 
-axios.post('https://api.wetrocloud.com/v1/scrape/', formData, {
+axios.post('https://api.wetrocloud.com/v1/data-extraction/', formData, {
  headers: {
    'Authorization': 'Token <api-key>',
    ...formData.getHeaders()
