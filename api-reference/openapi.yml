@@ -155,7 +155,6 @@ paths:
               example:
                 detail: Invalid token.
 
-  /v1/collection/:
     get:
       tags:
         - default
@@ -321,6 +320,198 @@ paths:
               example:
                 detail: Invalid token.
 
+    delete:
+      tags:
+        - default
+      summary: Delete Collection
+      description: |-
+        This endpoint is used to delete a collection.
+
+        #### Request Body
+
+        - `collection_id` (text) - The ID of the collection to be deleted.
+            
+
+        #### Response
+
+        - `message` - A message indicating the result of the deletion.
+            
+        - `success` - Indicates whether the deletion was successful.
+      requestBody:
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                collection_id:
+                  type: string
+                  example: '{{collection_id}}'    
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 16:34:19 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '60'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            Allow:
+              schema:
+                type: string
+                example: DELETE, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                message: Collection deleted successfully
+                success: true
+        '401':
+          description: Unauthorized
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 16:52:33 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '27'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            WWW-Authenticate:
+              schema:
+                type: string
+                example: Token
+            Allow:
+              schema:
+                type: string
+                example: DELETE, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                detail: Invalid token.
+        '404':
+          description: Not Found
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Mon, 25 Nov 2024 16:34:46 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Content-Length:
+              schema:
+                type: integer
+                example: '74'
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+            Allow:
+              schema:
+                type: string
+                example: DELETE, OPTIONS
+            X-Frame-Options:
+              schema:
+                type: string
+                example: DENY
+            Vary:
+              schema:
+                type: string
+                example: origin
+            X-Content-Type-Options:
+              schema:
+                type: string
+                example: nosniff
+            Referrer-Policy:
+              schema:
+                type: string
+                example: same-origin
+            Cross-Origin-Opener-Policy:
+              schema:
+                type: string
+                example: same-origin
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                error: Collection Id [72b52a94-9dba-40eb-8018-dc425d173d00] not found
+
   /v1/collection/insert/:
     post:
       tags:
@@ -480,6 +671,7 @@ paths:
                 type: object
               example:
                 detail: Invalid token.
+  
   /v1/collection/query/:
     post:
       tags:
@@ -786,6 +978,7 @@ paths:
                 type: object
               example:
                 detail: Invalid token.
+  
   /v1/collection/categorize/:
     post:
       tags:
@@ -1012,199 +1205,7 @@ paths:
                 type: object
               example:
                 detail: Invalid token.
-  /v1/collection/:
-    delete:
-      tags:
-        - default
-      summary: Delete Collection
-      description: |-
-        This endpoint is used to delete a collection.
-
-        #### Request Body
-
-        - `collection_id` (text) - The ID of the collection to be deleted.
-            
-
-        #### Response
-
-        - `message` - A message indicating the result of the deletion.
-            
-        - `success` - Indicates whether the deletion was successful.
-      requestBody:
-        content:
-          multipart/form-data:
-            schema:
-              type: object
-              properties:
-                collection_id:
-                  type: string
-                  example: '{{collection_id}}'    
-      responses:
-        '200':
-          description: OK
-          headers:
-            Date:
-              schema:
-                type: string
-                example: Mon, 25 Nov 2024 16:34:19 GMT
-            Content-Type:
-              schema:
-                type: string
-                example: application/json
-            Content-Length:
-              schema:
-                type: integer
-                example: '60'
-            Connection:
-              schema:
-                type: string
-                example: keep-alive
-            Server:
-              schema:
-                type: string
-                example: nginx/1.27.2
-            Allow:
-              schema:
-                type: string
-                example: DELETE, OPTIONS
-            X-Frame-Options:
-              schema:
-                type: string
-                example: DENY
-            Vary:
-              schema:
-                type: string
-                example: origin
-            X-Content-Type-Options:
-              schema:
-                type: string
-                example: nosniff
-            Referrer-Policy:
-              schema:
-                type: string
-                example: same-origin
-            Cross-Origin-Opener-Policy:
-              schema:
-                type: string
-                example: same-origin
-          content:
-            application/json:
-              schema:
-                type: object
-              example:
-                message: Collection deleted successfully
-                success: true
-        '401':
-          description: Unauthorized
-          headers:
-            Date:
-              schema:
-                type: string
-                example: Mon, 25 Nov 2024 16:52:33 GMT
-            Content-Type:
-              schema:
-                type: string
-                example: application/json
-            Content-Length:
-              schema:
-                type: integer
-                example: '27'
-            Connection:
-              schema:
-                type: string
-                example: keep-alive
-            Server:
-              schema:
-                type: string
-                example: nginx/1.27.2
-            WWW-Authenticate:
-              schema:
-                type: string
-                example: Token
-            Allow:
-              schema:
-                type: string
-                example: DELETE, OPTIONS
-            X-Frame-Options:
-              schema:
-                type: string
-                example: DENY
-            Vary:
-              schema:
-                type: string
-                example: origin
-            X-Content-Type-Options:
-              schema:
-                type: string
-                example: nosniff
-            Referrer-Policy:
-              schema:
-                type: string
-                example: same-origin
-            Cross-Origin-Opener-Policy:
-              schema:
-                type: string
-                example: same-origin
-          content:
-            application/json:
-              schema:
-                type: object
-              example:
-                detail: Invalid token.
-        '404':
-          description: Not Found
-          headers:
-            Date:
-              schema:
-                type: string
-                example: Mon, 25 Nov 2024 16:34:46 GMT
-            Content-Type:
-              schema:
-                type: string
-                example: application/json
-            Content-Length:
-              schema:
-                type: integer
-                example: '74'
-            Connection:
-              schema:
-                type: string
-                example: keep-alive
-            Server:
-              schema:
-                type: string
-                example: nginx/1.27.2
-            Allow:
-              schema:
-                type: string
-                example: DELETE, OPTIONS
-            X-Frame-Options:
-              schema:
-                type: string
-                example: DENY
-            Vary:
-              schema:
-                type: string
-                example: origin
-            X-Content-Type-Options:
-              schema:
-                type: string
-                example: nosniff
-            Referrer-Policy:
-              schema:
-                type: string
-                example: same-origin
-            Cross-Origin-Opener-Policy:
-              schema:
-                type: string
-                example: same-origin
-          content:
-            application/json:
-              schema:
-                type: object
-              example:
-                error: Collection Id [72b52a94-9dba-40eb-8018-dc425d173d00] not found
-
+  
   /v1/data-extraction/:
     post:
       tags:
