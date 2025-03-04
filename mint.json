@@ -51,15 +51,24 @@
         "introduction",
         "how-to-access-your-API-Key",
         "quickstart",
-        "endpoint-explanations/openai-compatibility",
         "endpoint-explanations/models",
+        "endpoint-explanations/openai-compatibility"
+      ]
+    },
+    {
+      "group": "RAG API",
+      "pages": [
         "endpoint-explanations/create",
         "endpoint-explanations/list-collections",
         "endpoint-explanations/insert",
         "endpoint-explanations/query",
-        "endpoint-explanations/structured_output",
+        "endpoint-explanations/structured_output"
+      ]
+    },
+    {
+      "group": "Features",
+      "pages": [
         "endpoint-explanations/category",
-        "endpoint-explanations/delete",
         "endpoint-explanations/text-generation",
         "endpoint-explanations/image-to-text",
         "endpoint-explanations/data-extraction",
@@ -91,6 +100,10 @@
       ]
     }
   ],
-  "openapi": "api-reference/openapi.yml"
-
+  "openapi": "api-reference/openapi.yml",
+  "analytics": {
+      "ga4": {
+        "measurementId": "G-CP7XLD7HG1"
+      }
+    }
 }
