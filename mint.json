@@ -62,6 +62,9 @@
         "endpoint-explanations/list-collections",
         "endpoint-explanations/insert",
         "endpoint-explanations/query",
+        "endpoint-explanations/chat",
+        "endpoint-explanations/remove-resource",
+        "endpoint-explanations/delete",
         "endpoint-explanations/structured_output"
       ]
     },
@@ -92,7 +95,9 @@
         "api-reference/endpoints/list-collections",
         "api-reference/endpoints/insert-resource",
         "api-reference/endpoints/query-resource",
+        "api-reference/endpoints/chat-collection",
         "api-reference/endpoints/categorize-resource",
+        "api-reference/endpoints/remove-resource",
         "api-reference/endpoints/delete-collection",
         "api-reference/endpoints/data-extraction",
         "api-reference/endpoints/image-to-text",

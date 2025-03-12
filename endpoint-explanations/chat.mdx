@@ -1,0 +1,80 @@
+---
+title: 'Chat with Collection'
+description: 'Learn how to converse with your collections in WetroCloud'
+---
+The `chat` endpoint allows you to converse with your collection allowing it to respond based on information from your resources added to the collection via the WetroCloud API.  
+
+### Required Parameters
+| Field               | Description                                          |
+|---------------------|------------------------------------------------------|
+| `collection_id`     | Collection Id.                                       |
+| `message`           | Message currently being sent to collection           |
+| `chat_history`      | History of chat between user and system              |
+
+### Request Example
+<CodeGroup>
+    ```bash cURL
+    curl --request POST \
+        --url https://api.wetrocloud.com/v1/collection/chat/ \
+        --header 'Authorization: Token <api-key>' \
+        --header 'Content-Type: multipart/form-data' \
+        --form 'collection_id=<collection_id>' \
+        --form 'message=Tell me more' \
+        --form 'chat_history=[{"role":"user","content":"What is this all about?"}, {"role":"system","content":"This is about Queen Elizabeth_II of England"}]' \
+    ```
+    ```python Python
+    import requests
+
+    url = "https://api.wetrocloud.com/v1/collection/chat/"
+    headers = {
+        "Authorization": "Token <api-key>"
+    }
+    data = {
+        "collection_id": "<collection_id>",
+        "message": "Tell me more",
+        "chat_history": [{"role":"user","content":"What is this all about?"}, 
+        {"role":"system","content":"This is about Queen Elizabeth_II of England"}]
+    }
+
+    response = requests.post(url, headers=headers, data=data)
+    print(response.json())
+    ```
+    ```javascript JavaScript
+    const axios = require('axios');
+    const FormData = require('form-data');
+
+    const url = 'https://api.wetrocloud.com/v1/collection/query/';
+    const formData = new FormData();
+    formData.append('collection_id', '<collection_id>');
+    formData.append('message', 'Tell me more');
+    formData.append('chat_history', [{"role":"user",  "content":"What is this all about?"}, 
+        {"role":"system","content":"This is about Queen Elizabeth_II of England"}]);
+
+    const headers = {
+        'Authorization': 'Token <api-key>',
+        ...formData.getHeaders()
+    };
+
+    axios.post(url, formData, { headers })
+        .then(response => console.log(response.data))
+        .catch(error => console.error(error));
+    ```
+</CodeGroup> 
+
+---
+
+### Response Example:
+
+```json
+{
+  "response": "The sales for Q1 increased by 20% compared to last year, with online channels contributing significantly.",
+  "tokens": 120,
+  "success": true
+}
+```
+
+| Field     | Description                                           |
+|-----------|-------------------------------------------------------|
+| `response` | Conversational response to the message.                |
+| `tokens`   | Number of tokens used for processing.                |
+| `success`  | Indicates whether the query was successful.          |

@@ -7,10 +7,10 @@ description: 'Explore the available WetroCloud API endpoints for creating, inser
 |:-------------------|:----------|:----------------------------------------------------------------------------|
 | **`/collection/`**      | POST      | Used to create a new collection where your resources will be organized.     |
 | **`/collection/`**  | GET       | Returns a list of all existing collections.             |
-| **`/collection/insert/`**      | POST      | Allows you to add resources, such as documents or files, into a specified collection. |
+| **`/insert/resource/`**      | POST      | Allows you to add resources, such as documents or files, into a specified collection. |
 | **`/collection/query/`**       | POST      | Enables you to search or retrieve information from your collections based on specific prompts. |
 | **`/collection/`**      | DELETE    | Removes an entire collection and its associated resources.                  |
-| **`/collection/categorize/`**    | POST      | Categorizes your data according to specific rules or schema definitions.    |
+| **`/categorize/`**    | POST      | Categorizes your data according to specific rules or schema definitions.    |
 
 
 ### Response Formats by Endpoint
@@ -36,7 +36,7 @@ Used to create a new collection. The response includes the unique ID of the coll
 
 ---
 
-#### Insert Endpoint (`/collection/insert/`)  <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
+#### Insert Endpoint (`/insert/resource/`)  <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
 <Frame>
   <img
     src="/images/postman-images/Insert-response.png"
@@ -91,7 +91,7 @@ Deletes a collection and returns the operation status with a message.
 
 ---
 
-#### Categorize Endpoint (`/collection/categorize/`) <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
+#### Categorize Endpoint (`/categorize/`) <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
 
 Categorizes data according to rules or schemas. The response provides the assigned label, token usage, and success status.
 <Frame>

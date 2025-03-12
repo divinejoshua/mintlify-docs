@@ -23,14 +23,14 @@ Once inserted, these resources are indexed for use in Retrieval-Augmented Genera
 
 ## When to Use the Insert Endpoint
 
-Use the `/v1/collection/insert/` endpoint when you need to:
+Use the `/v1/insert/resource/` endpoint when you need to:
 
 - Add data to a specific collection identified by `collection_id`.
 - Prepare a dataset for RAG workflows.
 
 ## How to Insert a Resource
 
-To insert a resource into a collection, make a `POST` request to the `/v1/collection/insert/` endpoint with the required parameters in the body.
+To insert a resource into a collection, make a `POST` request to the `/v1/insert/resource/` endpoint with the required parameters in the body.
 
 ### Required Parameters
 
@@ -44,7 +44,7 @@ To insert a resource into a collection, make a `POST` request to the `/v1/collec
 <CodeGroup>
     ```bash cURL
     curl --request POST \
-      --url https://api.wetrocloud.com/v1/collection/insert/ \
+      --url https://api.wetrocloud.com/v1/insert/resource/ \
       --header 'Authorization: Token <api-key>' \
       --header 'Content-Type: application/json' \
       --data '{
@@ -56,7 +56,7 @@ To insert a resource into a collection, make a `POST` request to the `/v1/collec
     ```python Python
     import requests
 
-    url = "https://api.wetrocloud.com/v1/collection/insert/"
+    url = "https://api.wetrocloud.com/v1/insert/resource/"
     headers = {
         "Authorization": "Token <api-key>",
     }
@@ -71,7 +71,7 @@ To insert a resource into a collection, make a `POST` request to the `/v1/collec
     ```javascript JavaScript
     const axios = require('axios');
 
-    const url = 'https://api.wetrocloud.com/v1/collection/insert/';
+    const url = 'https://api.wetrocloud.com/v1/insert/resource/';
     const headers = {
         'Authorization': 'Token <api-key>',
         'Content-Type': 'application/json'
@@ -96,6 +96,7 @@ A successful response confirms the operation and tracks token usage.
 
 ```json
 {
+  "resource_id": "79621681-b680-4918-948d-d7f8c482426a",
   "success": true,
   "tokens": 35
 }
@@ -105,6 +106,7 @@ A successful response confirms the operation and tracks token usage.
 |------------|-------------------------------------------------|
 | `success`  | Indicates whether the resource was inserted successfully. |
 | `tokens`   | Number of tokens consumed during the operation. |
+| `resource_id`   | Unique ID for the resource, this is required when removing a resource |
 
 ## Related Operations
 

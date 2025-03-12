@@ -2,6 +2,11 @@
 title: 'Supported Models'
 description: 'WetroCloud currently supports the following models:'
 ---
+<Note>
+Before you go on!<br />
+Note that some of these models (Our [Premium Models](/endpoint-explanations/models#premium-models)) are not accessible to users via our free tokens, to access it you can buy tokens on [Wetrocloud console](https://console.wetrocloud.com/billing), [Click here to view our premium models](/endpoint-explanations/models#premium-models)
+</Note>
+
 ## **Meta Models**  
 Meta develops the Llama series of models, which are high-performance, open-weight large language models optimized for various use cases, including chat and code generation.  
 
@@ -87,65 +92,172 @@ OpenAI develops the GPT series, including GPT-4o and GPT-4, designed for high-pe
 
 <Note> These are the language models support at the moment, please use the identifiers above not the model name. </Note>
 
+## **Premium Models**  
+The following models are not available to developers using our free tokens 
+
+| Model Name               | Identifier                  | Description |
+|--------------------------|----------------------------|-------------|
+| gpt-4.5-preview          | gpt-4.5-preview            | Latest GPT-4o model for creative tasks and agentic planning. |
+
 # Models Usage
-You can use these models in our [Query endpoint](/endpoint-explanations/query) and [OpenAI Compatibility endpoints](/endpoint-explanations/openai-compatibility)
+You can use these models in our [Query endpoint](/endpoint-explanations/query), [Chat endpoint](/endpoint-explanations/chat), [Text Generation endpoint](/endpoint-explanations/text-generation) and [OpenAI Compatibility endpoints](/endpoint-explanations/openai-compatibility)
 ### Query Endpoint Example 
 <CodeGroup>
-```bash cURL
-curl --request POST \
-  --url https://api.wetrocloud.com/v1/collection/query/ \
-  --header 'Authorization: Token <api-key>' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "collection_id": "<collection_id>",
-    "request_query": "What are the sales trends for Q1?",
-    "model": "claude-3-7-sonnet-20250219"
-  }'
-```
-```python Python
-import requests
+  ```bash cURL
+    curl --request POST \
+      --url https://api.wetrocloud.com/v1/collection/query/ \
+      --header 'Authorization: Token <api-key>' \
+      --header 'Content-Type: application/json' \
+      --data '{
+        "collection_id": "<collection_id>",
+        "request_query": "What are the sales trends for Q1?",
+        "model": "claude-3-7-sonnet-20250219"
+      }'
+  ```
+  ```python Python
+    import requests
 
-url = "https://api.wetrocloud.com/v1/collection/query/"
-headers = {
-    "Authorization": "Token <api-key>",
-    "Content-Type": "application/json"
-}
-data = {
-    "collection_id": "<collection_id>",
-    "request_query": "What are the sales trends for Q1?",
-    "model": "claude-3-7-sonnet-20250219"
-}
+    url = "https://api.wetrocloud.com/v1/collection/query/"
+    headers = {
+        "Authorization": "Token <api-key>",
+        "Content-Type": "application/json"
+    }
+    data = {
+        "collection_id": "<collection_id>",
+        "request_query": "What are the sales trends for Q1?",
+        "model": "claude-3-7-sonnet-20250219"
+    }
 
-response = requests.post(url, headers=headers, json=data)
-print(response.json())
-```
-```javascript JavaScript
-const axios = require('axios');
+    response = requests.post(url, headers=headers, json=data)
+    print(response.json())
+  ```
+  ```javascript JavaScript
+    const axios = require('axios');
 
-const apiKey = '<api-key>';
-const collectionId = '<collection_id>';
-const query = 'What are the sales trends for Q1?';
-const model = 'claude-3-7-sonnet-20250219';
+    const apiKey = '<api-key>';
+    const collectionId = '<collection_id>';
+    const query = 'What are the sales trends for Q1?';
+    const model = 'claude-3-7-sonnet-20250219';
 
-const requestData = {
-  collection_id: collectionId,
-  request_query: query
-  model: model
-};
+    const requestData = {
+      collection_id: collectionId,
+      request_query: query
+      model: model
+    };
 
-axios.post('https://api.wetrocloud.com/v1/collection/query/', requestData, {
-  headers: {
-    'Authorization': `Token ${apiKey}`,
-    'Content-Type': 'application/json'
-  }
-})
-.then(response => {
-  console.log('Response:', response.data);
-})
-.catch(error => {
-  console.error('Error:', error.response ? error.response.data : error.message);
-});
+    axios.post('https://api.wetrocloud.com/v1/collection/query/', requestData, {
+      headers: {
+        'Authorization': `Token ${apiKey}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      console.log('Response:', response.data);
+    })
+    .catch(error => {
+      console.error('Error:', error.response ? error.response.data : error.message);
+    });
 
-```
+  ```
 </CodeGroup>
+### Chat Endpoint Example 
+<CodeGroup>
+  ```bash cURL
+    curl --request POST \
+      --url https://api.wetrocloud.com/v1/collection/chat/ \
+      --header 'Authorization: Token <api-key>' \
+      --header 'Content-Type: multipart/form-data' \
+      --form 'collection_id=<collection_id>' \
+      --form 'model=claude-3-7-sonnet-20250219' \
+      --form 'message=Tell me more' \
+      --form 'chat_history=[{"role":"user","content":"What is this all about?"}, {"role":"system","content":"This is about Queen Elizabeth_II of England"}]' \
+  ```
+  ```python Python
+    import requests
 
+    url = "https://api.wetrocloud.com/v1/collection/chat/"
+    headers = {
+        "Authorization": "Token <api-key>"
+    }
+    data = {
+        "collection_id": "<collection_id>",
+        "message": "Tell me more",
+        "model": "claude-3-7-sonnet-20250219",
+        "chat_history": [{"role":"user","content":"What is this all about?"}, 
+        {"role":"system","content":"This is about Queen Elizabeth_II of England"}]
+    }
+
+    response = requests.post(url, headers=headers, data=data)
+    print(response.json())
+  ```
+  ```javascript JavaScript
+    const axios = require('axios');
+    const FormData = require('form-data');
+
+    const url = 'https://api.wetrocloud.com/v1/collection/query/';
+    const formData = new FormData();
+    formData.append('collection_id', '<collection_id>');
+    formData.append('message', 'Tell me more');
+    formData.append('model', 'claude-3-7-sonnet-20250219');
+    formData.append('chat_history', [{"role":"user",  "content":"What is this all about?"}, 
+        {"role":"system","content":"This is about Queen Elizabeth_II of England"}]);
+
+    const headers = {
+        'Authorization': 'Token <api-key>',
+        ...formData.getHeaders()
+    };
+
+    axios.post(url, formData, { headers })
+        .then(response => console.log(response.data))
+        .catch(error => console.error(error));
+  ```
+</CodeGroup> 
+### Text Generation Endpoint Example 
+<CodeGroup>
+  ```bash curl
+    --location 'https://api.wetrocloud.com/v1/text-generation/' \
+      --header 'Authorization: Token <api-key>' \
+      --form 'messages="[{\"role\": \"user\", \"content\": \"what is a large language model?\"}]"' \
+      --form 'model="llama-3.3-70b"'
+  ```
+  ```python Python
+    import requests
+
+    url = "https://api.wetrocloud.com/v1/text-generation/"
+    headers = {
+        "Authorization": "Token <api-key>"
+    }
+    data = {
+        "messages": [{"role": "user", "content": "what is a large language model?"}],
+        "model": "llama-3.3-70b"
+    }
+
+    response = requests.post(url, headers=headers, files=data)
+    print(response.json())
+  ```
+  ```javascript JavaScript
+    const axios = require('axios');
+    const FormData = require('form-data');
+
+    const apiKey = 'YOUR_API_KEY';
+    const formData = new FormData();
+
+    formData.append('messages', JSON.stringify([
+      { role: 'user', content: 'what is a large language model?' }
+    ]));
+    formData.append('model', 'llama-3.3-70b');
+
+    axios.post('https://api.wetrocloud.com/v1/text-generation/', formData, {
+      headers: {
+        'Authorization': 'Token <api-key>',
+        ...formData.getHeaders()
+      }
+    })
+    .then(response => {
+      console.log('Response:', response.data);
+    })
+    .catch(error => {
+      console.error('Error:', error.response ? error.response.data : error.message);
+    });
+  ```
+</CodeGroup>
