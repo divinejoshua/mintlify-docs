@@ -6,12 +6,12 @@ Collections in WetroCloud store indexed resources for retrieval and query operat
 
 ## When to Use the List Collection Endpoint
 
-Use the `/v1/collection/` endpoint when:
+Use the `/v1/collection/all/` endpoint when:
 
 - To get a list of all existing collections.
 
 
-To get the list of all your collections, send a `GET` request to the `/v1/collection/` . There is no required parameter
+To get the list of all your collections, send a `GET` request to the `/v1/collection/all/` . There is no required parameter
 
 <Note>
 This list has a pagination of up to <b>20</b> items per request. `Next` and `Previous` urls will be provided on every response
@@ -22,14 +22,14 @@ This list has a pagination of up to <b>20</b> items per request. `Next` and `Pre
 <CodeGroup>
     ```bash cURL
     curl --request GET \
-    --url 'https://api.wetrocloud.com/v1/collection/' \
+    --url 'https://api.wetrocloud.com/v1/collection/all/' \
     --header 'Authorization: Token <api-token>'
     ```
     ```python Python
     import requests
 
     response = requests.get(
-        'https://api.wetrocloud.com/v1/collection/',
+        'https://api.wetrocloud.com/v1/collection/all/',
         headers={
             'Authorization': 'Token <api-token>'
         }
@@ -44,7 +44,7 @@ This list has a pagination of up to <b>20</b> items per request. `Next` and `Pre
     ```javascript JavaScript
     const axios = require('axios');
 
-    axios.get('https://api.wetrocloud.com/v1/collection/', {
+    axios.get('https://api.wetrocloud.com/v1/collection/all/', {
       headers: {
         'Authorization': 'Token <api-token>'
       }

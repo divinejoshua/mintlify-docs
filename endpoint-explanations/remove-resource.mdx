@@ -6,13 +6,13 @@ Collections in WetroCloud store indexed resources for retrieval and query operat
 
 ## When to Use the Remove Endpoint
 
-Use the `/remove/resource/` endpoint when:
+Use the `/resource/remove/` endpoint when:
 
 - A resource has served its purpose and is no longer relevant to the collection.
 - Data in a resource needs be removed.
 
 
-To remove resource from a collection, send a `DELETE` request to the `/remove/resource/` endpoint with the required parameters in the body.
+To remove resource from a collection, send a `DELETE` request to the `/resource/remove/` endpoint with the required parameters in the body.
 
 ### Required Parameters
 
@@ -27,7 +27,7 @@ To remove resource from a collection, send a `DELETE` request to the `/remove/re
 <CodeGroup>
     ```bash cURL
     curl --request DELETE \
-        --url https://api.wetrocloud.com/v1/remove/resource/ \
+        --url https://api.wetrocloud.com/v1/resource/remove/ \
         --header 'Authorization: Token <api-key>'
         --form 'collection_id=<collection_id>' \
         --form 'resource_id=<resource_id>' \
@@ -35,7 +35,7 @@ To remove resource from a collection, send a `DELETE` request to the `/remove/re
     ```python Python
     import requests
 
-    url = "https://api.wetrocloud.com/v1/remove/resource/"
+    url = "https://api.wetrocloud.com/v1/resource/remove/"
     headers = {
         "Authorization": "Token <api-key>"
     }
@@ -52,7 +52,7 @@ To remove resource from a collection, send a `DELETE` request to the `/remove/re
     const axios = require('axios');
     const FormData = require('form-data');
 
-    const url = 'https://api.wetrocloud.com/v1/remove/resource/';
+    const url = 'https://api.wetrocloud.com/v1/resource/remove/';
     const headers = {
         'Authorization': 'Token <api-key>'
     };

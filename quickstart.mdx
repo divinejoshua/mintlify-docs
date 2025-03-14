@@ -33,14 +33,14 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
     <CodeGroup>
       ```bash cURL
         curl --request POST \
-          --url https://api.wetrocloud.com/v1/collection/ \
+          --url https://api.wetrocloud.com/v1/collection/create/ \
           --header 'Authorization: Token <api-key>'
           --form 'collection_id=<collection_id>' \
         ```
       ```python Python
         import requests
 
-        url = "https://api.wetrocloud.com/v1/collection/"
+        url = "https://api.wetrocloud.com/v1/collection/create/"
         headers = {"Authorization": "Token <api-key>"}
 
         data = {
@@ -54,7 +54,7 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
         const axios = require('axios');
         const FormData = require('form-data');
 
-        const url = 'https://api.wetrocloud.com/v1/collection/';
+        const url = 'https://api.wetrocloud.com/v1/collection/create/';
         const headers = { 'Authorization': 'Token <api-key>' };
         const formData = new FormData();
         formData.append('collection_id', '<collection_id>');
@@ -71,14 +71,14 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
     <CodeGroup>
       ```bash cURL
         curl --request GET \
-          --url https://api.wetrocloud.com/v1/collection/ \
+          --url https://api.wetrocloud.com/v1/collection/all/ \
           --header 'Authorization: Token <api-token>'
       ```
       ```python Python
         import requests
 
         response = requests.get(
-            'https://api.wetrocloud.com/v1/collection/',
+            'https://api.wetrocloud.com/v1/collection/all/',
             headers={
                 'Authorization': 'Token <api-token>'
             }
@@ -93,7 +93,7 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
       ```javascript JavaScript
         const axios = require('axios');
 
-        axios.get('https://api.wetrocloud.com/v1/collection/', {
+        axios.get('https://api.wetrocloud.com/v1/collection/all/', {
           headers: {
             'Authorization': 'Token <api-token>'
           }
@@ -113,7 +113,7 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
     <CodeGroup>
       ```bash cURL
         curl --request POST \
-          --url https://api.wetrocloud.com/v1/insert/resource/ \
+          --url https://api.wetrocloud.com/v1/resource/insert/ \
           --header 'Authorization: Token <api-key>' \
           --header 'Content-Type: multipart/form-data' \
           --form 'collection_id=<collection_id>' \
@@ -123,7 +123,7 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
       ```python Python
         import requests
 
-        url = "https://api.wetrocloud.com/v1/insert/resource/"
+        url = "https://api.wetrocloud.com/v1/resource/insert/"
         headers = {
             "Authorization": "Token <api-key>"
         }
@@ -140,7 +140,7 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
         const axios = require('axios');
         const FormData = require('form-data');
 
-        const url = 'https://api.wetrocloud.com/v1/insert/resource/';
+        const url = 'https://api.wetrocloud.com/v1/resource/insert/';
         const formData = new FormData();
         formData.append('collection_id', '<collection_id>');
         formData.append('resource', 'https://en.wikipedia.org/wiki/Elizabeth_II');
@@ -317,7 +317,7 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
     <CodeGroup>
       ```bash cURL
         curl --request DELETE \
-          --url https://api.wetrocloud.com/v1/remove/resource/ \
+          --url https://api.wetrocloud.com/v1/resource/remove/ \
           --header 'Authorization: Token <api-key>'
           --form 'collection_id=<collection_id>' \
           --form 'resource_id=<resource_id>' \
@@ -325,7 +325,7 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
       ```python Python
         import requests
 
-        url = "https://api.wetrocloud.com/v1/remove/resource/"
+        url = "https://api.wetrocloud.com/v1/resource/remove/"
         headers = {
             "Authorization": "Token <api-key>"
         }
@@ -342,7 +342,7 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
         const axios = require('axios');
         const FormData = require('form-data');
 
-        const url = 'https://api.wetrocloud.com/v1/remove/resource/';
+        const url = 'https://api.wetrocloud.com/v1/resource/remove/';
         const headers = {
             'Authorization': 'Token <api-key>'
         };
@@ -362,13 +362,13 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
     <CodeGroup>
       ```bash cURL
         curl --request DELETE \
-          --url https://api.wetrocloud.com/v1/collection/ \
+          --url https://api.wetrocloud.com/v1/collection/delete/ \
           --header 'Authorization: Token <api-key>'
       ```
       ```python Python
         import requests
 
-        url = "https://api.wetrocloud.com/v1/collection/"
+        url = "https://api.wetrocloud.com/v1/collection/delete/"
         headers = {
             "Authorization": "Token <api-key>"
         }
@@ -379,7 +379,7 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
       ```javascript JavaScript
         const axios = require('axios');
 
-        const url = 'https://api.wetrocloud.com/v1/collection/';
+        const url = 'https://api.wetrocloud.com/v1/collection/delete/';
         const headers = {
             'Authorization': 'Token <api-key>'
         };

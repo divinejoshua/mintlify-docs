@@ -6,13 +6,13 @@ Collections in WetroCloud store indexed resources for retrieval and query operat
 
 ## When to Use the Delete Endpoint
 
-Use the `/v1/collection/` endpoint when:
+Use the `/v1/collection/delete/` endpoint when:
 
 - A collection has served its purpose and is no longer needed.
 - Data in a collection must be  removed.
 
 
-To delete a collection, send a `DELETE` request to the `/v1/collection/` endpoint with the required parameters in the body.
+To delete a collection, send a `DELETE` request to the `/v1/collection/delete/` endpoint with the required parameters in the body.
 
 ### Required Parameters
 
@@ -26,7 +26,7 @@ To delete a collection, send a `DELETE` request to the `/v1/collection/` endpoin
 <CodeGroup>
 ```bash cURL
 curl --request DELETE \
-  --url https://api.wetrocloud.com/v1/collection/ \
+  --url https://api.wetrocloud.com/v1/collection/delete/ \
   --header 'Authorization: Token <api-key>' \
   --header 'Content-Type: application/json' \
   --data '{
@@ -37,7 +37,7 @@ curl --request DELETE \
 ```python python
 import requests
 
-url = "https://api.wetrocloud.com/v1/collection/"
+url = "https://api.wetrocloud.com/v1/collection/delete/"
 headers = {
     "Authorization": "Token <api-key>",
 }
@@ -51,7 +51,7 @@ print(response.json())
 ```javascript javascript
 const axios = require('axios');
 
-const url = 'https://api.wetrocloud.com/v1/collection/';
+const url = 'https://api.wetrocloud.com/v1/collection/delete/';
 const headers = { 'Authorization': 'Token <api-key>' };
 const payload = { collection_id: '<collection_id>' };
 

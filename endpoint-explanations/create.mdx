@@ -17,7 +17,7 @@ Before you begin!<br />
 Visit the [Wetrocloud console](https://console.wetrocloud.com/) to get your API key. If you have trouble obtaining it, refer to this [guide](/how-to-access-your-API-Key). 
 </Note>
 
-To create a collection, make a `POST` request to the `/v1/collection/` endpoint. This operation is simple.
+To create a collection, make a `POST` request to the `/v1/collection/create/` endpoint. This operation is simple.
 
 ### Required Parameters
 
@@ -29,14 +29,14 @@ To create a collection, make a `POST` request to the `/v1/collection/` endpoint.
 <CodeGroup>
   ```cURL cURL
     curl --request POST \
-    --url https://api.wetrocloud.com/v1/collection/ \
+    --url https://api.wetrocloud.com/v1/collection/create/ \
     --header 'Authorization: Token <api-key>'
     --form 'collection_id=<collection_id>' \
   ```
   ```python Python
     import requests
 
-    url = "https://api.wetrocloud.com/v1/collection/"
+    url = "https://api.wetrocloud.com/v1/collection/create/"
     headers = {"Authorization": "Token <api-key>"}
 
     data = {
@@ -51,7 +51,7 @@ To create a collection, make a `POST` request to the `/v1/collection/` endpoint.
     const axios = require('axios');
     const FormData = require('form-data');
 
-    const url = 'https://api.wetrocloud.com/v1/collection/';
+    const url = 'https://api.wetrocloud.com/v1/collection/create/';
     const headers = { 'Authorization': 'Token <api-key>' };
     const formData = new FormData();
     formData.append('collection_id', '<collection_id>');
