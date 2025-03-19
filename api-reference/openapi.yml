@@ -1394,6 +1394,8 @@ paths:
         - `json_schema` (text): JSON schema for the category.
             
         - `categories` (text): List of categories.
+
+        - `prompt` (text): An overall command of your request .
             
 
         #### Response
@@ -1427,6 +1429,9 @@ paths:
                   type: string
                   example: >
                     ["football", "coding", "entertainment", "basketball", "wrestling", "information"]
+                prompt:
+                  type: string
+                  example: where does this fall under?
       responses:
         '200':
           description: OK

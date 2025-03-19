@@ -21,6 +21,7 @@ Send a `POST` request to the `/v1/categorize/` endpoint with the required parame
 | `type`              | String | Type of resource (e.g., "file", "Web"). see full list of accepted types [here](/insert)    |
 | `json_schema`       | String | The JSON schema for defining the category.     |
 | `categories`        | String | List of categories             |
+| `prompt`            | String | An overall command of your request        |
 
 ---
 **Request Example**
@@ -36,6 +37,7 @@ Send a `POST` request to the `/v1/categorize/` endpoint with the required parame
         "type": "text",
         "json_schema": "{'label':'string'}",
         "categories": ["football", "coding", "entertainment", "basketball", "wrestling", "information"]
+        "prompt": "Where does this fall under?",
       }'
   ```
   ```python Python
@@ -50,6 +52,7 @@ Send a `POST` request to the `/v1/categorize/` endpoint with the required parame
         "type": "text",
         "json_schema": "{'label':'string'}",
         "categories": ["football", "coding", "entertainment", "basketball", "wrestling", "information"]
+        "prompt": "Where does this fall under?",
     }
 
     response = requests.post(url, headers=headers, json=data)
@@ -63,6 +66,7 @@ Send a `POST` request to the `/v1/categorize/` endpoint with the required parame
       type: "text",
       json_schema: "{'label':'string'}",
       categories: ["football", "coding", "entertainment", "basketball", "wrestling", "information"]
+      prompt: "Where does this fall under?",
     }, {
       headers: {
         'Authorization': 'Token <api-key>',
