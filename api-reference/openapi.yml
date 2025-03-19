@@ -1418,7 +1418,7 @@ paths:
               properties:
                 resource:
                   type: string
-                  example: 'match review: John Cena vs. The Rock.'
+                  example: 'match review: John Cena vs. The Rock are fighting'
                 type:
                   type: string
                   example: text

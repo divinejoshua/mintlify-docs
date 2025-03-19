@@ -33,7 +33,7 @@ Send a `POST` request to the `/v1/categorize/` endpoint with the required parame
       --header 'Authorization: Token <api-key>' \
       --header 'Content-Type: application/json' \
       --data '{
-        "resource": "match review: John Cena vs. The Rock.",
+        "resource": "match review: John Cena vs. The Rock are fighting",
         "type": "text",
         "json_schema": "{'label':'string'}",
         "categories": ["football", "coding", "entertainment", "basketball", "wrestling", "information"]
@@ -48,7 +48,7 @@ Send a `POST` request to the `/v1/categorize/` endpoint with the required parame
         "Authorization": "Token <api-key>",
     }
     data = {
-        "resource": "match review: John Cena vs. The Rock.",
+        "resource": "match review: John Cena vs. The Rock are fighting",
         "type": "text",
         "json_schema": "{'label':'string'}",
         "categories": ["football", "coding", "entertainment", "basketball", "wrestling", "information"]
@@ -62,7 +62,7 @@ Send a `POST` request to the `/v1/categorize/` endpoint with the required parame
     const axios = require('axios');
 
     axios.post('https://api.wetrocloud.com/v1/categorize/', {
-      resource: "match review: John Cena vs. The Rock.",
+      resource: "match review: John Cena vs. The Rock are fighting",
       type: "text",
       json_schema: "{'label':'string'}",
       categories: ["football", "coding", "entertainment", "basketball", "wrestling", "information"]
