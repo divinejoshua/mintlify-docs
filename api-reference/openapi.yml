@@ -41,7 +41,14 @@ paths:
         - `success` (boolean): Indicates whether the item creation was
         successful.
       requestBody:
-        content: {}
+        content:
+          multipart/form-data:
+            schema:
+              type: object
+              properties:
+                collection_id:
+                  type: string
+                  example: '<unique_id>'
       responses:
         '201':
           description: Created
