@@ -51,66 +51,67 @@ The `json_schema_rules` parameter allows you to define custom rules for how the 
 
 ---
 **Example Requests**
+<Note>
+Before you begin!<br />
+Streaming is not supported with Structured Output with JSON Schema, it's one or the other 
+</Note>
 
 <CodeGroup>
-```bash cURL
-curl --request POST \
- --url 'https://api.wetrocloud.com/v1/collection/query/' \
- --form 'collection_id=<collection_id>' \
- --form 'request_query=What is this about?' \
- --form 'json_schema=[{"topic":"","description":""}]' \
- --form 'json_schema_rules=Give a very short description of every page on the document from' \
- --header 'Authorization: Token <api-key>'
-```
-```python Python
-import requests
-import json
+    ```python Python
+        from wetro import Wetrocloud
 
-form_data = {
-    'collection_id': '<collection_id>',
-    'request_query': 'What is this about?',
-    'json_schema': json.dumps([{'topic': '', 'description': ''}]),
-    'json_schema_rules': 'Give a very short description of every page on the document from'
-}
+        client = Wetrocloud(api_key="your_api_key")
+        rag_client = client.rag
+        rag_client.collection.get_or_create_collection_id("my_unique_collection_id")
+        insert_response = rag_client.collection.insert("https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", "web")
+        print("Insert response: %s", insert_response)
 
-response = requests.post(
-    'https://api.wetrocloud.com/v1/collection/query/',
-    data=form_data,
-    headers={
-        'Authorization': 'Token <api-key>'
-    }
-)
+        # Define a JSON schema for structured output
+        json_schema = [{"point_number": "<int>", "point": "<str>"}]
 
-try:
-    print(response.json())
-except ValueError:
-    print(response.text)
-```
+        # Add processing rules
+        json_schema_rules = ["Only 5 points", "Strictly return JSON only"]
 
+        # Query with structured output requirements
+        response = rag_client.collection.query(
+            "What are the key points of the article?",
+            json_schema = json_schema,
+            json_schema_rules = json_schema_rules
+        )
+        print(response)
+    ```
+    ```bash cURL
+    curl --request POST \
+        --url 'https://api.wetrocloud.com/v1/collection/query/' \
+        --form 'collection_id=<collection_id>' \
+        --form 'request_query=What is this about?' \
+        --form 'json_schema=[{"topic":"","description":""}]' \
+        --form 'json_schema_rules=Give a very short description of every page on the document from' \
+        --header 'Authorization: Token <api-key>'
+    ```
+    ```javascript Javascript
+        const axios = require('axios');
+        const FormData = require('form-data');
 
-```javascript Javascript
-const axios = require('axios');
-const FormData = require('form-data');
+        const formData = new FormData();
+        formData.append('collection_id', '<collection_id>');
+        formData.append('request_query', 'What is this about?');
+        formData.append('json_schema', JSON.stringify([{topic: '', description: ''}]));
+        formData.append('json_schema_rules', 'Give a very short description of every page on the document from');
 
-const formData = new FormData();
-formData.append('collection_id', '<collection_id>');
-formData.append('request_query', 'What is this about?');
-formData.append('json_schema', JSON.stringify([{topic: '', description: ''}]));
-formData.append('json_schema_rules', 'Give a very short description of every page on the document from');
-
-axios.post('https://api.wetrocloud.com/v1/collection/query/', formData, {
- headers: {
-   'Authorization': 'Token <api-key>',
-   ...formData.getHeaders()
- }
-})
-.then(response => {
- console.log(response.data);
-})
-.catch(error => {
- console.error('Error:', error);
-});
-```
+        axios.post('https://api.wetrocloud.com/v1/collection/query/', formData, {
+        headers: {
+        'Authorization': 'Token <api-key>',
+        ...formData.getHeaders()
+        }
+        })
+        .then(response => {
+        console.log(response.data);
+        })
+        .catch(error => {
+        console.error('Error:', error);
+        });
+    ```
 </CodeGroup>
 
 

@@ -17,58 +17,55 @@ Free text response provides natural, conversational-style answers to your querie
 
 ### Request Example
 <CodeGroup>
-```bash cURL
-curl --request POST \
-  --url https://api.wetrocloud.com/v1/image-to-text/ \
-  --header 'Authorization: Token <api-key>' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQBQcwHfud1w3RN25Wgys6Btt_Y-4mPrD2kg&s",
-    "request_query": "What animal is this?"
-  }'
-```
-```python Python
-import requests
+  ```python Python
+    from wetro import Wetrocloud
 
-url = "https://api.wetrocloud.com/v1/image-to-text/"
-headers = {
-    "Authorization": "Token <api-key>",
-    "Content-Type": "application/json"
-}
-data = {
-    "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQBQcwHfud1w3RN25Wgys6Btt_Y-4mPrD2kg&s",
-    "request_query": "What animal is this?"
-}
+    client = Wetrocloud(api_key="your_api_key")
+    tools_client = client.tools
+    
+    # Extract text from an image and answer questions about it
+    ocr_response = tools_client.image_to_text(
+        image_url = "https://images.squarespace-cdn.com/content/v1/54822a56e4b0b30bd821480c/45ed8ecf-0bb2-4e34-8fcf-624db47c43c8/Golden+Retrievers+dans+pet+care.jpeg",
+        request_query="What animal is in this image?"
+    )
+    print(ocr_response)
+  ```
+  ```bash cURL
+    curl --request POST \
+      --url https://api.wetrocloud.com/v1/image-to-text/ \
+      --header 'Authorization: Token <api-key>' \
+      --header 'Content-Type: application/json' \
+      --data '{
+        "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQBQcwHfud1w3RN25Wgys6Btt_Y-4mPrD2kg&s",
+        "request_query": "What animal is this?"
+      }'
+  ```
+  ```javascript JavaScript
+    const axios = require('axios');
 
-response = requests.post(url, headers=headers, json=data)
-print(response.json())
-```
-```javascript JavaScript
-const axios = require('axios');
+    const apiKey = '<api-key>';
+    const imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQBQcwHfud1w3RN25Wgys6Btt_Y-4mPrD2kg&s';
+    const query = 'What animal is this?';
 
-const apiKey = '<api-key>';
-const imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQBQcwHfud1w3RN25Wgys6Btt_Y-4mPrD2kg&s';
-const query = 'What animal is this?';
+    const requestData = {
+      image_url: imageUrl,
+      request_query: query
+    };
 
-const requestData = {
-  image_url: imageUrl,
-  request_query: query
-};
+    axios.post('https://api.wetrocloud.com/v1/image-to-text/', requestData, {
+      headers: {
+        'Authorization': `Token ${apiKey}`,
+        'Content-Type': 'application/json'
+      }
+    })
+    .then(response => {
+      console.log('Response:', response.data);
+    })
+    .catch(error => {
+      console.error('Error:', error.response ? error.response.data : error.message);
+    });
 
-axios.post('https://api.wetrocloud.com/v1/image-to-text/', requestData, {
-  headers: {
-    'Authorization': `Token ${apiKey}`,
-    'Content-Type': 'application/json'
-  }
-})
-.then(response => {
-  console.log('Response:', response.data);
-})
-.catch(error => {
-  console.error('Error:', error.response ? error.response.data : error.message);
-});
-
-```
+  ```
 </CodeGroup>
 
 ---

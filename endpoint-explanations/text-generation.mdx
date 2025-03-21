@@ -43,52 +43,53 @@ View models supported by WetroCloud [here](/endpoint-explanations/models).
 
 ### Request Example
 <CodeGroup>
-```bash curl
- --location 'https://api.wetrocloud.com/v1/text-generation/' \
-  --header 'Authorization: Token <api-key>' \
-  --form 'messages="[{\"role\": \"user\", \"content\": \"what is a large language model?\"}]"' \
-  --form 'model="llama-3.3-70b"'
-```
-```python Python
-import requests
+  ```python Python
+    from wetro import Wetrocloud
 
-url = "https://api.wetrocloud.com/v1/text-generation/"
-headers = {
-    "Authorization": "Token <api-key>"
-}
-data = {
-    "messages": [{"role": "user", "content": "what is a large language model?"}],
-    "model": "llama-3.3-70b"
-}
+    client = Wetrocloud(api_key="your_api_key")
+    tools_client = client.tools
 
-response = requests.post(url, headers=headers, files=data)
-print(response.json())
-```
-```javascript JavaScript
-const axios = require('axios');
-const FormData = require('form-data');
+    # Text Generation
+    response = tools_client.generate_text(
+        messages=[
+            {"role": "system", "content": "You are a helpful assistant."}, 
+            {"role": "user", "content": "Write a short poem about technology."}
+        ],
+        model="gpt-4"
+    )
+    print(response)
+  ```
+  ```bash curl
+    --location 'https://api.wetrocloud.com/v1/text-generation/' \
+      --header 'Authorization: Token <api-key>' \
+      --form 'messages="[{\"role\": \"user\", \"content\": \"what is a large language model?\"}]"' \
+      --form 'model="llama-3.3-70b"'
+  ```
+  ```javascript JavaScript
+    const axios = require('axios');
+    const FormData = require('form-data');
 
-const apiKey = 'YOUR_API_KEY';
-const formData = new FormData();
+    const apiKey = 'YOUR_API_KEY';
+    const formData = new FormData();
 
-formData.append('messages', JSON.stringify([
-  { role: 'user', content: 'what is a large language model?' }
-]));
-formData.append('model', 'llama-3.3-70b');
+    formData.append('messages', JSON.stringify([
+      { role: 'user', content: 'what is a large language model?' }
+    ]));
+    formData.append('model', 'llama-3.3-70b');
 
-axios.post('https://api.wetrocloud.com/v1/text-generation/', formData, {
-  headers: {
-    'Authorization': 'Token <api-key>',
-    ...formData.getHeaders()
-  }
-})
-.then(response => {
-  console.log('Response:', response.data);
-})
-.catch(error => {
-  console.error('Error:', error.response ? error.response.data : error.message);
-});
-```
+    axios.post('https://api.wetrocloud.com/v1/text-generation/', formData, {
+      headers: {
+        'Authorization': 'Token <api-key>',
+        ...formData.getHeaders()
+      }
+    })
+    .then(response => {
+      console.log('Response:', response.data);
+    })
+    .catch(error => {
+      console.error('Error:', error.response ? error.response.data : error.message);
+    });
+  ```
 </CodeGroup>
 
 ---

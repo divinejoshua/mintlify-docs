@@ -10,9 +10,42 @@ The `chat` endpoint allows you to converse with your collection allowing it to r
 | `collection_id`     | Collection Id.                                       |
 | `message`           | Message currently being sent to collection           |
 | `chat_history`      | History of chat between user and system              |
+| `stream` (optional) | Enable stream responses for long-form content.       |
 
 ### Request Example
 <CodeGroup>
+    ```python Python
+        from wetro import Wetrocloud
+
+        client = Wetrocloud(api_key="your_api_key")
+        rag_client = client.rag
+        rag_client.collection.get_or_create_collection_id("my_unique_collection_id")
+        insert_response = rag_client.collection.insert("https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", "web")
+        print("Insert response: %s", insert_response)
+
+        # Create a chat history or set it to [] (empty list)
+        chat_history = [
+            {"role": "user", "content": "What is this collection about?"}, 
+            {"role": "system", "content": "It stores research papers on AI technology."}
+        ]
+
+        # Continue the conversation with context
+        chat_response = rag_client.collection.chat(
+            "Can you explain the latest paper's methodology?",
+            chat_history
+        )
+        print(chat_response)
+
+        # Stream responses for long-form content
+        chat_response = rag_client.collection.chat(
+            "Can you explain the latest paper's methodology?",
+            chat_history,
+            stream=True
+        )
+        # Process streaming response
+        for chunk in chat_response:
+            print(chunk.response, end="")
+    ```
     ```bash cURL
     curl --request POST \
         --url https://api.wetrocloud.com/v1/collection/chat/ \
@@ -21,23 +54,6 @@ The `chat` endpoint allows you to converse with your collection allowing it to r
         --form 'collection_id=<collection_id>' \
         --form 'message=Tell me more' \
         --form 'chat_history=[{"role":"user","content":"What is this all about?"}, {"role":"system","content":"This is about Queen Elizabeth_II of England"}]' \
-    ```
-    ```python Python
-    import requests
-
-    url = "https://api.wetrocloud.com/v1/collection/chat/"
-    headers = {
-        "Authorization": "Token <api-key>"
-    }
-    data = {
-        "collection_id": "<collection_id>",
-        "message": "Tell me more",
-        "chat_history": [{"role":"user","content":"What is this all about?"}, 
-        {"role":"system","content":"This is about Queen Elizabeth_II of England"}]
-    }
-
-    response = requests.post(url, headers=headers, data=data)
-    print(response.json())
     ```
     ```javascript JavaScript
     const axios = require('axios');

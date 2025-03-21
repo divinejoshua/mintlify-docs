@@ -25,28 +25,26 @@ To remove resource from a collection, send a `DELETE` request to the `/resource/
 
 ### Request Example
 <CodeGroup>
+    ```python Python
+        from wetro import Wetrocloud
+
+        client = Wetrocloud(api_key="your_api_key")
+        rag_client = client.rag
+        rag_client.collection.get_or_create_collection_id("my_unique_collection_id")
+        insert_response = rag_client.collection.insert("https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", "web")
+        print("Insert response: %s", insert_response)
+
+        # Delete a resource from the collection.
+        delete_resource_resp = rag_client.collection.delete_resource(insert_response.resource_id)
+        print("SDK Delete Resource Response: %s", delete_resource_resp)
+
+    ```
     ```bash cURL
     curl --request DELETE \
         --url https://api.wetrocloud.com/v1/resource/remove/ \
         --header 'Authorization: Token <api-key>'
         --form 'collection_id=<collection_id>' \
         --form 'resource_id=<resource_id>' \
-    ```
-    ```python Python
-    import requests
-
-    url = "https://api.wetrocloud.com/v1/resource/remove/"
-    headers = {
-        "Authorization": "Token <api-key>"
-    }
-
-    data = {
-        "collection_id": "<collection_id>",
-        "resource_id": "<resource_id>"
-    }
-
-    response = requests.delete(url, headers=headers,data=data)
-    print(response.json())
     ```
     ```javascript JavaScript
     const axios = require('axios');
