@@ -1,7 +1,8 @@
 ---
-title: 'List collections'
-description: 'This API endpoint displays a list of all your existing collections.'
+title: "List collections"
+description: "This API endpoint displays a list of all your existing collections."
 ---
+
 Collections in WetroCloud store indexed resources for retrieval and query operations.
 
 ## When to Use the List Collection Endpoint
@@ -10,15 +11,16 @@ Use the `/v1/collection/all/` endpoint when:
 
 - To get a list of all existing collections.
 
-
 To get the list of all your collections, send a `GET` request to the `/v1/collection/all/` . There is no required parameter
 
 <Note>
-This list has a pagination of up to <b>20</b> items per request. `Next` and `Previous` urls will be provided on every response
+  This list has a pagination of up to <b>20</b> items per request. `Next` and
+  `Previous` urls will be provided on every response
 </Note>
 ---
 
 ### Request Example
+
 <CodeGroup>
     ```bash cURL
     curl --request GET \
@@ -56,6 +58,15 @@ This list has a pagination of up to <b>20</b> items per request. `Next` and `Pre
       console.error('Error:', error);
     });
     ```
+
+    ```javascript NodeJS
+    import Wetrocloud from "wetro-sdk";
+ 
+    const wetrocloud = new Wetrocloud();
+    const response = await wetrocloud.listCollections();
+
+    console.log("Lisiting Collections", response);
+````
 </CodeGroup>
 
 ---
@@ -94,11 +105,11 @@ Upon success, the endpoint returns a list of all active collections and a confir
         }
     ]
 }
-```
+````
 
-| Field      | Description                                        |
-|------------|----------------------------------------------------|
-| `count`  | The total collections on your Wetrocloud account. |
-| `next`  | The next link for pagination.     |
-| `previous`  | The previous link for pagination.     |
-| `results`  | A list of all available collections.     |
+| Field      | Description                                       |
+| ---------- | ------------------------------------------------- |
+| `count`    | The total collections on your Wetrocloud account. |
+| `next`     | The next link for pagination.                     |
+| `previous` | The previous link for pagination.                 |
+| `results`  | A list of all available collections.              |

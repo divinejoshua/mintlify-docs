@@ -69,6 +69,22 @@ axios.post('https://api.wetrocloud.com/v1/image-to-text/', requestData, {
 });
 
 ```
+
+```javascript NodeJS
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+
+const imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQBQcwHfud1w3RN25Wgys6Btt_Y-4mPrD2kg&s';
+const query = 'What animal is this?';
+
+const response = await wetrocloud.imageToText({
+  image_url: imageUrl,
+  request_query: query
+})
+
+console.log("image to text", response);
+````
 </CodeGroup>
 
 ---

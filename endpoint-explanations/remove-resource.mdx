@@ -64,6 +64,19 @@ To remove resource from a collection, send a `DELETE` request to the `/resource/
         .then(response => console.log(response.data))
         .catch(error => console.error(error));
     ```
+
+```javascript NodeJS
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+const response = await wetrocloud.deleteResource({
+  collection_id: '<collection_id>',
+  resource_id: '<resource_id>'
+});
+
+console.log("deleting resource", response);
+````
+    
 </CodeGroup>
 
 ---

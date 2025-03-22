@@ -59,6 +59,17 @@ axios.delete(url, { headers, data: payload })
   .then(response => console.log(response.data))
   .catch(error => console.error(error));
 ```
+
+  ```javascript NodeJS
+    import Wetrocloud from "wetro-sdk";
+
+    const wetrocloud = new Wetrocloud();
+    const response = await wetrocloud.deleteCollection({
+      collection_id,
+    });
+
+    console.log("deleting a collection", response);
+````
 </CodeGroup>
 
 ---

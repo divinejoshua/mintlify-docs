@@ -89,6 +89,19 @@ axios.post('https://api.wetrocloud.com/v1/text-generation/', formData, {
   console.error('Error:', error.response ? error.response.data : error.message);
 });
 ```
+
+```javascript NodeJS
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+
+const response = await wetrocloud.textGeneration({
+  messages: [{ "role": "user", "content": "what is a large language model?" }],
+  model: "llama-3.3-70b"
+})
+
+console.log("generation without RAG", result);
+````
 </CodeGroup>
 
 ---

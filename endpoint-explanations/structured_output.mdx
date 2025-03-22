@@ -111,6 +111,31 @@ axios.post('https://api.wetrocloud.com/v1/collection/query/', formData, {
  console.error('Error:', error);
 });
 ```
+
+```javascript NodeJS
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+
+const json_schema = { topic: "", description: "" };
+const shouldBeStreamed = true;
+
+const responseOrStream = await wetrocloud.queryResource({
+  collection_id:'<collection_id>',
+  request_query: 'What is this about?',
+  json_schema,
+  json_schema_rules: "Give a very short description of every page on the document from",
+  stream: shouldBeStreamed
+});
+
+if (shouldBeStreamed) {
+    for await (const item of responseOrStream) {
+      console.log("Received item:", item);
+      }
+}else{
+    console.log("insert a resource", responseOrStream);
+}
+````
 </CodeGroup>
 
 

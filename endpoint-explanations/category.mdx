@@ -80,6 +80,22 @@ Send a `POST` request to the `/v1/categorize/` endpoint with the required parame
       console.error('Error:', error);
     });
   ```
+
+```javascript NodeJS
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+
+const response = await wetrocloud.categorize({
+  resource: "match review: John Cena vs. The Rock",
+  type: "text",
+  json_schema: { 'label': '' },
+  categories: ["football", "coding", "entertainment", "basketball", "wrestling", "information"],
+  prompt: "Where does this fall under?"
+});
+
+console.log("categorizing a resource", result);
+````
 </CodeGroup>
 
 **Successful Response**

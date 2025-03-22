@@ -1,10 +1,12 @@
 ---
-title: 'Create a Collection'
-description: 'Learn how to create collections using the Wetrocloud API'
+title: "Create a Collection"
+description: "Learn how to create collections using the Wetrocloud API"
 ---
+
 <Info>
-At a glance: <br/>
-This endpoint allows you to generate a unique `collection_id`. You would use this `collection_id` to insert, query and delete a resource.
+  At a glance: <br />
+  This endpoint allows you to generate a unique `collection_id`. You would use this
+  `collection_id` to insert, query and delete a resource.
 </Info>
 ## What is a Collection?
 
@@ -13,19 +15,23 @@ A collection in the WetroCloud API acts as a container for resources such as tex
 ## How to Create a Collection
 
 <Note>
-Before you begin!<br />
-Visit the [Wetrocloud console](https://console.wetrocloud.com/) to get your API key. If you have trouble obtaining it, refer to this [guide](/how-to-access-your-API-Key). 
+  Before you begin!
+  <br />
+  Visit the [Wetrocloud console](https://console.wetrocloud.com/) to get your
+  API key. If you have trouble obtaining it, refer to this
+  [guide](/how-to-access-your-API-Key).
 </Note>
 
 To create a collection, make a `POST` request to the `/v1/collection/create/` endpoint. This operation is simple.
 
 ### Required Parameters
 
-| Parameter       | Type   | Description                                            |
-|------------------|--------|--------------------------------------------------------|
+| Parameter       | Type   | Description                   |
+| --------------- | ------ | ----------------------------- |
 | `collection_id` | String | The unique ID for collection. |
 
 ### Request Example
+
 <CodeGroup>
   ```cURL cURL
     curl --request POST \
@@ -45,22 +51,35 @@ To create a collection, make a `POST` request to the `/v1/collection/create/` en
 
     response = requests.post(url, headers=headers,data=data)
     print(response.json())
-  ```
 
-  ```javascript Javascript
-    const axios = require('axios');
-    const FormData = require('form-data');
+````
 
-    const url = 'https://api.wetrocloud.com/v1/collection/create/';
-    const headers = { 'Authorization': 'Token <api-key>' };
-    const formData = new FormData();
-    formData.append('collection_id', '<collection_id>');
+```javascript Javascript
+  const axios = require('axios');
+  const FormData = require('form-data');
+
+  const url = 'https://api.wetrocloud.com/v1/collection/create/';
+  const headers = { 'Authorization': 'Token <api-key>' };
+  const formData = new FormData();
+  formData.append('collection_id', '<collection_id>');
 
 
-    axios.post(url, formData, { headers })
-      .then(response => console.log(response.data))
-      .catch(error => console.error(error));
-  ```
+  axios.post(url, formData, { headers })
+    .then(response => console.log(response.data))
+    .catch(error => console.error(error));
+````
+
+```javascript NodeJS
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+
+const collection_id = 'unique_id'; //this is optional if not specified one would be generated for you.
+const response = await wetrocloud.createCollection({ collection_id });
+
+console.log("Creating Collection:", response);
+```
+
 </CodeGroup>
 
 ### Successful Response
@@ -78,6 +97,7 @@ If the request is valid, the response will include:
   "success": true
 }
 ```
+
 ## Related Operations
 
 - **[Insert Resources](insert)**: Add resources like websites, videos, and files to a collection.

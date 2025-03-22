@@ -1,23 +1,31 @@
 ---
-title: 'Insert a Resource'
-description: 'Learn how to insert resources using the Wetrocloud API'
+title: "Insert a Resource"
+description: "Learn how to insert resources using the Wetrocloud API"
 ---
+
 <Info>
-At a glance: <br/> Use the `/resource/insert/` endpoint to add resources (URLs, files, text or JSON) to a collection for indexing and retrieval. Simply provide a `collection_id`, `resource`, and `type`.
+  At a glance: <br /> Use the `/resource/insert/` endpoint to add resources
+  (URLs, files, text or JSON) to a collection for indexing and retrieval. Simply
+  provide a `collection_id`, `resource`, and `type`.
 </Info>
 
 **Inserting resources** is a core operation that enables you to populate a collection with the data you want to organize and query.
 By default, Wetrocloud API supports these types of resources:
-| **Resource** | **Parameter** | **Description**                                                                                                            |
+| **Resource** | **Parameter** | **Description** |
 |:--------------------|:-------------------|:----------------------------------------------------------------------------------------------------------------------------|
-| **File**           | file             | Supports various file types including `.csv`, `.docx`, `.epub`, `.hwp`, `.ipynb`, `.jpeg`, `.jpg`, `.mbox`, `.md`, `.mp3`, `.mp4`, `.pdf`, `.png`, `.ppt`, `.pptm`, `.pptx`. |
-| **Text**           | text             | Plain text content.                                                                                                       |
-| **JSON**           | json             | Structured data in JSON format.                                                                                           |
-| **Web**            | web              | Web-based resources, such as websites.                                                                |
-| **Youtube**        | youtube          | Youtube videos with youtube URLs.                                                                |
-| **Audio**          | audio | Supports various audio file types including `.3ga`, `.8svx`, `.aac`, `.ac3`, `.aif`, `.aiff`, `.alac`, `.amr`, `.ape`, `.au`, `.dss`, `.flac`, `.flv`, `.m4a`, `.m4b`, `.m4p`, `.m4r`, `.mp3`, `.mpga`, `.ogg`, `.oga`, `.mogg`, `.opus`, `.qcp`, `.tta`, `.voc`, `.wav`, `.wma`, `.wv`|
+| **File** | file | Supports various file types including `.csv`, `.docx`, `.epub`, `.hwp`, `.ipynb`, `.jpeg`, `.jpg`, `.mbox`, `.md`, `.mp3`, `.mp4`, `.pdf`, `.png`, `.ppt`, `.pptm`, `.pptx`. |
+| **Text** | text | Plain text content. |
+| **JSON** | json | Structured data in JSON format. |
+| **Web** | web | Web-based resources, such as websites. |
+| **Youtube** | youtube | Youtube videos with youtube URLs. |
+| **Audio** | audio | Supports various audio file types including `.3ga`, `.8svx`, `.aac`, `.ac3`, `.aif`, `.aiff`, `.alac`, `.amr`, `.ape`, `.au`, `.dss`, `.flac`, `.flv`, `.m4a`, `.m4b`, `.m4p`, `.m4r`, `.mp3`, `.mpga`, `.ogg`, `.oga`, `.mogg`, `.opus`, `.qcp`, `.tta`, `.voc`, `.wav`, `.wma`, `.wv`|
 
-<Note> To use the `file` type, all files must be provided as URLs. You can consider services like Amazon S3, Cloudinary, or similar platforms to host your files and provide their URLs to the API. </Note>
+<Note>
+  {" "}
+  To use the `file` type, all files must be provided as URLs. You can consider services
+  like Amazon S3, Cloudinary, or similar platforms to host your files and provide
+  their URLs to the API.{" "}
+</Note>
 
 Once inserted, these resources are indexed for use in Retrieval-Augmented Generation (RAG) workflows.
 
@@ -34,13 +42,14 @@ To insert a resource into a collection, make a `POST` request to the `/v1/resour
 
 ### Required Parameters
 
-| Parameter       | Type   | Description                                            |
-|------------------|--------|--------------------------------------------------------|
-| `collection_id` | String | The unique ID obtained from the `/collection/create/` endpoint. |
-| `resource` | String | The resource (e.g., a website). |
-| `type` | String | The type of resource to insert (e.g., `web`, `file`, `text`, `json`, `youtube`). |
+| Parameter       | Type   | Description                                                                      |
+| --------------- | ------ | -------------------------------------------------------------------------------- |
+| `collection_id` | String | The unique ID obtained from the `/collection/create/` endpoint.                  |
+| `resource`      | String | The resource (e.g., a website).                                                  |
+| `type`          | String | The type of resource to insert (e.g., `web`, `file`, `text`, `json`, `youtube`). |
 
 ### Request Example
+
 <CodeGroup>
     ```bash cURL
     curl --request POST \
@@ -86,6 +95,18 @@ To insert a resource into a collection, make a `POST` request to the `/v1/resour
         .then(response => console.log(response.data))
         .catch(error => console.error(error));
     ```
+```javascript NodeJS
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+const response = await wetrocloud.insertResource({
+  collection_id: "<collection_id>",
+  resource: "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
+  type: "web"
+});
+
+console.log("insert a resource", response);
+````
 </CodeGroup>
 
 ### Successful Response

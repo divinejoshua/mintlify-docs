@@ -97,6 +97,22 @@ axios.post('https://api.wetrocloud.com/v1/data-extraction/', formData, {
  console.error('Error:', error);
 });
 ```
+
+```javascript NodeJS
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+
+const website_url = "https://www.forbes.com/real-time-billionaires/#7583ee253d78"
+const json_schema = [{ "name": "<name of rich man>", "networth": "<amount worth>" }]
+
+const response = await wetrocloud.extract({
+   website_url,
+  json_schema:
+});
+
+console.log("data extraction", result);
+````
 </CodeGroup>
 
 
