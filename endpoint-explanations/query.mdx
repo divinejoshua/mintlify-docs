@@ -78,20 +78,33 @@ const wetrocloud = new Wetrocloud();
 const collectionId = '<collection_id>';
 const query = 'What are the sales trends for Q1?';
 
-const shouldBeStreamed = true;
-
-const responseOrStream = await wetrocloud.queryResource({
+const response = await wetrocloud.queryResource({
   collection_id: collectionId,
   request_query: query,
-  stream: shouldBeStreamed
 });
 
-if (shouldBeStreamed) {
-  for await (const item of responseOrStream) {
-      console.log("Received item:", item);
-  }
-}else{
-     console.log("insert a resource", responseOrStream);
+console.log("Querying resource", response);
+````
+</CodeGroup>
+
+### Request Example with Stream
+<CodeGroup>
+```javascript NodeJS
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+
+const collectionId = '<collection_id>';
+const query = 'What are the sales trends for Q1?';
+
+const response = await wetrocloud.queryResource({
+  collection_id: collectionId,
+  request_query: query,
+  stream: true
+});
+
+for await (const item of response) {
+    console.log("Received item:", item);
 }
 ````
 </CodeGroup>

@@ -65,10 +65,10 @@ axios.delete(url, { headers, data: payload })
 
     const wetrocloud = new Wetrocloud();
     const response = await wetrocloud.deleteCollection({
-      collection_id,
+      collection_id:'<collection_id>',
     });
 
-    console.log("deleting a collection", response);
+    console.log("Deleting collection", response);
 ````
 </CodeGroup>
 

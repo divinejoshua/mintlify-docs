@@ -66,12 +66,13 @@ The `chat` endpoint allows you to converse with your collection allowing it to r
     const wetrocloud = new Wetrocloud();
     const response = await wetrocloud.chat({
      collection_id:"<collection_id>",
-     chat_history: [{"role":"user",  "content":"What is this all about?"}, 
+     chat_history:[
+        {"role":"user", "content":"What is this all about?"}, 
         {"role":"system","content":"This is about Queen Elizabeth_II of England"}], 
-        message:Tell me more
+        message:"Tell me more"
     });
 
-    console.log("chat with resource", response);
+    console.log("Chat with collection", response);
 ````
 </CodeGroup> 
 
