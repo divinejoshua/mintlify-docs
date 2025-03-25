@@ -1,0 +1,131 @@
+{
+  "$schema": "https://mintlify.com/docs.json",
+  "theme": "mint",
+  "name": "Wetrocloud",
+  "colors": {
+    "primary": "#3B82F6",
+    "light": "#93c5fd",
+    "dark": "#3B82F6"
+  },
+  "favicon": "favicon.svg",
+  "navigation": {
+    "tabs": [
+      {
+        "tab": "Documentation",
+        "groups": [
+          {
+            "group": "Get Started",
+            "pages": [
+              "introduction",
+              "how-to-access-your-API-Key",
+              "quickstart",
+              "endpoint-explanations/models",
+              "endpoint-explanations/openai-compatibility"
+            ]
+          },
+          {
+            "group": "RAG API",
+            "pages": [
+              "endpoint-explanations/create",
+              "endpoint-explanations/list-collections",
+              "endpoint-explanations/insert",
+              {
+                "group": "Insert resources",
+                "pages": ["introduction", "files", "Web links", "Text", "Youtube videos", "Media files"]
+              },
+              "endpoint-explanations/query",
+              {
+                "group": "Query collections",
+                "pages": ["introduction", "Streaming", "Json schema"]
+              },
+              "endpoint-explanations/chat",
+              "endpoint-explanations/remove-resource",
+              "endpoint-explanations/delete",
+              "endpoint-explanations/structured_output"
+            ]
+          },
+          {
+            "group": "Features",
+            "pages": [
+              "endpoint-explanations/category",
+              "endpoint-explanations/text-generation",
+              "endpoint-explanations/image-to-text",
+              "endpoint-explanations/data-extraction",
+              "token-optimization"
+            ]
+          }
+        ]
+      },
+      {
+        "tab": "API Reference",
+        "groups": [
+          {
+            "group": "API Documentation",
+            "pages": [
+              "api-reference/introduction",
+              "api-reference/request-and-responses",
+              "api-reference/supported-resource-types",
+              "api-reference/api-endpoints"
+            ]
+          },
+          {
+            "group": "Endpoint Examples",
+            "pages": [
+              "api-reference/endpoints/create-collection",
+              "api-reference/endpoints/list-collections",
+              "api-reference/endpoints/insert-resource",
+              "api-reference/endpoints/query-resource",
+              "api-reference/endpoints/chat-collection",
+              "api-reference/endpoints/categorize-resource",
+              "api-reference/endpoints/remove-resource",
+              "api-reference/endpoints/delete-collection",
+              "api-reference/endpoints/data-extraction",
+              "api-reference/endpoints/image-to-text",
+              "api-reference/endpoints/text-generation"
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "logo": {
+    "light": "/logo/Logo.svg",
+    "dark": "/logo/logo.svg"
+  },
+  "api": {
+    "openapi": "api-reference/openapi.yml",
+    "mdx": {
+      "server": "https://api.wetrocloud.com",
+      "auth": {
+        "method": "key",
+        "name": "Api Key"
+      }
+    }
+  },
+  "appearance": {
+    "default": "light",
+    "strict": true
+  },
+  "navbar": {
+    "links": [
+      {
+        "label": "Support",
+        "href": "mailto:hello@wetrocloud.com"
+      },
+      {
+        "label": "Discord",
+        "href": "https://discord.com/invite/3XqN6zWM5f"
+      }
+    ],
+    "primary": {
+      "type": "button",
+      "label": "Dashboard",
+      "href": "https://console.wetrocloud.com"
+    }
+  },
+  "integrations": {
+    "ga4": {
+      "measurementId": "G-CP7XLD7HG1"
+    }
+  }
+}
