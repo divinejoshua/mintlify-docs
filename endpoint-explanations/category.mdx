@@ -1,6 +1,6 @@
 ---
 title: 'Data categorization'
-description: 'Learn how to classify and structure resources using WetroCloud.'
+description: 'Learn how to classify and structure resources using Wetrocloud.'
 ---
 ## When to Use the Category Endpoint
 
@@ -28,20 +28,21 @@ Send a `POST` request to the `/v1/categorize/` endpoint with the required parame
 
 <CodeGroup>
   ```python Python
-    from wetro import Wetrocloud
+  from wetro import Wetrocloud
 
-    client = Wetrocloud(api_key="your_api_key")
-    tools_client = client.tools
+  client = Wetrocloud(api_key="your_api_key")
+  tools_client = client.tools
 
-    # Categorize content
-    categorize_response = tools_client.categorize(
+  # Categorize content
+  categorize_response = tools_client.categorize(
       resource="match review: John Cena vs. The Rock.",
       type="text",
       json_schema='{"label": "string"}',
       categories=["wrestling", "entertainment", "sports", "news"],
-      prompt="Categorize the text to see which category it best fits"
-    )
-    print(categorize_response)
+      prompt="Categorize the text to see which category it best fits")
+
+  print(categorize_response)
+  print("\nThe text is categorized as:", categorize_response.response["label"])
   ```
   ```bash cURL
     curl --request POST \
@@ -89,6 +90,8 @@ Send a `POST` request to the `/v1/categorize/` endpoint with the required parame
     "tokens": 1746,
     "success": true
 }
+
+The text is categorized as: wrestling
 ```
 
 | Field     | Description                                           |
