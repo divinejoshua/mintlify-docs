@@ -1,18 +1,15 @@
 ---
 title: 'Delete a Collection'
-description: 'Learn how to delete a collection using the Wetrocloud API when they are no longer needed.'
+description: 'Learn how to delete a collection using the Wetrocloud SDK when they are no longer needed.'
 ---
 Collections in WetroCloud store indexed resources for retrieval and query operations. Deleting a collection can help remove outdated data.
 
-## When to Use the Delete Endpoint
+## When to Use Delete Collection
 
-Use the `/v1/collection/delete/` endpoint when:
+Use the `delete` method from the `collection` module when:
 
 - A collection has served its purpose and is no longer needed.
-- Data in a collection must be  removed.
-
-
-To delete a collection, send a `DELETE` request to the `/v1/collection/delete/` endpoint with the required parameters in the body.
+- Data in a collection must be removed.
 
 ### Required Parameters
 
@@ -25,45 +22,27 @@ To delete a collection, send a `DELETE` request to the `/v1/collection/delete/` 
 ### Request Example
 <CodeGroup>
   ```python python
-    from wetro import Wetrocloud
+from wetro import Wetrocloud
 
-    client = Wetrocloud(api_key="your_api_key")
-    rag_client = client.rag
-    rag_client.collection.get_or_create_collection_id("my_unique_collection_id")
+# Access Modules
+client = Wetrocloud(api_key="your_api_key")
+rag_client = client.rag
 
-    # Delete the collection.
-    delete_resp = rag_client.collection.delete()
-    print("SDK Delete Response: %s", delete_resp)
-  ```
-  ```bash cURL
-    curl --request DELETE \
-      --url https://api.wetrocloud.com/v1/collection/delete/ \
-      --header 'Authorization: Token <api-key>' \
-      --header 'Content-Type: application/json' \
-      --data '{
-            "collection_id": "<collection_id>",
-      }'
-  ```
-  ```javascript javascript
-    const axios = require('axios');
+# Create a collection
+rag_client.create_collection(collection_id="my_unique_collection_id")
 
-    const url = 'https://api.wetrocloud.com/v1/collection/delete/';
-    const headers = { 'Authorization': 'Token <api-key>' };
-    const payload = { collection_id: '<collection_id>' };
+# Delete the collection
+delete_collection = rag_client.collection.delete_collection(collection_id="my_unique_collection_id")
 
-    axios.delete(url, { headers, data: payload })
-      .then(response => console.log(response.data))
-      .catch(error => console.error(error));
+print(delete_collection)
   ```
 </CodeGroup>
 
 ---
 
-### Successful Response
+### Response
 
-Upon successful deletion, the endpoint returns a confirmation message and a success flag.
-
-**Example Response**
+The method returns a response object containing:
 
 ```json
 {

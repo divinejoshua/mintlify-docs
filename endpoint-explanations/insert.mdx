@@ -3,7 +3,7 @@ title: 'Insert a Resource'
 description: 'Learn how to insert resources using the Wetrocloud API'
 ---
 <Info>
-At a glance: <br/> Use the `/resource/insert/` endpoint to add resources (URLs, files, text or JSON) to a collection for indexing and retrieval. Simply provide a `collection_id`, `resource`, and `type`.
+At a glance: <br/> Use the `insert` method from the `collection` module to add resources (URLs, files, text or JSON) to a collection for indexing and retrieval. Simply provide a `collection_id`, `resource`, and `type`.
 </Info>
 
 **Inserting resources** is a core operation that enables you to populate a collection with the data you want to organize and query.
@@ -23,14 +23,14 @@ Once inserted, these resources are indexed for use in Retrieval-Augmented Genera
 
 ## When to Use the Insert Endpoint
 
-Use the `/v1/resource/insert/` endpoint when you need to:
+Use the `insert` method when you need to:
 
 - Add data to a specific collection identified by `collection_id`.
 - Prepare a dataset for RAG workflows.
 
 ## How to Insert a Resource
 
-To insert a resource into a collection, make a `POST` request to the `/v1/resource/insert/` endpoint with the required parameters in the body.
+To insert a resource into a collection, use the `insert` method with the required parameters.
 
 ### Required Parameters
 
@@ -44,17 +44,23 @@ To insert a resource into a collection, make a `POST` request to the `/v1/resour
 <CodeGroup>
     ```python Python
     from wetro import Wetrocloud
-
+    
+    # Access Module
     client = Wetrocloud(api_key="your_api_key")
     rag_client = client.rag
-    rag_client.collection.get_or_create_collection_id("my_unique_collection_id")
+     
+    # Create a collection
+    rag_client.create_collection(collection_id="my_unique_collection_id")
 
-    #Inserting a Resource into a Collection
-    insert_response = rag_client.collection.insert(
-      resource = "https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", 
-      type = "web"
+    #Insert a Resource into a Collection
+    insert_response=rag_client.collection.insert_resource(
+      collection_id="my_unique_collection_id",
+      resource="https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", 
+      type="web"
     )
-    print("Insert response: %s", insert_response)
+    
+    print(insert_response)
+
     ```
     ```bash cURL
     curl --request POST \

@@ -1,76 +1,46 @@
 ---
 title: 'Remove a Resource'
-description: 'Learn how to remove a resource from a collection using the Wetrocloud API when they are no longer needed.'
+description: 'Learn how to remove a resource from a collection using the Wetrocloud SDK'
 ---
-Collections in WetroCloud store indexed resources for retrieval and query operations. Deleting a resource can help remove outdated data.
 
-## When to Use the Remove Endpoint
-
-Use the `/resource/remove/` endpoint when:
-
-- A resource has served its purpose and is no longer relevant to the collection.
-- Data in a resource needs be removed.
-
-
-To remove resource from a collection, send a `DELETE` request to the `/resource/remove/` endpoint with the required parameters in the body.
+Use the `delete_resource` method from the `collection` module to remove resources that are no longer needed from your collections.
 
 ### Required Parameters
-
 | Parameter      | Type   | Description                           |
 |-----------------|--------|---------------------------------------|
-| `collection_id` | String | The unique ID of the collection the resource belongs too |
-| `resource_id` | String | The unique ID of the resource to delete. |
-
----
+| `collection_id` | String | The unique identifier for the collection |
+| `resource_id`   | String | The unique identifier of the resource to delete |
 
 ### Request Example
 <CodeGroup>
-    ```python Python
-        from wetro import Wetrocloud
+```python Python
+from wetro import Wetrocloud
 
-        client = Wetrocloud(api_key="your_api_key")
-        rag_client = client.rag
-        rag_client.collection.get_or_create_collection_id("my_unique_collection_id")
-        insert_response = rag_client.collection.insert("https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", "web")
-        print("Insert response: %s", insert_response)
+client = Wetrocloud(api_key="your_api_key")
+rag_client = client.rag
 
-        # Delete a resource from the collection.
-        delete_resource_resp = rag_client.collection.delete_resource(insert_response.resource_id)
-        print("SDK Delete Resource Response: %s", delete_resource_resp)
+# Create a collection
+rag_client.create_collection(collection_id="research_paper")
 
-    ```
-    ```bash cURL
-    curl --request DELETE \
-        --url https://api.wetrocloud.com/v1/resource/remove/ \
-        --header 'Authorization: Token <api-key>'
-        --form 'collection_id=<collection_id>' \
-        --form 'resource_id=<resource_id>' \
-    ```
-    ```javascript JavaScript
-    const axios = require('axios');
-    const FormData = require('form-data');
+# Insert a web resource
+insert_response = rag_client.collection.insert_resource(
+    collection_id="research_paper",
+    resource="https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", 
+    type="web"
+)
 
-    const url = 'https://api.wetrocloud.com/v1/resource/remove/';
-    const headers = {
-        'Authorization': 'Token <api-key>'
-    };
-    const formData = new FormData();
-    formData.append('collection_id', '<collection_id>');
-    formData.append('resource_id', '<resource_id>');
-
-    axios.delete(url, formData, { headers })
-        .then(response => console.log(response.data))
-        .catch(error => console.error(error));
-    ```
+# Delete the resource from the collection
+delete_response = rag_client.collection.delete_resource(
+    collection_id="research_paper",
+    resource_id=insert_response.resource_id
+)
+print(delete_response)
+```
 </CodeGroup>
 
----
+### Response
 
-### Successful Response
-
-Upon successful deletion, the endpoint returns a success flag.
-
-**Example Response**
+The method returns a response object containing:
 
 ```json
 {
@@ -78,6 +48,6 @@ Upon successful deletion, the endpoint returns a success flag.
 }
 ```
 
-| Field      | Description                                        |
-|------------|----------------------------------------------------|
-| `success`  | Indicates whether the deletion was successful.     |
+| Field      | Description                                    |
+|------------|------------------------------------------------|
+| `success`  | Indicates if the deletion was successful       |

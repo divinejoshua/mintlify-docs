@@ -2,6 +2,7 @@
 title: 'Query your Collection'
 description: 'Learn how to query your collections in WetroCloud for both free text and structured responses.'
 ---
+
 The `query` endpoint allows you to retrieve information from a collection (your resources) via the WetroCloud API.  
 This endpoint supports two response formats to suit different use cases:  
 
@@ -10,7 +11,8 @@ This endpoint supports two response formats to suit different use cases:
 
 Each response type has unique request and response formats, which are explained in detail on their respective pages.  
 
-### Required Parameters
+## Required Parameters
+
 | Field               | Description                                          |
 |---------------------|------------------------------------------------------|
 | `collection_id`     | Collection Id.                                       |
@@ -18,82 +20,108 @@ Each response type has unique request and response formats, which are explained 
 | `model` (optional)  | Pass in the model you want.                          |
 | `stream` (optional) | Enable stream responses for long-form content.       |
 
-
 ## Free Text Response
+
 Free text response provides natural, conversational-style answers to your queries. It is ideal for general Q&A and scenarios where a narrative or contextualized explanation is needed. Unlike structured output, free text does not require additional parameters like `json_schema` and `json_schema_rules`.
 
 ### Request Example
+
 <CodeGroup>
   ```python Python
-    from wetro import Wetrocloud
+  from wetro import Wetrocloud
 
-    client = Wetrocloud(api_key="your_api_key")
-    rag_client = client.rag
-    rag_client.collection.get_or_create_collection_id("my_unique_collection_id")
-    insert_response = rag_client.collection.insert("https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", "web")
-    print("Insert response: %s", insert_response)
+  # Access Module
+  client = Wetrocloud(api_key="your_api_key")
+  rag_client = client.rag
 
-    # Query the collection
-    query_response = rag_client.collection.query("What are the key points of the article?")
-    print("Query response: %s", query_response)
+  # Create a collection
+  rag_client.create_collection("my_unique_collection_id")
 
-    # Define Model to get response from the specific model
-    model_response = rag_client.collection.query(
-        "Give me a detailed summary of the article",
-        model="gpt-3.5-turbo"
-    )
-    print(model_response)
+  # Insert a resource into the collection
+  insert_response = rag_client.collection.insert_resource(
+    collection_id="my_unique_collection_id",
+    resource="https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09",
+    type="web"
+  )
 
-    # Stream responses for long-form content
-    streaming_response = rag_client.collection.query(
-        "Give me a detailed summary of the article",
-        stream=True
-    )
-    # Process streaming response
-    for chunk in streaming_response:
-      print(chunk.response, end="")
+  # Query the collection
+  query_response = rag_client.collection.query_collection(
+    collection_id="my_unique_collection_id",
+    request_query="What are the key points of the article?"
+  )
+
+  print(query_response)
   ```
   ```bash cURL
-    curl --request POST \
-      --url https://api.wetrocloud.com/v1/collection/query/ \
-      --header 'Authorization: Token <api-key>' \
-      --header 'Content-Type: application/json' \
-      --data '{
-        "collection_id": "<collection_id>",
-        "request_query": "What are the sales trends for Q1?"
-      }'
+  curl --request POST \
+    --url https://api.wetrocloud.com/v1/collection/query/ \
+    --header 'Authorization: Token <api-key>' \
+    --header 'Content-Type: application/json' \
+    --data '{
+      "collection_id": "<collection_id>",
+      "request_query": "What are the sales trends for Q1?"
+    }'
   ```
   ```javascript JavaScript
-    const axios = require('axios');
+  const axios = require('axios');
 
-    const apiKey = '<api-key>';
-    const collectionId = '<collection_id>';
-    const query = 'What are the sales trends for Q1?';
+  const apiKey = '<api-key>';
+  const collectionId = '<collection_id>';
+  const query = 'What are the sales trends for Q1?';
 
-    const requestData = {
-      collection_id: collectionId,
-      request_query: query
-    };
+  const requestData = {
+    collection_id: collectionId,
+    request_query: query
+  };
 
-    axios.post('https://api.wetrocloud.com/v1/collection/query/', requestData, {
-      headers: {
-        'Authorization': `Token ${apiKey}`,
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => {
-      console.log('Response:', response.data);
-    })
-    .catch(error => {
-      console.error('Error:', error.response ? error.response.data : error.message);
-    });
-
+  axios.post('https://api.wetrocloud.com/v1/collection/query/', requestData, {
+    headers: {
+      'Authorization': `Token ${apiKey}`,
+      'Content-Type': 'application/json'
+    }
+  })
+  .then(response => {
+    console.log('Response:', response.data);
+  })
+  .catch(error => {
+    console.error('Error:', error.response ? error.response.data : error.message);
+  });
   ```
 </CodeGroup>
 
----
+## Query a Collection with a Custom LLM
 
-### Response Example: Free Text
+To get a response from a specific model, you can define the model in your query request.
+
+```python
+# Define Model to get response from the specific model
+model_response = rag_client.collection.query_collection(
+  request_query="Give me a detailed summary of the article",
+  collection_id="my_unique_collection_id",
+  model="gpt-3.5-turbo"
+)
+print(model_response)
+```
+
+## Stream Responses for Long-Form Content
+
+For long-form content, you can enable streaming responses by setting the `stream` flag to `true`.
+
+```python
+# Stream responses for long-form content
+streaming_response = rag_client.collection.query_response(
+    collection_id="research_papers",
+    request_query = "Give me a detailed summary of the article",
+    stream=True
+)
+
+# Process streaming response
+for chunk in streaming_response:
+    print(chunk.response, end="")
+
+```
+
+## Response Example: Free Text
 
 ```json
 {
@@ -103,8 +131,8 @@ Free text response provides natural, conversational-style answers to your querie
 }
 ```
 
-| Field     | Description                                           |
-|-----------|-------------------------------------------------------|
+| Field      | Description                                           |
+|------------|-------------------------------------------------------|
 | `response` | Conversational response to the query.                |
 | `tokens`   | Number of tokens used for processing.                |
 | `success`  | Indicates whether the query was successful.          |
