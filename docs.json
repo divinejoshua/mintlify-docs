@@ -31,12 +31,12 @@
               "endpoint-explanations/insert",
               {
                 "group": "Insert resources",
-                "pages": ["introduction", "files", "Web links", "Text", "Youtube videos", "Media files"]
+                "pages": ["overview-insert", "files", "Web links", "Text", "Youtube videos", "Media files"]
               },
               "endpoint-explanations/query",
               {
                 "group": "Query collections",
-                "pages": ["introduction", "Streaming", "Json schema"]
+                "pages": ["overview-query", "Streaming", "Json schema"]
               },
               "endpoint-explanations/chat",
               "endpoint-explanations/remove-resource",
