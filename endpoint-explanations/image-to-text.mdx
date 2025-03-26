@@ -1,8 +1,8 @@
 ---
 title: 'Image to text (OCR)'
-description: 'Learn how to query images in WetroCloud to retrieve information, descriptions, or answers based on the image using the WetroCloud APIs image-to-text endpoint.'
+description: 'Learn how to query images in Wetrocloud to retrieve information, descriptions, or answers based on the image using the Wetrocloud APIs image-to-text endpoint.'
 ---
-The `image-to-text` endpoint allows you to analyze an image and ask questions about its content via the WetroCloud API.  
+The `image-to-text` endpoint allows you to analyze an image and ask questions about its content via the Wetrocloud API.  
 This endpoint supports two response formats to suit different use cases:  
 
 - **Free Text Response**: A natural language answer to your query.  
@@ -18,17 +18,17 @@ Free text response provides natural, conversational-style answers to your querie
 ### Request Example
 <CodeGroup>
   ```python Python
-    from wetro import Wetrocloud
+  from wetro import Wetrocloud
 
-    client = Wetrocloud(api_key="your_api_key")
-    tools_client = client.tools
+  client = Wetrocloud(api_key="your_api_key")
+  tools_client = client.tools
     
-    # Extract text from an image and answer questions about it
-    ocr_response = tools_client.image_to_text(
-        image_url = "https://images.squarespace-cdn.com/content/v1/54822a56e4b0b30bd821480c/45ed8ecf-0bb2-4e34-8fcf-624db47c43c8/Golden+Retrievers+dans+pet+care.jpeg",
-        request_query="What animal is in this image?"
-    )
-    print(ocr_response)
+  # Extract text from an image and answer questions about it
+  ocr_response = tools_client.image_to_text(
+      image_url = "https://images.squarespace-cdn.com/content/v1/54822a56e4b0b30bd821480c/45ed8ecf-0bb2-4e34-8fcf-624db47c43c8/Golden+Retrievers+dans+pet+care.jpeg",
+      request_query="What animal is in this image?"
+  )
+  print(ocr_response)
   ```
   ```bash cURL
     curl --request POST \

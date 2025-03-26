@@ -10,7 +10,7 @@ Visit the [Wetrocloud console](https://console.wetrocloud.com/) to get your API 
 import WarningCallout from '/snippets/snippet-warning.mdx';
 
 #### Introduction 
-This guide is for developers looking to get started with the WetroCloud API quickly. You’ll learn how to:
+This guide is for developers looking to get started with the Wetrocloud API quickly. You’ll learn how to:
 
 - Create a collection
 - Insert resources into the collection
@@ -47,12 +47,12 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
   <Step title="Setting Up API Key">
     <CodeGroup>
       ```python Python
-        from wetro import Wetrocloud
+      from wetro import Wetrocloud
 
-        # Initialize the main client and access modules
-        client = Wetrocloud(api_key="your_api_key")
-        rag_client = client.rag
-        tools_client = client.tools
+      # Initialize the main client and access modules
+      client = Wetrocloud(api_key="your_api_key")
+      rag_client = client.rag
+      tools_client = client.tools
       ```
       ```bash cURL
         curl
@@ -68,13 +68,13 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
     First, create a `collection_id` to group your resources. [Click Here to Learn more](/endpoint-explanations/create)
     <CodeGroup>
       ```python Python
-        from wetro import Wetrocloud
+    from wetro import Wetrocloud
 
-        client = Wetrocloud(api_key="your_api_key")
-        rag_client = client.rag
+    client = Wetrocloud(api_key="your_api_key")
+    rag_client = client.rag
         
-        # Set or create a collection
-        rag_client.collection.get_or_create_collection_id("my_unique_collection_id")
+    # Set or create a collection
+    rag_client.collection.create_collection("my_unique_collection_id")
       ```
       ```bash cURL
         curl --request POST \
@@ -103,6 +103,12 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
     After creating a collection, you can get all your available collections on wetrocloud.
     <CodeGroup>
       ```python Python
+    from wetro import Wetrocloud
+
+    client = Wetrocloud(api_key="your_api_key")
+    rag_client = client.rag
+
+    all_collection_resp = rag_client.collection.get_all()
 
       ```
       ```bash cURL
@@ -133,15 +139,13 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
     Add a resource to your collection using the `collection_id` you created earlier  [Click Here to Learn more](/endpoint-explanations/insert)
     <CodeGroup>
       ```python Python
-        from wetro import Wetrocloud
+      from wetro import Wetrocloud
 
-        client = Wetrocloud(api_key="your_api_key")
-        rag_client = client.rag
-        rag_client.collection.get_or_create_collection_id("my_unique_collection_id")
+      client = Wetrocloud(api_key="your_api_key")
+      rag_client = client.rag
 
-        #Inserting a Resource into a Collection
-        insert_response = rag_client.collection.insert("https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", "web")
-        print("Insert response: %s", insert_response)
+      insert_response = rag_client.collection.insert(collection_id="my_unique_collection_id",resource="https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", type="web")
+      print("Insert response: %s", insert_response)
       ```
       ```bash cURL
         curl --request POST \
@@ -178,17 +182,21 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
     Query your collection using the `collection_id` created earlier by providing a query in the `request_query` field. [Click Here to Learn more](/endpoint-explanations/query)
     <CodeGroup>
       ```python Python
-        from wetro import Wetrocloud
+      from wetro import Wetrocloud
 
-        client = Wetrocloud(api_key="your_api_key")
-        rag_client = client.rag
-        rag_client.collection.get_or_create_collection_id("my_unique_collection_id")
-        insert_response = rag_client.collection.insert("https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", "web")
-        print("Insert response: %s", insert_response)
+      client = Wetrocloud(api_key="your_api_key")
+      rag_client = client.rag
 
-        # Query the collection
-        query_response = rag_client.collection.query("What are the key points of the article?")
-        print("Query response: %s", query_response)
+      # Create collection.
+      rag_client.collection.create_collection(collection_id="my_unique_collection_id")
+        
+      # Populate collection with resource. Note that you must have a resource in the collection to query.
+      insert_response = rag_client.collection.insert(collection_id="my_unique_collection_id",resource="https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", type="web")
+      print("Insert response: %s", insert_response)
+
+      # Query the populated collection
+      query_response = rag_client.collection.query(collection_id="my_unique_collection_id", request_query="What are the key points of the article?")
+      print("Query response: %s", query_response)
       ```
       ```bash cURL
         curl --request POST \
@@ -226,26 +234,30 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
     Chat with your collection using the `collection_id` created earlier by providing a message in the `message` field and continue conversations by passing `chat_history`.
     <CodeGroup>
       ```python Python
-        from wetro import Wetrocloud
+      from wetro import Wetrocloud
 
-        client = Wetrocloud(api_key="your_api_key")
-        rag_client = client.rag
-        rag_client.collection.get_or_create_collection_id("my_unique_collection_id")
-        insert_response = rag_client.collection.insert("https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", "web")
-        print("Insert response: %s", insert_response)
+      client = Wetrocloud(api_key="your_api_key")
+      rag_client = client.rag
+      
+      # Create collection.
+      rag_client.collection.create_collection(collection_id="my_unique_collection_id")
+      
+      # Populate collection with resource. Note that you must have a resource in the collection to query.
+      insert_response = rag_client.collection.insert(collection_id="my_unique_collection_id",resource="https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", type="web")
+      print("Insert response: %s", insert_response)
 
-        # Create a chat history or set it to [] (empty list)
-        chat_history = [
-            {"role": "user", "content": "What is this collection about?"}, 
-            {"role": "system", "content": "It stores research papers on AI technology."}
-        ]
+      chat_history = [
+          {"role": "user", "content": "What is this collection about?"}, 
+          {"role": "system", "content": "It stores research papers on AI technology."}
+      ]
 
-        # Continue the conversation with context
-        chat_response = rag_client.collection.chat(
-            "Can you explain the latest paper's methodology?",
-            chat_history
-        )
-        print(chat_response)
+      # Continue the conversation with context
+      chat_response = rag_client.collection.chat(
+          collection_id="my_unique_collection_id",
+          message = "Can you explain the latest paper's methodology?",
+          chat_history = chat_history
+      )
+      print(chat_response)
       ```
       ```bash cURL
         curl --request POST \
@@ -282,20 +294,20 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
   <Step title="Categorize a Resource">
     <CodeGroup>
       ```python Python
-        from wetro import Wetrocloud
+      from wetro import Wetrocloud
 
-        client = Wetrocloud(api_key="your_api_key")
-        tools_client = client.tools
+      client = Wetrocloud(api_key="your_api_key")
+      tools_client = client.tools
 
-        # Categorize content
-        categorize_response = tools_client.categorize(
-          resource="match review: John Cena vs. The Rock.",
-          type="text",
-          json_schema='{"label": "string"}',
-          categories=["wrestling", "entertainment", "sports", "news"],
-          prompt="Categorize the text to see which category it best fits"
-        )
-        print(categorize_response)
+      # Categorize content
+      categorize_response = tools_client.categorize(
+        resource="match review: John Cena vs. The Rock.",
+        type="text",
+        json_schema='{"label": "string"}',
+        categories=["wrestling", "entertainment", "sports", "news"],
+        prompt="Categorize the text to see which category it best fits"
+      )
+      print(categorize_response)
       ```
       ```bash cURL
         curl --request POST \
@@ -334,17 +346,21 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
     This endpoint is used to delete a collection
     <CodeGroup>
       ```python Python
-        from wetro import Wetrocloud
+      from wetro import Wetrocloud
 
-        client = Wetrocloud(api_key="your_api_key")
-        rag_client = client.rag
-        rag_client.collection.get_or_create_collection_id("my_unique_collection_id")
-        insert_response = rag_client.collection.insert("https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", "web")
-        print("Insert response: %s", insert_response)
+      client = Wetrocloud(api_key="your_api_key")
+      rag_client = client.rag
 
-        # Delete a resource from the collection.
-        delete_resource_resp = rag_client.collection.delete_resource(insert_response.resource_id)
-        print("SDK Delete Resource Response: %s", delete_resource_resp)
+      # Create collection.
+      rag_client.collection.create_collection(collection_id="my_unique_collection_id")
+      
+      # Populate collection with resource. Note that you must have a resource in the collection to query.
+      insert_response = rag_client.collection.insert(collection_id="my_unique_collection_id",resource="https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", type="web")
+      print("Insert response: %s", insert_response)
+
+      # Delete a resource from the collection.
+      delete_resource_resp = rag_client.collection.delete_resource(resource_id=insert_response.resource_id, collection_id="my_unique_collection_id")
+      print("SDK Delete Resource Response: %s", delete_resource_resp)
 
       ```
       ```bash cURL
@@ -377,15 +393,17 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
     This endpoint is used to delete a collection
     <CodeGroup>
       ```python Python
-        from wetro import Wetrocloud
+      from wetro import Wetrocloud
 
-        client = Wetrocloud(api_key="your_api_key")
-        rag_client = client.rag
-        rag_client.collection.get_or_create_collection_id("my_unique_collection_id")
+      client = Wetrocloud(api_key="your_api_key")
+      rag_client = client.rag
+      
+      # Create a collection.
+      rag_client.collection.create_collection(collection_id="my_unique_collection_id")
 
-        # Delete the collection.
-        delete_resp = rag_client.collection.delete()
-        print("SDK Delete Response: %s", delete_resp)
+      # Delete the collection.
+      delete_resp = rag_client.collection.delete(collection_id="my_unique_collection_id")
+      print("SDK Delete Response: %s", delete_resp)
       ```
       ```bash cURL
         curl --request DELETE \

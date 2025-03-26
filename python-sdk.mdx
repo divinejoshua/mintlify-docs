@@ -87,14 +87,14 @@ from wetro import WetroRAG
 rag_client = WetroRAG(api_key="your_api_key")
 
 # Set or create a collection
-rag_client.collection.get_or_create_collection_id("my_unique_collection_id")
+rag_client.collection.create_collection(collection_id="my_unique_collection_id")
 
 # Insert a web resource
-insert_response = rag_client.collection.insert("https://example.com/article", "web")
+insert_response = rag_client.collection.insert(collection_id="my_unique_collection_id",resource="https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", type="web")
 print("Insert response: %s", insert_response)
 
 # Query the collection
-query_response = rag_client.collection.query("What are the key points of the article?")
+query_response = rag_client.collection.query(collection_id="my_unique_collection_id", request_query="What are the key points of the article?")
 print("Query response: %s", query_response)
 ```
 </CodeGroup>
@@ -132,7 +132,7 @@ print("Generate text response: %s", generate_response)
 <CodeGroup>
 ```python Python
 # Create or access a collection
-rag_client.collection.get_or_create_collection_id("research_papers")
+rag_client.collection.create_collection("research_papers")
 
 # Insert documents from different sources
 rag_client.collection.insert("https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", "web")
@@ -143,7 +143,7 @@ rag_client.collection.insert("This is a sample text document about AI.", "text")
 <CodeGroup>
 ```python Python
 # Simple query
-response = rag_client.collection.query("What are the main findings in the research?")
+response = rag_client.collection.query(collection_id="research_papers", request_query="What are the main findings in the research?")
 print(response)
 ```
 </CodeGroup>
@@ -152,8 +152,9 @@ print(response)
 ```python Python
 # Define Model to get response from the specific model
 response = rag_client.collection.query(
-    "Give me a detailed summary of the article",
-    model="gpt-3.5-turbo"
+    request_query="Give me a detailed summary of the article",
+    model="gpt-3.5-turbo",
+    collection_id="my_unique_collection_id"
 )
 
 print(response)
@@ -170,9 +171,10 @@ rules = ["Only 5 points", "Strictly return JSON only"]
 
 # Query with structured output requirements
 response = rag_client.collection.query(
-    "What are the key points of the article?",
-    json_schema,
-    rules
+    request_query="What are the key points of the article?",
+    collection_id="my_unique_collection_id",
+    json_schema=json_schema,
+    json_schema_rules=rules
 )
 print(response)
 ```
@@ -183,6 +185,7 @@ print(response)
 # Stream responses for long-form content
 streaming_response = rag_client.collection.query(
     "Give me a detailed summary of the article",
+    collection_id="my_unique_collection_id",
     stream=True
 )
 
@@ -204,8 +207,9 @@ chat_history = [
 
 # Continue the conversation with context
 chat_response = rag_client.collection.chat(
-    "Can you explain the latest paper's methodology?",
-    chat_history    
+    collection_id="my_unique_collection_id",
+    message = "Can you explain the latest paper's methodology?",
+    chat_history = chat_history
 )
 print(chat_response)
 ```
@@ -215,15 +219,20 @@ print(chat_response)
 #### Text Generation
 <CodeGroup>
 ```python Python
-# Generate text with a specific model
-response = tools_client.generate_text(
+from wetro import WetroTools
+
+# Initialize Tools client
+tools_client = WetroTools(api_key="your_api_key")
+
+# Generate text
+generate_response = tools_client.generate_text(
     messages=[
         {"role": "system", "content": "You are a helpful assistant."}, 
         {"role": "user", "content": "Write a short poem about technology."}
     ],
     model="gpt-4"
 )
-print(response)
+print("Generate text response: %s", generate_response)
 ```
 </CodeGroup>
 
@@ -235,7 +244,8 @@ categorize_response = tools_client.categorize(
     resource="match review: John Cena vs. The Rock.",
     type="text",
     json_schema='{"label": "string"}',
-    categories=["wrestling", "entertainment", "sports", "news"]
+    categories=["wrestling", "entertainment", "sports", "news"],
+    prompt="Categorize the text to see which category it best fits"
 )
 print(categorize_response)
 ```
@@ -272,7 +282,7 @@ from wetro import Wetrocloud, WetrocloudError
 client = Wetrocloud(api_key="your_api_key")
 
 try:
-    response = client.rag.collection.query("What is this article about?")
+    response = client.rag.collection.query(collection_id="my_unique_collection_id", request_query="What is this article about?")
 except WetrocloudError as e:
     print(f"Error: {e.status_code} - {e.message}")
     # Handle specific error cases
@@ -309,8 +319,8 @@ import asyncio
 from wetro import AsyncWetrocloud
 
 async def main():
-    client = AsyncWetrocloud(api_key="your_api_key")
-    response = await client.rag.collection.query("What are the key insights?")
+    client = AsyncWetrocloud(api_key=api_key)
+    response = await client.rag.collection.query(collection_id="my_unique_collection_id", request_query="What is this article about?")
     return response
 
 result = asyncio.run(main())

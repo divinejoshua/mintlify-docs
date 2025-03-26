@@ -39,25 +39,25 @@ Each message in the `messages` array should have the following structure:
 ```
 
 ### Supported Models
-View models supported by WetroCloud [here](/endpoint-explanations/models).
+View models supported by Wetrocloud [here](/endpoint-explanations/models).
 
 ### Request Example
 <CodeGroup>
   ```python Python
-    from wetro import Wetrocloud
+  from wetro import Wetrocloud
 
-    client = Wetrocloud(api_key="your_api_key")
-    tools_client = client.tools
+  client = Wetrocloud(api_key="your_api_key")
+  tools_client = client.tools
 
-    # Text Generation
-    response = tools_client.generate_text(
-        messages=[
-            {"role": "system", "content": "You are a helpful assistant."}, 
-            {"role": "user", "content": "Write a short poem about technology."}
-        ],
-        model="gpt-4"
-    )
-    print(response)
+  # Text Generation
+  response = tools_client.generate_text(
+      messages=[
+          {"role": "system", "content": "You are a helpful assistant."}, 
+          {"role": "user", "content": "Write a short poem about technology."}
+      ],
+      model="gpt-4"
+  )
+  print(response)
   ```
   ```bash curl
     --location 'https://api.wetrocloud.com/v1/text-generation/' \
