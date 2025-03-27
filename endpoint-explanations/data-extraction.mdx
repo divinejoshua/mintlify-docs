@@ -53,50 +53,36 @@ curl --request POST \
  --header 'Authorization: Token <api-key>'
 ```
 ```python Python
-import requests
-import json
+from wetro import Wetrocloud
 
-form_data = {
-    'website': "https://www.forbes.com/real-time-billionaires/#7583ee253d78",
-    'json_schema': json.dumps([{"name":"<name of rich man>", "networth":"<amount worth>"}])
-}
-
-response = requests.post(
-    'https://api.wetrocloud.com/v1/data-extraction/',
-    data=form_data,
-    headers={
-        'Authorization': 'Token <api-key>'
-    }
+client = Wetrocloud(api_key="your_api_key")
+tools_client = client.tools
+    
+# Extract structured data from a website
+extract_response = tools_client.extract(
+   website="https://www.forbes.com/real-time-billionaires/#7583ee253d78",
+   json_schema='[{"name": "<name>", "networth": "<networth>"}]'
 )
-
-try:
-    print(response.json())
-except ValueError:
-    print(response.text)
+print(extract_response)
 ```
 
 
-```javascript Javascript
-const axios = require('axios');
-const FormData = require('form-data');
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
 
-const formData = new FormData();
-formData.append('website', 'https://www.forbes.com/real-time-billionaires/#7583ee253d78');
-formData.append('json_schema', JSON.stringify([{"name":"<name of rich man>", "networth":"<amount worth>"}]));
+const wetrocloud = new Wetrocloud();
 
-axios.post('https://api.wetrocloud.com/v1/data-extraction/', formData, {
- headers: {
-   'Authorization': 'Token <api-key>',
-   ...formData.getHeaders()
- }
-})
-.then(response => {
- console.log(response.data);
-})
-.catch(error => {
- console.error('Error:', error);
+const website_url = "https://www.forbes.com/real-time-billionaires/#7583ee253d78"
+const json_schema = [{ "name": "<name of rich man>", "networth": "<amount worth>" }]
+
+// Extract structured data from a website
+const response = await wetrocloud.extract({
+   website_url,
+  json_schema:
 });
-```
+
+console.log("Data extraction", result);
+````
 </CodeGroup>
 
 
