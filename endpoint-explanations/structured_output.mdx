@@ -58,27 +58,36 @@ Streaming is not supported with Structured Output with JSON Schema, it's one or 
 
 <CodeGroup>
     ```python Python
-        from wetro import Wetrocloud
+    from wetro import Wetrocloud
 
-        client = Wetrocloud(api_key="your_api_key")
-        rag_client = client.rag
-        rag_client.collection.get_or_create_collection_id("my_unique_collection_id")
-        insert_response = rag_client.collection.insert("https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", "web")
-        print("Insert response: %s", insert_response)
+    # Access Modules
+    client = Wetrocloud(api_key="your_api_key")
+    rag_client = client.rag
 
-        # Define a JSON schema for structured output
-        json_schema = [{"point_number": "<int>", "point": "<str>"}]
+    # Create a Collection
+    rag_client.create_collection(collection_id="my_unique_collection_id")
 
-        # Add processing rules
-        json_schema_rules = ["Only 5 points", "Strictly return JSON only"]
+    # Insert a Resource
+    insert_response = rag_client.collection.insert_resource(
+        collection_id="my_unique_collection_id",
+        resource="https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09",
+        type="web"
+    )
 
-        # Query with structured output requirements
-        response = rag_client.collection.query(
-            "What are the key points of the article?",
-            json_schema = json_schema,
-            json_schema_rules = json_schema_rules
-        )
-        print(response)
+    # Define a JSON schema for structured output
+    json_schema = [{"point_number": "<int>", "point": "<str>"}]
+
+    # Add processing rules
+    rules = ["Only 5 points", "Strictly return JSON only"]
+
+    # Query with structured output requirements
+    response = rag_client.collection.query_resource(
+        collection_id="my_unique_collection_id",
+        request_query= "What are the key points of the article?",
+        json_schema = json_schema,
+        json_schema_rules = rules
+    )
+    print(response)
     ```
     ```bash cURL
     curl --request POST \

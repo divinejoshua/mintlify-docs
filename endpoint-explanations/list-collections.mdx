@@ -1,17 +1,11 @@
 ---
 title: 'List collections'
-description: 'This API endpoint displays a list of all your existing collections.'
+description: 'Use the Wetrocloud SDK to get a list of all existing collections.'
 ---
-Collections in WetroCloud store indexed resources for retrieval and query operations.
+Collections in Wetrocloud store indexed resources for retrieval and query operations.
 
-## When to Use the List Collection Endpoint
-
-Use the `/v1/collection/all/` endpoint when:
-
-- To get a list of all existing collections.
-
-
-To get the list of all your collections, send a `GET` request to the `/v1/collection/all/` . There is no required parameter
+## When to Use the List Collection Method
+To get the list of all your collections, use the `get_all` method from the `collection` module in the Wetrocloud SDK. There is no required parameter.
 
 <Note>
 This list has a pagination of up to <b>20</b> items per request. `Next` and `Previous` urls will be provided on every response
@@ -20,25 +14,15 @@ This list has a pagination of up to <b>20</b> items per request. `Next` and `Pre
 
 ### Request Example
 <CodeGroup>
-    ```bash cURL
-    curl --request GET \
-    --url 'https://api.wetrocloud.com/v1/collection/all/' \
-    --header 'Authorization: Token <api-token>'
-    ```
     ```python Python
-    import requests
+    # Access Modules
+    client = Wetrocloud(api_key="your_api_key")
+    rag_client = client.rag
 
-    response = requests.get(
-        'https://api.wetrocloud.com/v1/collection/all/',
-        headers={
-            'Authorization': 'Token <api-token>'
-        }
-    )
+    # Get all collections
+    all_collections = rag_client.get_collection_list()
 
-    try:
-        print(response.json())
-    except ValueError:
-        print(response.text)
+    print(all_collections)
     ```
 
     ```javascript JavaScript
@@ -62,7 +46,7 @@ This list has a pagination of up to <b>20</b> items per request. `Next` and `Pre
 
 ### Successful Response
 
-Upon success, the endpoint returns a list of all active collections and a confirmation message and a success flag.
+Upon success, the method returns a list of all active collections and a confirmation message and a success flag.
 
 **Example Response**
 
@@ -96,9 +80,11 @@ Upon success, the endpoint returns a list of all active collections and a confir
 }
 ```
 
-| Field      | Description                                        |
-|------------|----------------------------------------------------|
-| `count`  | The total collections on your Wetrocloud account. |
-| `next`  | The next link for pagination.     |
-| `previous`  | The previous link for pagination.     |
-| `results`  | A list of all available collections.     |
+| Field           | Description                                        |
+|-----------------|----------------------------------------------------|
+| `count`         | The total collections on your Wetrocloud account.  |
+| `next`          | The next link for pagination.                      |
+| `previous`      | The previous link for pagination.                  |
+| `results`       | A list of all available collections.               |
+| `collection_id` | The unique identifier for the collection.          |
+| `created_at`    | The timestamp when the collection was created.     |

@@ -1,70 +1,72 @@
 ---
 title: 'Chat with Collection'
-description: 'Learn how to converse with your collections in WetroCloud'
+description: 'Learn how to converse with your collections using the Wetrocloud SDK'
 ---
-The `chat` endpoint allows you to converse with your collection allowing it to respond based on information from your resources added to the collection via the WetroCloud API.  
+
+Use the `chat` method from the `collection` module to converse with your collection. The collection will respond based on information from your indexed resources.
 
 ### Required Parameters
 | Field               | Description                                          |
 |---------------------|------------------------------------------------------|
-| `collection_id`     | Collection Id.                                       |
-| `message`           | Message currently being sent to collection           |
-| `chat_history`      | History of chat between user and system              |
-| `stream` (optional) | Enable stream responses for long-form content.       |
+| `collection_id`     | Unique identifier for the collection                 |
+| `message`           | Message to send to the collection                    |
+| `chat_history`      | List of previous messages between user and system    |
+| `stream` (optional) | Enable stream responses for long-form content        |
 
-### Request Example
+### Regular Chat Request
 <CodeGroup>
-    ```python Python
-        from wetro import Wetrocloud
+```python Python
+from wetro import Wetrocloud
 
-        client = Wetrocloud(api_key="your_api_key")
-        rag_client = client.rag
-        rag_client.collection.get_or_create_collection_id("my_unique_collection_id")
-        insert_response = rag_client.collection.insert("https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", "web")
-        print("Insert response: %s", insert_response)
+# Access Module
+client = Wetrocloud(api_key="your_api_key")
+rag_client = client.rag
 
-        # Create a chat history or set it to [] (empty list)
-        chat_history = [
-            {"role": "user", "content": "What is this collection about?"}, 
-            {"role": "system", "content": "It stores research papers on AI technology."}
-        ]
+# Create a collection
+rag_client.create_collection(collection_id="research_paper")
 
-        # Continue the conversation with context
-        chat_response = rag_client.collection.chat(
-            "Can you explain the latest paper's methodology?",
-            chat_history
-        )
-        print(chat_response)
+# Insert a web resource
+insert_response = rag_client.collection.insert_resource(
+    collection_id="research_paper",
+    resource="https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", 
+    type="web"
+)
 
-        # Stream responses for long-form content
-        chat_response = rag_client.collection.chat(
-            "Can you explain the latest paper's methodology?",
-            chat_history,
-            stream=True
-        )
-        # Process streaming response
-        for chunk in chat_response:
-            print(chunk.response, end="")
+# Create a chat history
+chat_history = [
+    {"role": "user", "content": "What is this collection about?"}, 
+    {"role": "system", "content": "It stores research papers on AI technology."}
+]
+
+# Continue the conversation with context
+chat_response = rag_client.collection.chat(
+    collection_id="research_papers",
+    message="Can you explain the latest paper's methodology?",
+    chat_history=chat_history
+)
+print(chat_response)
     ```
     ```bash cURL
     curl --request POST \
         --url https://api.wetrocloud.com/v1/collection/chat/ \
         --header 'Authorization: Token <api-key>' \
         --header 'Content-Type: multipart/form-data' \
-        --form 'collection_id=<collection_id>' \
+        --form 'collection_id=research_papers' \
         --form 'message=Tell me more' \
-        --form 'chat_history=[{"role":"user","content":"What is this all about?"}, {"role":"system","content":"This is about Queen Elizabeth_II of England"}]' \
+        --form 'chat_history=[{"role":"user","content":"What is this all about?"}, {"role":"system","content":"This is about research papers"}]'
     ```
     ```javascript JavaScript
     const axios = require('axios');
     const FormData = require('form-data');
 
-    const url = 'https://api.wetrocloud.com/v1/collection/query/';
+    const url = 'https://api.wetrocloud.com/v1/collection/chat/';
     const formData = new FormData();
-    formData.append('collection_id', '<collection_id>');
+    formData.append('collection_id', 'research_papers');
     formData.append('message', 'Tell me more');
-    formData.append('chat_history', [{"role":"user",  "content":"What is this all about?"}, 
-        {"role":"system","content":"This is about Queen Elizabeth_II of England"}]);
+    formData.append('chat_history', JSON.stringify([
+        {"role":"user", "content":"What is this all about?"}, 
+        {"role":"system", "content":"This is about research papers"}
+    ]));
 
     const headers = {
         'Authorization': 'Token <api-key>',
@@ -77,20 +79,40 @@ The `chat` endpoint allows you to converse with your collection allowing it to r
     ```
 </CodeGroup> 
 
----
+### Streaming Chat Request
 
-### Response Example:
+For long-form responses, you can enable streaming to receive content chunks as they're generated.
 
+<CodeGroup>
+```python Python
+# Stream responses for long-form content
+stream_response = rag_client.collection.chat(
+    collection_id="research_papers",
+    message="Can you explain the latest paper's methodology?",
+    chat_history=chat_history,
+    stream=True
+)
+
+# Process streaming response
+for chunk in stream_response:
+    print(chunk.response, end="")
+```
+</CodeGroup>
+
+### Response Types
+
+#### Regular Response
 ```json
 {
-  "response": "The sales for Q1 increased by 20% compared to last year, with online channels contributing significantly.",
+  "response": "Based on the latest paper's methodology...",
   "tokens": 120,
   "success": true
 }
 ```
 
-| Field     | Description                                           |
-|-----------|-------------------------------------------------------|
-| `response` | Conversational response to the message.                |
-| `tokens`   | Number of tokens used for processing.                |
-| `success`  | Indicates whether the query was successful.          |
+| Field      | Description                                    |
+|------------|------------------------------------------------|
+| `response` | The collection's answer to your message        |
+| `tokens`   | Number of tokens used in processing            |
+| `success`  | Indicates if the operation was successful      |
+| `done`     | (Stream only) Indicates if stream is complete  |
