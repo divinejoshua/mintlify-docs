@@ -20,41 +20,33 @@ This list has a pagination of up to <b>20</b> items per request. `Next` and `Pre
 
 ### Request Example
 <CodeGroup>
-    ```bash cURL
-    curl --request GET \
-    --url 'https://api.wetrocloud.com/v1/collection/all/' \
-    --header 'Authorization: Token <api-token>'
-    ```
+   
     ```python Python
-    import requests
+    from wetro import Wetrocloud
+    
+    # Access Modules
+    client = Wetrocloud(api_key="your_api_key")
+    rag_client = client.rag
 
-    response = requests.get(
-        'https://api.wetrocloud.com/v1/collection/all/',
-        headers={
-            'Authorization': 'Token <api-token>'
-        }
-    )
+    # Get all collections
+    all_collections = rag_client.get_collection_list()
 
-    try:
-        print(response.json())
-    except ValueError:
-        print(response.text)
+    print(all_collections)
     ```
 
     ```javascript JavaScript
-    const axios = require('axios');
+   import Wetrocloud from "wetro-sdk";
+ 
+    const wetrocloud = new Wetrocloud();
+    const response = await wetrocloud.listCollections();
 
-    axios.get('https://api.wetrocloud.com/v1/collection/all/', {
-      headers: {
-        'Authorization': 'Token <api-token>'
-      }
-    })
-    .then(response => {
-      console.log(response.data);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
+    console.log("Lisiting Collections", response);
+```
+
+ ```bash cURL
+    curl --request GET \
+    --url 'https://api.wetrocloud.com/v1/collection/all/' \
+    --header 'Authorization: Token <api-token>'
     ```
 </CodeGroup>
 

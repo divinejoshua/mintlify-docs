@@ -17,6 +17,35 @@ Free text response provides natural, conversational-style answers to your querie
 
 ### Request Example
 <CodeGroup>
+
+```python Python
+  from wetro import Wetrocloud
+
+  # Query the collection
+  query_response = rag_client.collection.query_collection(
+    collection_id="my_unique_collection_id",
+    request_query="What are the key points of the article?"
+  )
+
+  print(query_response)
+```
+
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+
+const collectionId = '<collection_id>';
+const query = 'What are the sales trends for Q1?';
+
+const response = await wetrocloud.queryResource({
+  collection_id: collectionId,
+  request_query: query,
+});
+
+console.log("Querying resource", response);
+```
+
 ```bash cURL
 curl --request POST \
   --url https://api.wetrocloud.com/v1/collection/query/ \
@@ -27,47 +56,27 @@ curl --request POST \
     "request_query": "What are the sales trends for Q1?"
   }'
 ```
-```python Python
-import requests
+</CodeGroup>
 
-url = "https://api.wetrocloud.com/v1/collection/query/"
-headers = {
-    "Authorization": "Token <api-key>",
-    "Content-Type": "application/json"
-}
-data = {
-    "collection_id": "<collection_id>",
-    "request_query": "What are the sales trends for Q1?"
-}
+### Request Example with Stream
+<CodeGroup>
+```javascript Javascript
+import Wetrocloud from "wetro-sdk";
 
-response = requests.post(url, headers=headers, json=data)
-print(response.json())
-```
-```javascript JavaScript
-const axios = require('axios');
+const wetrocloud = new Wetrocloud();
 
-const apiKey = '<api-key>';
 const collectionId = '<collection_id>';
 const query = 'What are the sales trends for Q1?';
 
-const requestData = {
+const response = await wetrocloud.queryResource({
   collection_id: collectionId,
-  request_query: query
-};
-
-axios.post('https://api.wetrocloud.com/v1/collection/query/', requestData, {
-  headers: {
-    'Authorization': `Token ${apiKey}`,
-    'Content-Type': 'application/json'
-  }
-})
-.then(response => {
-  console.log('Response:', response.data);
-})
-.catch(error => {
-  console.error('Error:', error.response ? error.response.data : error.message);
+  request_query: query,
+  stream: true
 });
 
+for await (const item of response) {
+    console.log("Received item:", item);
+}
 ```
 </CodeGroup>
 

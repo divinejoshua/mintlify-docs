@@ -24,6 +24,31 @@ To delete a collection, send a `DELETE` request to the `/v1/collection/delete/` 
 
 ### Request Example
 <CodeGroup>
+
+
+```python Python
+from wetro import Wetrocloud
+
+# Access Modules
+client = Wetrocloud(api_key="your_api_key")
+rag_client = client.rag
+
+# Delete the collection
+delete_collection = rag_client.collection.delete_collection(collection_id="my_unique_collection_id")
+
+print(delete_collection)
+```
+```javascript Javascript
+  import Wetrocloud from "wetro-sdk";
+
+    const wetrocloud = new Wetrocloud();
+    const response = await wetrocloud.deleteCollection({
+      collection_id:'<collection_id>',
+    });
+
+    console.log("Deleting collection", response);
+```
+
 ```bash cURL
 curl --request DELETE \
   --url https://api.wetrocloud.com/v1/collection/delete/ \
@@ -34,31 +59,6 @@ curl --request DELETE \
   }'
 ```
 
-```python python
-import requests
-
-url = "https://api.wetrocloud.com/v1/collection/delete/"
-headers = {
-    "Authorization": "Token <api-key>",
-}
-payload = {
-        "collection_id": "<collection_id>",
-}
-
-response = requests.delete(url, headers=headers, payload=payload)
-print(response.json())
-```
-```javascript javascript
-const axios = require('axios');
-
-const url = 'https://api.wetrocloud.com/v1/collection/delete/';
-const headers = { 'Authorization': 'Token <api-key>' };
-const payload = { collection_id: '<collection_id>' };
-
-axios.delete(url, { headers, data: payload })
-  .then(response => console.log(response.data))
-  .catch(error => console.error(error));
-```
 </CodeGroup>
 
 ---

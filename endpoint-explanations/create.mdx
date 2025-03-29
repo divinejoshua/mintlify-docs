@@ -28,17 +28,18 @@ To create a collection, make a `POST` request to the `/v1/collection/create/` en
 ### Request Example
 <CodeGroup>
 ```python Python
-import requests
+from wetro import Wetrocloud
 
-url = "https://api.wetrocloud.com/v1/collection/create/"
-headers = {"Authorization": "Token <api-key>"}
+  # Access Modules
+  client = Wetrocloud(api_key="your_api_key")
+  rag_client = client.rag
 
-data = {
-  "collection_id": "<collection_id>"
-}
+  # Create a collection
+  collection_id = rag_client.create_collection(
+    collection_id="my_unique_collection_id"
+  )
 
-response = requests.post(url, headers=headers,data=data)
-print(response.json())
+  print(collection_id)
 ```
 
 ```javascript Javascript

@@ -42,7 +42,38 @@ To insert a resource into a collection, make a `POST` request to the `/v1/resour
 
 ### Request Example
 <CodeGroup>
-    ```bash cURL
+ 
+    ```python Python
+  from wetro import Wetrocloud
+    
+    # Access Module
+    client = Wetrocloud(api_key="your_api_key")
+    rag_client = client.rag
+    
+    #Insert a Resource into a Collection
+    insert_response=rag_client.collection.insert_resource(
+      collection_id="my_unique_collection_id",
+      resource="https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", 
+      type="web"
+    )
+    
+    print(insert_response)
+    ```
+
+ ```javascript Javascript
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+const response = await wetrocloud.insertResource({
+  collection_id: "<collection_id>",
+  resource: "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
+  type: "web"
+});
+
+console.log("insert a resource", response);
+```
+
+  ```bash cURL
     curl --request POST \
       --url https://api.wetrocloud.com/v1/resource/insert/ \
       --header 'Authorization: Token <api-key>' \
@@ -52,39 +83,6 @@ To insert a resource into a collection, make a `POST` request to the `/v1/resour
         "resource": "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
         "type": "web"
       }'
-    ```
-    ```python Python
-    import requests
-
-    url = "https://api.wetrocloud.com/v1/resource/insert/"
-    headers = {
-        "Authorization": "Token <api-key>",
-    }
-    payload = {
-        "collection_id": "<collection_id>",
-        "resource": "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
-        "type": "web"
-    }
-    response = requests.post(url, headers=headers, payload=payload)
-    print(response.json())
-    ```
-    ```javascript JavaScript
-    const axios = require('axios');
-
-    const url = 'https://api.wetrocloud.com/v1/resource/insert/';
-    const headers = {
-        'Authorization': 'Token <api-key>',
-        'Content-Type': 'application/json'
-    };
-    const data = {
-        collection_id: '<collection_id>',
-        resource: 'https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.',
-        type: 'web'
-    };
-
-    axios.post(url, data, { headers })
-        .then(response => console.log(response.data))
-        .catch(error => console.error(error));
     ```
 </CodeGroup>
 
