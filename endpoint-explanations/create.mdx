@@ -27,40 +27,37 @@ To create a collection, make a `POST` request to the `/v1/collection/create/` en
 
 ### Request Example
 <CodeGroup>
-  ```cURL cURL
-    curl --request POST \
-    --url https://api.wetrocloud.com/v1/collection/create/ \
-    --header 'Authorization: Token <api-key>'
-    --form 'collection_id=<collection_id>' \
-  ```
-  ```python Python
-    import requests
+```python Python
+import requests
 
-    url = "https://api.wetrocloud.com/v1/collection/create/"
-    headers = {"Authorization": "Token <api-key>"}
+url = "https://api.wetrocloud.com/v1/collection/create/"
+headers = {"Authorization": "Token <api-key>"}
 
-    data = {
-          "collection_id": "<collection_id>"
-        }
+data = {
+  "collection_id": "<collection_id>"
+}
 
-    response = requests.post(url, headers=headers,data=data)
-    print(response.json())
-  ```
+response = requests.post(url, headers=headers,data=data)
+print(response.json())
+```
 
-  ```javascript Javascript
-    const axios = require('axios');
-    const FormData = require('form-data');
+```javascript Javascript
+import Wetrocloud from "wetro-sdk";
 
-    const url = 'https://api.wetrocloud.com/v1/collection/create/';
-    const headers = { 'Authorization': 'Token <api-key>' };
-    const formData = new FormData();
-    formData.append('collection_id', '<collection_id>');
+const wetrocloud = new Wetrocloud();
 
+const collection_id = 'unique_id'; //this is optional if not specified one would be generated for you.
+const response = await wetrocloud.createCollection({ collection_id });
 
-    axios.post(url, formData, { headers })
-      .then(response => console.log(response.data))
-      .catch(error => console.error(error));
-  ```
+console.log("Creating Collection", response);
+```
+
+```cURL cURL
+curl --request POST \
+      --url https://api.wetrocloud.com/v1/collection/create/ \
+      --header 'Authorization: Token <api-key>'
+      --form 'collection_id=<collection_id>' \
+```
 </CodeGroup>
 
 ### Successful Response
