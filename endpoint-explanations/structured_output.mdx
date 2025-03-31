@@ -53,6 +53,46 @@ The `json_schema_rules` parameter allows you to define custom rules for how the 
 **Example Requests**
 
 <CodeGroup>
+
+```python Python
+from wetro import Wetrocloud
+
+# Access Modules
+client = Wetrocloud(api_key="your_api_key")
+rag_client = client.rag
+
+# Define a JSON schema for structured output
+json_schema = [{"topic": "", "description": ""}]
+
+# Add processing rules
+rules = "Give a very short description of every page on the document from"
+
+# Query with structured output requirements
+response = rag_client.collection.query_resource(
+    collection_id="<collection_id>",
+    request_query= "What is this about?",
+    json_schema = json_schema,
+    json_schema_rules = rules
+)
+print(response)
+```
+
+
+```javascript Javascript
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+
+const response = await wetrocloud.queryResource({
+  collection_id:'<collection_id>',
+  request_query: 'What is this about?',
+  json_schema:{ topic: "", description: "" },
+  json_schema_rules: "Give a very short description of every page on the document from",
+});
+
+console.log("Querying resource", response);
+```
+
 ```bash cURL
 curl --request POST \
  --url 'https://api.wetrocloud.com/v1/collection/query/' \
@@ -62,55 +102,28 @@ curl --request POST \
  --form 'json_schema_rules=Give a very short description of every page on the document from' \
  --header 'Authorization: Token <api-key>'
 ```
-```python Python
-import requests
-import json
+</CodeGroup>
 
-form_data = {
-    'collection_id': '<collection_id>',
-    'request_query': 'What is this about?',
-    'json_schema': json.dumps([{'topic': '', 'description': ''}]),
-    'json_schema_rules': 'Give a very short description of every page on the document from'
-}
+**Example Request with stream**
 
-response = requests.post(
-    'https://api.wetrocloud.com/v1/collection/query/',
-    data=form_data,
-    headers={
-        'Authorization': 'Token <api-key>'
-    }
-)
-
-try:
-    print(response.json())
-except ValueError:
-    print(response.text)
-```
-
-
+<CodeGroup>
 ```javascript Javascript
-const axios = require('axios');
-const FormData = require('form-data');
+import Wetrocloud from "wetro-sdk";
 
-const formData = new FormData();
-formData.append('collection_id', '<collection_id>');
-formData.append('request_query', 'What is this about?');
-formData.append('json_schema', JSON.stringify([{topic: '', description: ''}]));
-formData.append('json_schema_rules', 'Give a very short description of every page on the document from');
+const wetrocloud = new Wetrocloud();
 
-axios.post('https://api.wetrocloud.com/v1/collection/query/', formData, {
- headers: {
-   'Authorization': 'Token <api-key>',
-   ...formData.getHeaders()
- }
-})
-.then(response => {
- console.log(response.data);
-})
-.catch(error => {
- console.error('Error:', error);
+const response = await wetrocloud.queryResource({
+  collection_id:'<collection_id>',
+  request_query: 'What is this about?',
+  json_schema:{ topic: "", description: "" },
+  json_schema_rules: "Give a very short description of every page on the document from",
+  stream: true
 });
-```
+
+for await (const item of response) {
+    console.log("Received item:", item);
+}
+````
 </CodeGroup>
 
 

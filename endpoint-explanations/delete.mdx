@@ -34,19 +34,19 @@ client = Wetrocloud(api_key="your_api_key")
 rag_client = client.rag
 
 # Delete the collection
-delete_collection = rag_client.collection.delete_collection(collection_id="my_unique_collection_id")
+delete_collection = rag_client.collection.delete_collection(collection_id="<collection_id>")
 
 print(delete_collection)
 ```
 ```javascript Javascript
-  import Wetrocloud from "wetro-sdk";
+import Wetrocloud from "wetro-sdk";
 
-    const wetrocloud = new Wetrocloud();
-    const response = await wetrocloud.deleteCollection({
-      collection_id:'<collection_id>',
-    });
+const wetrocloud = new Wetrocloud();
+const response = await wetrocloud.deleteCollection({
+  collection_id:'<collection_id>',
+});
 
-    console.log("Deleting collection", response);
+console.log("Deleting collection", response);
 ```
 
 ```bash cURL

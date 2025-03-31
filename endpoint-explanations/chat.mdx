@@ -13,7 +13,7 @@ The `chat` endpoint allows you to converse with your collection allowing it to r
 
 ### Request Example
 <CodeGroup>
-    ```python Python
+```python Python
 from wetro import Wetrocloud
 
 # Access Module
@@ -22,44 +22,44 @@ rag_client = client.rag
 
 # Create a chat history
 chat_history = [
-    {"role": "user", "content": "What is this collection about?"}, 
-    {"role": "system", "content": "It stores research papers on AI technology."}
+   {"role":"user", "content":"What is this all about?"}, 
+   {"role":"system","content":"This is about Queen Elizabeth_II of England"}
 ]
 
 # Continue the conversation with context
 chat_response = rag_client.collection.chat(
-    collection_id="research_papers",
-    message="Can you explain the latest paper's methodology?",
+    collection_id="<collection_id>",
+    message="Tell me more",
     chat_history=chat_history
 )
 print(chat_response)
-    ```
+```
 
-    ```javascript JavaScript
-       import Wetrocloud from "wetro-sdk";
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
 
-    const wetrocloud = new Wetrocloud();
-    const response = await wetrocloud.chat({
-     collection_id:"<collection_id>",
-     message:"Tell me more",
-     chat_history:[
-        {"role":"user", "content":"What is this all about?"}, 
-        {"role":"system","content":"This is about Queen Elizabeth_II of England"}
-     ]
-    });
+const wetrocloud = new Wetrocloud();
+const response = await wetrocloud.chat({
+ collection_id:"<collection_id>",
+ message:"Tell me more",
+ chat_history:[
+    {"role":"user", "content":"What is this all about?"}, 
+    {"role":"system","content":"This is about Queen Elizabeth_II of England"}
+ ]
+});
 
-    console.log("Chat with collection", response);
-    ```
+console.log("Chat with collection", response);
+```
 
-        ```bash cURL
-    curl --request POST \
-        --url https://api.wetrocloud.com/v1/collection/chat/ \
-        --header 'Authorization: Token <api-key>' \
-        --header 'Content-Type: multipart/form-data' \
-        --form 'collection_id=<collection_id>' \
-        --form 'message=Tell me more' \
-        --form 'chat_history=[{"role":"user","content":"What is this all about?"}, {"role":"system","content":"This is about Queen Elizabeth_II of England"}]' \
-    ```
+```bash cURL
+curl --request POST \
+    --url https://api.wetrocloud.com/v1/collection/chat/ \
+    --header 'Authorization: Token <api-key>' \
+    --header 'Content-Type: multipart/form-data' \
+    --form 'collection_id=<collection_id>' \
+    --form 'message=Tell me more' \
+    --form 'chat_history=[{"role":"user","content":"What is this all about?"}, {"role":"system","content":"This is about Queen Elizabeth_II of England"}]' \
+```
 </CodeGroup> 
 
 ---

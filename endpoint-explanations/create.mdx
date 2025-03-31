@@ -30,16 +30,16 @@ To create a collection, make a `POST` request to the `/v1/collection/create/` en
 ```python Python
 from wetro import Wetrocloud
 
-  # Access Modules
-  client = Wetrocloud(api_key="your_api_key")
-  rag_client = client.rag
+# Access Modules
+client = Wetrocloud(api_key="your_api_key")
+rag_client = client.rag
 
-  # Create a collection
-  collection_id = rag_client.create_collection(
-    collection_id="my_unique_collection_id"
-  )
+# Create a collection
+collection_id = rag_client.create_collection(
+  collection_id="my_unique_collection_id"
+)
 
-  print(collection_id)
+print(collection_id)
 ```
 
 ```javascript Javascript

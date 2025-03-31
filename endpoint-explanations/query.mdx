@@ -19,15 +19,15 @@ Free text response provides natural, conversational-style answers to your querie
 <CodeGroup>
 
 ```python Python
-  from wetro import Wetrocloud
+from wetro import Wetrocloud
 
-  # Query the collection
-  query_response = rag_client.collection.query_collection(
-    collection_id="my_unique_collection_id",
-    request_query="What are the key points of the article?"
-  )
+# Query the collection
+query_response = rag_client.collection.query_collection(
+  collection_id="<collection_id>",
+  request_query="What are the sales trends for Q1?"
+)
 
-  print(query_response)
+print(query_response)
 ```
 
 ```javascript JavaScript

@@ -34,14 +34,14 @@ rag_client = client.rag
 
 # Delete the resource from the collection
 delete_response = rag_client.collection.delete_resource(
-    collection_id="research_paper",
-    resource_id=insert_response.resource_id
+    collection_id="<collection_id>",
+    resource_id="<resource_id>"
 )
 print(delete_response)
 ```
 
 ```javascript JavaScript
- import Wetrocloud from "wetro-sdk";
+import Wetrocloud from "wetro-sdk";
 
 const wetrocloud = new Wetrocloud();
 const response = await wetrocloud.deleteResource({
@@ -52,12 +52,12 @@ const response = await wetrocloud.deleteResource({
 console.log("Deleting resource", response);
 ```
 
- ```bash cURL
-    curl --request DELETE \
-        --url https://api.wetrocloud.com/v1/resource/remove/ \
-        --header 'Authorization: Token <api-key>'
-        --form 'collection_id=<collection_id>' \
-        --form 'resource_id=<resource_id>' \
+```bash cURL
+curl --request DELETE \
+    --url https://api.wetrocloud.com/v1/resource/remove/ \
+    --header 'Authorization: Token <api-key>'
+    --form 'collection_id=<collection_id>' \
+    --form 'resource_id=<resource_id>' \
 ```
 </CodeGroup>
 

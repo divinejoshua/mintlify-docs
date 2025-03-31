@@ -21,33 +21,33 @@ This list has a pagination of up to <b>20</b> items per request. `Next` and `Pre
 ### Request Example
 <CodeGroup>
    
-    ```python Python
-    from wetro import Wetrocloud
+```python Python
+from wetro import Wetrocloud
     
-    # Access Modules
-    client = Wetrocloud(api_key="your_api_key")
-    rag_client = client.rag
+# Access Modules
+client = Wetrocloud(api_key="your_api_key")
+rag_client = client.rag
 
-    # Get all collections
-    all_collections = rag_client.get_collection_list()
+# Get all collections
+all_collections = rag_client.get_collection_list()
 
-    print(all_collections)
-    ```
-
-    ```javascript JavaScript
-   import Wetrocloud from "wetro-sdk";
- 
-    const wetrocloud = new Wetrocloud();
-    const response = await wetrocloud.listCollections();
-
-    console.log("Lisiting Collections", response);
+print(all_collections)
 ```
 
- ```bash cURL
-    curl --request GET \
-    --url 'https://api.wetrocloud.com/v1/collection/all/' \
-    --header 'Authorization: Token <api-token>'
-    ```
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
+ 
+const wetrocloud = new Wetrocloud();
+const response = await wetrocloud.listCollections();
+
+console.log("Lisiting Collections", response);
+```
+
+```bash cURL
+curl --request GET \
+--url 'https://api.wetrocloud.com/v1/collection/all/' \
+--header 'Authorization: Token <api-token>'
+```
 </CodeGroup>
 
 ---
