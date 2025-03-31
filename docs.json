@@ -31,7 +31,7 @@
               "endpoint-explanations/insert",
               {
                 "group": "Insert resources",
-                "pages": ["overview-insert", "files", "Web links", "Text", "Youtube videos", "Media files"]
+                "pages": ["overview-insert", "endpoint-explanations/insert-files", "Web links", "Text", "Youtube videos", "Media files"]
               },
               "endpoint-explanations/query",
               {

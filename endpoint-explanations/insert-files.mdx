@@ -1,0 +1,98 @@
+---
+title: 'Files'
+description: 'Learn how to insert files using Wetrocloud'
+---
+<Info>
+At a glance: <br/> Use the `/resource/insert/` endpoint to add resources (URLs, files, text or JSON) to a collection for indexing and retrieval. Simply provide a `collection_id`, `resource`, and `type`.
+</Info>
+
+## When to Use the Insert Endpoint
+
+Use the `/v1/resource/insert/` endpoint when you need to:
+
+- Add data to a specific collection identified by `collection_id`.
+- Prepare a dataset for RAG workflows.
+
+## How to Insert a Resource
+
+To insert a resource into a collection, make a `POST` request to the `/v1/resource/insert/` endpoint with the required parameters in the body.
+
+### Required Parameters
+
+| Parameter       | Type   | Description                                            |
+|------------------|--------|--------------------------------------------------------|
+| `collection_id` | String | The unique ID obtained from the `/collection/create/` endpoint. |
+| `resource` | String | The resource (e.g., a website). |
+| `type` | String | The type of resource to insert (e.g., `web`, `file`, `text`, `json`, `youtube`). |
+
+### Request Example
+<CodeGroup>
+ 
+```python Python
+from wetro import Wetrocloud
+    
+# Access Module
+client = Wetrocloud(api_key="your_api_key")
+rag_client = client.rag
+    
+#Insert a Resource into a Collection
+insert_response=rag_client.collection.insert_resource(
+  collection_id="<collection_id>",
+  resource="https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.", 
+  type="web"
+)
+    
+print(insert_response)
+```
+
+```javascript Javascript
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+const response = await wetrocloud.insertResource({
+  collection_id: "<collection_id>",
+  resource: "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
+  type: "web"
+});
+
+console.log("insert a resource", response);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.wetrocloud.com/v1/resource/insert/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "<collection_id>",
+    "resource": "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
+    "type": "web"
+  }'
+  ```
+</CodeGroup>
+
+### Successful Response
+
+A successful response confirms the operation and tracks token usage.
+
+**Example Response**
+
+```json
+{
+  "resource_id": "79621681-b680-4918-948d-d7f8c482426a",
+  "success": true,
+  "tokens": 35
+}
+```
+
+| Field      | Description                                     |
+|------------|-------------------------------------------------|
+| `success`  | Indicates whether the resource was inserted successfully. |
+| `tokens`   | Number of tokens consumed during the operation. |
+| `resource_id`   | Unique ID for the resource, this is required when removing a resource |
+
+## Related Operations
+
+- **[Create Collection](create)**: Start by creating a collection to hold your resources.
+- **[Query Resources](query)**: Access and retrieve insights from the indexed resources.
+- **[Delete Collection](delete)**: Remove collections and their resources when no longer needed.
