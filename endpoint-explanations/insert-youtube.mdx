@@ -21,7 +21,7 @@ rag_client = client.rag
 #Insert a Resource into a Collection
 insert_response=rag_client.collection.insert_resource(
   collection_id="<collection_id>",
-  resource="C:/Users/Desktop/Resource.pdf", 
+  resource="https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.", 
   type="file"
 )
     
@@ -34,7 +34,7 @@ import Wetrocloud from "wetro-sdk";
 const wetrocloud = new Wetrocloud();
 const response = await wetrocloud.insertResource({
   collection_id: "<collection_id>",
-  resource: "C:/Users/Desktop/Resource.pdf",
+  resource: "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
   type: "file"
 });
 
@@ -48,7 +48,7 @@ curl --request POST \
   --header 'Content-Type: application/json' \
   --data '{
     "collection_id": "<collection_id>",
-    "resource": "C:/Users/Desktop/Resource.pdf",
+    "resource": "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
     "type": "file"
   }'
   ```

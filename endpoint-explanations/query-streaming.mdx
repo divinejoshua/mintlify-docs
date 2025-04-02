@@ -1,0 +1,63 @@
+---
+title: 'Streaming'
+description: 'Learn how to query your collections in WetroCloud for both free text and structured responses.'
+---
+The `query` endpoint allows you to retrieve information from a collection (your resources) via the WetroCloud API.  
+This endpoint supports two response formats to suit different use cases:  
+
+- **Free Text Response**: A natural language answer to your query.  
+- **Structured Output Response**: A structured JSON output.
+
+Each response type has unique request and response formats, which are explained in detail on their respective pages.  
+
+
+## Free Text Response
+
+Free text response provides natural, conversational-style answers to your queries. It is ideal for general Q&A and scenarios where a narrative or contextualized explanation is needed. Unlike structured output, free text does not require additional parameters like `json_schema` and `json_schema_rules`.
+
+### Request Example
+<CodeGroup>
+```javascript Javascript
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+
+const collectionId = '<collection_id>';
+const query = 'What are the sales trends for Q1?';
+
+const response = await wetrocloud.queryResource({
+  collection_id: collectionId,
+  request_query: query,
+  stream: true
+});
+
+for await (const item of response) {
+    console.log("Received item:", item);
+}
+```
+</CodeGroup>
+
+---
+
+| Field               | Description                                          |
+|---------------------|------------------------------------------------------|
+| `collection_id`     | Collection Id.                                       |
+| `query`             | This is the prompt.                                  |
+| `model` (optional)  | Pass in the model you want.                          |
+
+
+### Response Example: Free Text
+
+```json
+{
+  "response": "The sales for Q1 increased by 20% compared to last year, with online channels contributing significantly.",
+  "tokens": 120,
+  "success": true
+}
+```
+
+| Field     | Description                                           |
+|-----------|-------------------------------------------------------|
+| `response` | Conversational response to the query.                |
+| `tokens`   | Number of tokens used for processing.                |
+| `success`  | Indicates whether the query was successful.          |
