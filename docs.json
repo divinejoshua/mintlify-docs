@@ -28,7 +28,6 @@
             "pages": [
               "endpoint-explanations/create",
               "endpoint-explanations/list-collections",
-              "endpoint-explanations/insert",
               {
                 "group": "Insert resources",
                 "pages": [
@@ -46,7 +45,7 @@
                 "pages": [
                   "endpoint-explanations/overview-query",
                   "endpoint-explanations/query-streaming",
-                  "Json schema"
+                  "endpoint-explanations/query-json-schema"
                 ]
               },
               "endpoint-explanations/chat",
