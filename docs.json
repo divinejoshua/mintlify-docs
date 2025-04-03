@@ -39,7 +39,6 @@
                   "endpoint-explanations/insert-media"
                 ]
               },
-              "endpoint-explanations/query",
               {
                 "group": "Query collections",
                 "pages": [
