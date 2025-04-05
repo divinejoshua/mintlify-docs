@@ -33,13 +33,12 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
   ```bash Python
   pip install wetro
   ```
-  ```javascript JavaScript
+  ```bash JavaScript
   npm install wetro-sdk
   ```
-```bash cURL
-curl
-  --base_url  https://api.wetrocloud.com/v1/
-```
+  ```bash cURL
+    curl --base_url  https://api.wetrocloud.com/v1/
+  ```
     </CodeGroup>
   </Step>
 
@@ -51,13 +50,12 @@ from wetro import Wetrocloud
 
 # Initialize the main client and access modules
 client = Wetrocloud(api_key="your_api_key")
-rag_client = client.rag
-tools_client = client.tools
 ```
 
-```javascript Javascript
+```bash Javascript
 import Wetrocloud from "wetro-sdk";
 
+# Initialize the main client and access modules
 const wetrocloud = new Wetrocloud({apiKey:"your_api_key"});
 ```
 
@@ -75,27 +73,26 @@ curl
 ```python Python
 from wetro import Wetrocloud
 
-# Access Modules
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-rag_client = client.rag
 
 # Create a collection
-collection_id = rag_client.create_collection(
+collection = client.create_collection(
   collection_id="my_unique_collection_id"
 )
 
-print(collection_id)
+print(collection)
 ```
   
 ```javascript Javascript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
+const wetrocloud = new Wetrocloud({apiKey:"your_api_key"});
 
 const collection_id = 'unique_id'; //this is optional if not specified one would be generated for you.
 const response = await wetrocloud.createCollection({ collection_id });
 
-console.log("Creating Collection", response);
+console.log(response);
 ```
 
 ```bash cURL
@@ -113,22 +110,26 @@ curl --request POST \
 ```python Python
 from wetro import Wetrocloud
 
-# Access Modules
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-rag_client = client.rag
 
 # Get all collections
-all_collections = rag_client.get_collection_list()
+all_collections = client.get_collection_list()
 
+# print the response
 print(all_collections)
 ```
 
 ```javascript Javascript
 import Wetrocloud from "wetro-sdk";
- 
-const wetrocloud = new Wetrocloud();
+
+// Initialize the Wetrocloud client
+const wetrocloud = new Wetrocloud({apiKey:"your_api_key"});
+
+// Get all collections
 const response = await wetrocloud.listCollections();
 
+// Print the response
 console.log("Lisiting Collections", response);
 ````
 
@@ -147,30 +148,34 @@ curl --request GET \
 ```python Python
 from wetro import Wetrocloud
     
-# Access Module
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-rag_client = client.rag
-     
-#Insert a Resource into a Collection
-insert_response=rag_client.collection.insert_resource(
+
+# Insert a Resource into a Collection
+insert_response=client.collection.insert_resource(
   collection_id="my_unique_collection_id",
-  resource="https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09", 
+  resource="https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09",
   type="web"
 )
-    
+
+# Print the response
 print(insert_response)
 ```
 
 ```javascript Javascript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
+// Initialize the Wetrocloud client
+const wetrocloud = new Wetrocloud({apiKey:"your_api_key"});
+
+// Insert a Resource into a Collection
 const response = await wetrocloud.insertResource({
   collection_id: "<collection_id>",
   resource: "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
   type: "web"
 });
 
+// Print the response
 console.log("insert a resource", response);
 ````
 
@@ -192,7 +197,7 @@ curl --request POST \
 ```python Python
 from wetro import Wetrocloud
 
-# Access Module
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
 rag_client = client.rag
 
@@ -202,26 +207,24 @@ query_response = rag_client.collection.query_collection(
   request_query="What are the key points of the article?"
 )
 
+# Print the response
 print(query_response)
 ```
 
 ```javascript Javascript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
+// Initialize the Wetrocloud client
+const wetrocloud = new Wetrocloud({apiKey:"your_api_key"});
 
-const collectionId = '<collection_id>';
-const query = 'What are the sales trends for Q1?';
-
+// Query the collection
 const response = await wetrocloud.queryResource({
-  collection_id: collectionId,
-  request_query: query,
-  stream: true
+  collection_id: "my_unique_collection_id",
+  request_query: "What are the key points of the article?",
 });
 
-for await (const item of response) {
-    console.log("Received item:", item);
-}
+// Print the response
+console.log("Querying collection", response);
 ```
 
 ```bash cURL
@@ -243,7 +246,8 @@ curl --request POST \
     <CodeGroup>
 ```python Python
 from wetro import Wetrocloud
-# Access Module
+
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
 rag_client = client.rag
 
@@ -259,13 +263,15 @@ chat_response = rag_client.collection.chat(
     message="Can you explain the latest paper's methodology?",
     chat_history=chat_history
 )
+
+# Print the chat response
 print(chat_response)
 ``` 
 
 ```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
+const wetrocloud = new Wetrocloud({apiKey:"your_api_key"});
 const response = await wetrocloud.chat({
     collection_id:"<collection_id>",
     message:"Tell me more",
@@ -314,7 +320,7 @@ console.log("Chat with collection", response);
 ```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
+const wetrocloud = new Wetrocloud({apiKey:"your_api_key"});
 
 const response = await wetrocloud.categorize({
   resource: "match review: John Cena vs. The Rock",
@@ -362,7 +368,7 @@ print(delete_response)
 ```javascript Javascript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
+const wetrocloud = new Wetrocloud({apiKey:"your_api_key"});
 const response = await wetrocloud.deleteResource({
   collection_id: '<collection_id>',
   resource_id: '<resource_id>'
@@ -388,7 +394,7 @@ console.log("Deleting resource", response);
 ```python python
 from wetro import Wetrocloud
 
-# Access Modules
+# Initialize the Wetrocloud clients
 client = Wetrocloud(api_key="your_api_key")
 rag_client = client.rag
 
@@ -401,7 +407,7 @@ print(delete_collection)
 ```javascript NodeJS
     import Wetrocloud from "wetro-sdk";
 
-    const wetrocloud = new Wetrocloud();
+    const wetrocloud = new Wetrocloud({apiKey:"your_api_key"});
     const response = await wetrocloud.deleteCollection({
       collection_id:'<collection_id>',
     });
