@@ -46,15 +46,14 @@ To insert a resource into a collection, make a `POST` request to the `/v1/resour
 ```python Python
 from wetro import Wetrocloud
     
-# Access Module
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-rag_client = client.rag
     
-#Insert a Resource into a Collection
-insert_response=rag_client.collection.insert_resource(
-  collection_id="<collection_id>",
-  resource="https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.", 
-  type="web"
+# Insert a Resource into a Collection
+insert_response = client.collection.insert_resource(
+    collection_id="my_unique_collection_id",
+    resource="https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.", 
+    type="web"
 )
     
 print(insert_response)

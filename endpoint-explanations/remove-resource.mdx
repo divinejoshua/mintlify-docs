@@ -29,13 +29,13 @@ To remove resource from a collection, send a `DELETE` request to the `/resource/
 ```python Python
 from wetro import Wetrocloud
 
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-rag_client = client.rag
 
 # Delete the resource from the collection
-delete_response = rag_client.collection.delete_resource(
-    collection_id="<collection_id>",
-    resource_id="<resource_id>"
+delete_response = client.collection.delete_resource(
+    collection_id="my_unique_collection_id",
+    resource_id="resource_id"
 )
 print(delete_response)
 ```
@@ -43,7 +43,10 @@ print(delete_response)
 ```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
+// Initialize the Wetrocloud client
 const wetrocloud = new Wetrocloud();
+
+// Delete the resource
 const response = await wetrocloud.deleteResource({
   collection_id: '<collection_id>',
   resource_id: '<resource_id>'
@@ -55,9 +58,9 @@ console.log("Deleting resource", response);
 ```bash cURL
 curl --request DELETE \
     --url https://api.wetrocloud.com/v1/resource/remove/ \
-    --header 'Authorization: Token <api-key>'
+    --header 'Authorization: Token <api-key>' \
     --form 'collection_id=<collection_id>' \
-    --form 'resource_id=<resource_id>' \
+    --form 'resource_id=<resource_id>'
 ```
 </CodeGroup>
 

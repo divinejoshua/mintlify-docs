@@ -17,6 +17,24 @@ Free text response provides natural, conversational-style answers to your querie
 
 ### Request Example
 <CodeGroup>
+```python Python
+from wetro import Wetrocloud
+
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
+
+# Query the collection with streaming
+streaming_response = client.collection.query_collection(
+    collection_id="my_unique_collection_id",
+    request_query="What are the sales trends for Q1?",
+    stream=True
+)
+
+# Process streaming response
+for chunk in streaming_response:
+    print(chunk.response, end="")
+```
+
 ```javascript Javascript
 import Wetrocloud from "wetro-sdk";
 

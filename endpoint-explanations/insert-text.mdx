@@ -1,12 +1,11 @@
 ---
 title: 'Text'
-description: 'Learn how to insert text using Wetrocloud'
+description: 'Learn how to insert text content using Wetrocloud'
 ---
 
-## How to Insert a Text
+## How to Insert Text Content
 
-To insert a resource into a collection, make a `POST` request to the `/v1/resource/insert/` endpoint with the required parameters in the body.
-
+To insert text content into a collection, make a `POST` request to the `/v1/resource/insert/` endpoint with the required parameters in the body. The resource should be the text content you want to index.
 
 ### Request Example
 <CodeGroup>
@@ -14,15 +13,14 @@ To insert a resource into a collection, make a `POST` request to the `/v1/resour
 ```python Python
 from wetro import Wetrocloud
     
-# Access Module
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-rag_client = client.rag
     
-#Insert a Resource into a Collection
-insert_response=rag_client.collection.insert_resource(
-  collection_id="<collection_id>",
-  resource="Rise of LLM models", 
-  type="text"
+# Insert text content into a Collection
+insert_response = client.collection.insert_resource(
+    collection_id="my_unique_collection_id",
+    resource="Rise of LLM models", 
+    type="text"
 )
     
 print(insert_response)
@@ -51,7 +49,7 @@ curl --request POST \
     "resource": "Rise of LLM models",
     "type": "text"
   }'
-  ```
+```
 </CodeGroup>
 
 ### Successful Response

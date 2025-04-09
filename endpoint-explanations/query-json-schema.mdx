@@ -1,10 +1,10 @@
 ---
-title: 'Json Schema'
-description: 'Learn how to query resources using the Wetrocloud API'
+title: 'Structured Output'
+description: 'Learn how to retrieve structured data from a collection using the Wetrocloud API'
 ---
 
 ## Structured Output Response
-Structured output is a feature that allows large language models (LLMs) to generate responses in a specific format with your resources. Structured output is best for extracting structured data to fit your application’s needs. It returns data formatted with the `json_schema` and `json_schema_rules` you provide.
+Structured output is a feature that allows large language models (LLMs) to generate responses in a specific format with your resources. Structured output is best for extracting structured data to fit your application's needs. It returns data formatted with the `json_schema` and `json_schema_rules` you provide.
 To use the structured output feature you need to provide the following parameters:
 
 | Parameter           | Type   | Description                                                                 |
@@ -57,9 +57,8 @@ The `json_schema_rules` parameter allows you to define custom rules for how the 
 ```python Python
 from wetro import Wetrocloud
 
-# Access Modules
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-rag_client = client.rag
 
 # Define a JSON schema for structured output
 json_schema = [{"topic": "", "description": ""}]
@@ -68,15 +67,14 @@ json_schema = [{"topic": "", "description": ""}]
 rules = "Give a very short description of every page on the document from"
 
 # Query with structured output requirements
-response = rag_client.collection.query_resource(
-    collection_id="<collection_id>",
-    request_query= "What is this about?",
-    json_schema = json_schema,
-    json_schema_rules = rules
+response = client.collection.query_collection(
+    collection_id="my_unique_collection_id",
+    request_query="What is this about?",
+    json_schema=json_schema,
+    json_schema_rules=rules
 )
 print(response)
 ```
-
 
 ```javascript Javascript
 import Wetrocloud from "wetro-sdk";
@@ -104,64 +102,21 @@ curl --request POST \
 ```
 </CodeGroup>
 
-**Example Request with stream**
-
-<CodeGroup>
-```javascript Javascript
-import Wetrocloud from "wetro-sdk";
-
-const wetrocloud = new Wetrocloud();
-
-const response = await wetrocloud.queryResource({
-  collection_id:'<collection_id>',
-  request_query: 'What is this about?',
-  json_schema:{ topic: "", description: "" },
-  json_schema_rules: "Give a very short description of every page on the document from",
-  stream: true
-});
-
-for await (const item of response) {
-    console.log("Received item:", item);
-}
-````
-</CodeGroup>
-
-
 **Example Response**
- ```json
+```json
 {
     "response": [
         {
-            "topic": "Introduction to Corporate Bonds",
-            "description": "An overview of what corporate bonds are and their significance in the investment landscape."
+            "month": "January",
+            "sales": 15000
         },
         {
-            "topic": "How Corporate Bonds Work",
-            "description": "Explanation of the mechanics of corporate bonds, including issuance, interest payments, and maturity."
+            "month": "February",
+            "sales": 18000
         },
         {
-            "topic": "Types of Corporate Bonds",
-            "description": "Discussion of various types of corporate bonds, such as investment-grade and high-yield bonds."
-        },
-        {
-            "topic": "Risks Associated with Corporate Bonds",
-            "description": "Insight into the risks involved in investing in corporate bonds, including credit risk and interest rate risk."
-        },
-        {
-            "topic": "Benefits of Investing in Corporate Bonds",
-            "description": "Highlighting the advantages of corporate bonds, such as income generation and portfolio diversification."
-        },
-        {
-            "topic": "Corporate Bond Market Overview",
-            "description": "A look at the corporate bond market, including market size, participants, and trends."
-        },
-        {
-            "topic": "How to Invest in Corporate Bonds",
-            "description": "Guidance on the methods and platforms available for investing in corporate bonds."
-        },
-        {
-            "topic": "Conclusion",
-            "description": "Summary of key points regarding corporate bonds and their role in investment strategies."
+            "month": "March",
+            "sales": 17000
         }
     ],
     "tokens": 4007,

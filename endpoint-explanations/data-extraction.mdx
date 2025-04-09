@@ -7,7 +7,7 @@ This endpoint supports just one response formats to suit different use cases:
 
 ## Structured Output Response
 
-Structured output is a feature that allows large language models (LLMs) to generate responses in a specific format with your resources. Structured output is best for extracting structured data to fit your application’s needs. It returns data formatted with the `json_schema` and `json_schema_rules` you provide.
+Structured output is a feature that allows large language models (LLMs) to generate responses in a specific format with your resources. Structured output is best for extracting structured data to fit your application's needs. It returns data formatted with the `json_schema` and `json_schema_rules` you provide.
 To use the structured output feature you need to provide the following parameters:
 
 | Parameter           | Type   | Description                                                                 |
@@ -55,11 +55,11 @@ curl --request POST \
 ```python Python
 from wetro import Wetrocloud
 
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-tools_client = client.tools
-    
+
 # Extract structured data from a website
-extract_response = tools_client.extract(
+extract_response = client.extract(
    website="https://www.forbes.com/real-time-billionaires/#7583ee253d78",
    json_schema='[{"name": "<name>", "networth": "<networth>"}]'
 )

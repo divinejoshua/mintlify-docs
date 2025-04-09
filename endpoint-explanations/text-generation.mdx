@@ -46,14 +46,14 @@ View models supported by WetroCloud [here](/endpoint-explanations/models).
   ```python Python
 from wetro import Wetrocloud
 
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-tools_client = client.tools
 
 # Text Generation
-response = tools_client.generate_text(
+response = client.generate_text(
     messages=[
         {"role": "system", "content": "You are a helpful assistant."}, 
-        "role": "user", "content": "Write a short poem about technology."}
+        {"role": "user", "content": "Write a short poem about technology."}
     ],
     model="llama-3.3-70b"
 )
@@ -75,7 +75,7 @@ const response = await wetrocloud.textGeneration({
 })
 
 console.log("Generation without RAG", result);
-````
+```
 
 ```bash curl
 --location 'https://api.wetrocloud.com/v1/text-generation/' \
@@ -102,4 +102,3 @@ console.log("Generation without RAG", result);
 | `response` | Conversational response to the query.                |
 | `tokens`   | Number of tokens used for processing.                |
 | `success`  | Indicates whether the query was successful.          |
-

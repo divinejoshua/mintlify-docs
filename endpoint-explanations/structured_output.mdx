@@ -4,15 +4,16 @@ description: 'Learn how to query resources using the Wetrocloud API'
 ---
 
 ## Structured Output Response
-Structured output is a feature that allows large language models (LLMs) to generate responses in a specific format with your resources. Structured output is best for extracting structured data to fit your application’s needs. It returns data formatted with the `json_schema` and `json_schema_rules` you provide.
+Structured output is a feature that allows large language models (LLMs) to generate responses in a specific format with your resources. Structured output is best for extracting structured data to fit your application's needs. It returns data formatted with the `json_schema` and `json_schema_rules` you provide.
+
 To use the structured output feature you need to provide the following parameters:
 
 | Parameter           | Type   | Description                                                                 |
-|----------------------|--------|-----------------------------------------------------------------------------|
-| `collection_id`      | String | The unique ID of the collection to query.                                   |
-| `request_query`      | String | The search term or query text.                                              |
-| `json_schema`        | String | The desired structure for the JSON response.                                |
-| `json_schema_rules`  | String | Custom rules to guide the response's adherence to the specified JSON schema.|
+|---------------------|--------|-----------------------------------------------------------------------------|
+| `collection_id`     | String | The unique ID of the collection to query.                                   |
+| `request_query`     | String | The search term or query text.                                              |
+| `json_schema`       | String | The desired structure for the JSON response.                                |
+| `json_schema_rules` | String | Custom rules to guide the response's adherence to the specified JSON schema.|
 
 ### `json_schema`
 
@@ -30,7 +31,7 @@ The `json_schema` parameter defines the structure of the response you want the s
 
 **Example JSON Schema (List)**
 
-If you want a list of items and not just a single item, you can specify the json schema by putting the entire object in a list
+If you want a list of items and not just a single item, you can specify the json schema by putting the entire object in a list:
 
 ```json
 [
@@ -42,8 +43,6 @@ If you want a list of items and not just a single item, you can specify the json
 ]
 ```
 
----
-
 ### `json_schema_rules`
 
 The `json_schema_rules` parameter allows you to define custom rules for how the schema is applied. Another way to think about this is that it is a set of instructions for the LLM to follow when generating the response. This can also be in form of a more detailed prompt This can include constraints on the data, additional formatting, or validation logic.
@@ -53,13 +52,11 @@ The `json_schema_rules` parameter allows you to define custom rules for how the 
 **Example Requests**
 
 <CodeGroup>
-
 ```python Python
 from wetro import Wetrocloud
 
-# Access Modules
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-rag_client = client.rag
 
 # Define a JSON schema for structured output
 json_schema = [{"topic": "", "description": ""}]
@@ -68,19 +65,19 @@ json_schema = [{"topic": "", "description": ""}]
 rules = "Give a very short description of every page on the document from"
 
 # Query with structured output requirements
-response = rag_client.collection.query_resource(
-    collection_id="<collection_id>",
-    request_query= "What is this about?",
-    json_schema = json_schema,
-    json_schema_rules = rules
+response = client.collection.query_collection(
+    collection_id="my_unique_collection_id",
+    request_query="What is this about?",
+    json_schema=json_schema,
+    json_schema_rules=rules
 )
 print(response)
 ```
 
-
-```javascript Javascript
+```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
+// Initialize the Wetrocloud client
 const wetrocloud = new Wetrocloud();
 
 const response = await wetrocloud.queryResource({
@@ -107,9 +104,37 @@ curl --request POST \
 **Example Request with stream**
 
 <CodeGroup>
-```javascript Javascript
+```python Python
+from wetro import Wetrocloud
+
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
+
+# Define schema and rules
+json_schema = {
+    "month": "string",
+    "sales": "number"
+}
+rules = "Extract monthly sales data for Q1"
+
+# Query with structured output and streaming
+streaming_response = client.collection.query_collection(
+    collection_id="my_unique_collection_id",
+    request_query="What are the sales trends for Q1?",
+    json_schema=json_schema,
+    json_schema_rules=rules,
+    stream=True
+)
+
+# Process streaming response
+for chunk in streaming_response:
+    print(chunk.response, end="")
+```
+
+```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
+// Initialize the Wetrocloud client
 const wetrocloud = new Wetrocloud();
 
 const response = await wetrocloud.queryResource({
@@ -123,12 +148,11 @@ const response = await wetrocloud.queryResource({
 for await (const item of response) {
     console.log("Received item:", item);
 }
-````
+```
 </CodeGroup>
 
-
 **Example Response**
- ```json
+```json
 {
     "response": [
         {
@@ -168,6 +192,7 @@ for await (const item of response) {
     "success": true
 }
 ```
+
 | Field     | Description                                           |
 |-----------|-------------------------------------------------------|
 | `response` | JSON object structured as per the provided schema.   |

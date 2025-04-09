@@ -5,8 +5,7 @@ description: 'Learn how to insert media files using Wetrocloud'
 
 ## How to Insert a Media File
 
-To insert a resource into a collection, make a `POST` request to the `/v1/resource/insert/` endpoint with the required parameters in the body.
-
+To insert a media file into a collection, make a `POST` request to the `/v1/resource/insert/` endpoint with the required parameters in the body. The resource should be a URL pointing to the media file you want to index. Supported audio file types include `.3ga`, `.8svx`, `.aac`, `.ac3`, `.aif`, `.aiff`, `.alac`, `.amr`, `.ape`, `.au`, `.dss`, `.flac`, `.flv`, `.m4a`, `.m4b`, `.m4p`, `.m4r`, `.mp3`, `.mpga`, `.ogg`, `.oga`, `.mogg`, `.opus`, `.qcp`, `.tta`, `.voc`, `.wav`, `.wma`, `.wv`.
 
 ### Request Example
 <CodeGroup>
@@ -14,15 +13,14 @@ To insert a resource into a collection, make a `POST` request to the `/v1/resour
 ```python Python
 from wetro import Wetrocloud
     
-# Access Module
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-rag_client = client.rag
     
-#Insert a Resource into a Collection
-insert_response=rag_client.collection.insert_resource(
-  collection_id="<collection_id>",
-  resource="https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.", 
-  type="audio"
+# Insert a media file into a Collection
+insert_response = client.collection.insert_resource(
+    collection_id="my_unique_collection_id",
+    resource="https://res.cloudinary.com/dxcb59rb3/video/upload/v1744140560/PodcastingHouse-20181018-TheBriefingRoom_z6kfeq.mp3", 
+    type="audio"
 )
     
 print(insert_response)
@@ -34,7 +32,7 @@ import Wetrocloud from "wetro-sdk";
 const wetrocloud = new Wetrocloud();
 const response = await wetrocloud.insertResource({
   collection_id: "<collection_id>",
-  resource: "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
+  resource: "https://res.cloudinary.com/dxcb59rb3/video/upload/v1744140560/PodcastingHouse-20181018-TheBriefingRoom_z6kfeq.mp3",
   type: "audio"
 });
 
@@ -48,10 +46,10 @@ curl --request POST \
   --header 'Content-Type: application/json' \
   --data '{
     "collection_id": "<collection_id>",
-    "resource": "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
+    "resource": "https://res.cloudinary.com/dxcb59rb3/video/upload/v1744140560/PodcastingHouse-20181018-TheBriefingRoom_z6kfeq.mp3",
     "type": "audio"
   }'
-  ```
+```
 </CodeGroup>
 
 ### Successful Response

@@ -1,12 +1,11 @@
 ---
-title: 'Files'
-description: 'Learn how to insert files using Wetrocloud'
+title: 'YouTube'
+description: 'Learn how to insert YouTube videos using Wetrocloud'
 ---
 
-## How to Insert a File
+## How to Insert a YouTube Video
 
-To insert a resource into a collection, make a `POST` request to the `/v1/resource/insert/` endpoint with the required parameters in the body.
-
+To insert a YouTube video into a collection, make a `POST` request to the `/v1/resource/insert/` endpoint with the required parameters in the body. The resource should be a valid YouTube URL.
 
 ### Request Example
 <CodeGroup>
@@ -14,15 +13,14 @@ To insert a resource into a collection, make a `POST` request to the `/v1/resour
 ```python Python
 from wetro import Wetrocloud
     
-# Access Module
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-rag_client = client.rag
     
-#Insert a Resource into a Collection
-insert_response=rag_client.collection.insert_resource(
-  collection_id="<collection_id>",
-  resource="https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.", 
-  type="file"
+# Insert a YouTube video into a Collection
+insert_response = client.collection.insert_resource(
+    collection_id="my_unique_collection_id",
+    resource="https://youtu.be/dQw4w9WgXcQ?si=0QKWYSM2QB03PoMh", 
+    type="youtube"
 )
     
 print(insert_response)
@@ -34,8 +32,8 @@ import Wetrocloud from "wetro-sdk";
 const wetrocloud = new Wetrocloud();
 const response = await wetrocloud.insertResource({
   collection_id: "<collection_id>",
-  resource: "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
-  type: "file"
+  resource: "https://youtu.be/dQw4w9WgXcQ?si=0QKWYSM2QB03PoMh",
+  type: "youtube"
 });
 
 console.log("insert a resource", response);
@@ -48,10 +46,10 @@ curl --request POST \
   --header 'Content-Type: application/json' \
   --data '{
     "collection_id": "<collection_id>",
-    "resource": "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
-    "type": "file"
+    "resource": "https://youtu.be/dQw4w9WgXcQ?si=0QKWYSM2QB03PoMh",
+    "type": "youtube"
   }'
-  ```
+```
 </CodeGroup>
 
 ### Successful Response
