@@ -5,8 +5,7 @@ description: 'Learn how to insert files using Wetrocloud'
 
 ## How to Insert a File
 
-To insert a resource into a collection, make a `POST` request to the `/v1/resource/insert/` endpoint with the required parameters in the body.
-
+To insert a file into a collection, make a `POST` request to the `/v1/resource/insert/` endpoint with the required parameters in the body.
 
 ### Request Example
 <CodeGroup>
@@ -14,15 +13,14 @@ To insert a resource into a collection, make a `POST` request to the `/v1/resour
 ```python Python
 from wetro import Wetrocloud
     
-# Access Module
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-rag_client = client.rag
     
-#Insert a Resource into a Collection
-insert_response=rag_client.collection.insert_resource(
-  collection_id="<collection_id>",
-  resource="C:/Users/Desktop/Resource.pdf", 
-  type="file"
+# Insert a file into a Collection
+insert_response = client.collection.insert_resource(
+    collection_id="my_unique_collection_id",
+    resource="C:/Users/Desktop/Resource.pdf", 
+    type="file"
 )
     
 print(insert_response)
@@ -51,7 +49,7 @@ curl --request POST \
     "resource": "C:/Users/Desktop/Resource.pdf",
     "type": "file"
   }'
-  ```
+```
 </CodeGroup>
 
 ### Successful Response

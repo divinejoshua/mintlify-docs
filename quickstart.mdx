@@ -10,7 +10,7 @@ Visit the [Wetrocloud console](https://console.wetrocloud.com/) to get your API 
 import WarningCallout from '/snippets/snippet-warning.mdx';
 
 #### Introduction 
-This guide is for developers looking to get started with the WetroCloud API quickly. Using simple cURL commands, you’ll learn how to:
+This guide is for developers looking to get started with the WetroCloud API quickly. Using simple cURL commands, you'll learn how to:
 
 - Create a collection
 - Insert resources into the collection
@@ -23,7 +23,7 @@ This guide is for developers looking to get started with the WetroCloud API quic
 **Prerequisites:**
 - An API key from the [Wetrocloud Console](https://console.wetrocloud.com)
 
-By the end, you’ll have queried your first resource using Wetrocloud API.
+By the end, you'll have queried your first resource using Wetrocloud API.
 
 <WarningCallout/>
 
@@ -77,7 +77,7 @@ from wetro import Wetrocloud
 client = Wetrocloud(api_key="your_api_key")
 
 # Create a collection
-collection = client.create_collection(
+collection = client.collection.create_collection(
   collection_id="my_unique_collection_id"
 )
 
@@ -114,7 +114,7 @@ from wetro import Wetrocloud
 client = Wetrocloud(api_key="your_api_key")
 
 # Get all collections
-all_collections = client.get_collection_list()
+all_collections = client.collection.get_collection_list()
 
 # print the response
 print(all_collections)
@@ -199,12 +199,11 @@ from wetro import Wetrocloud
 
 # Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-rag_client = client.rag
 
 # Query the collection
-query_response = rag_client.collection.query_collection(
-  collection_id="my_unique_collection_id",
-  request_query="What are the key points of the article?"
+query_response = client.collection.query_collection(
+    collection_id="my_unique_collection_id",
+    request_query="What are the key points of the article?"
 )
 
 # Print the response
@@ -249,7 +248,6 @@ from wetro import Wetrocloud
 
 # Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-rag_client = client.rag
 
 # Create a chat history
 chat_history = [
@@ -258,8 +256,8 @@ chat_history = [
 ]
 
 # Continue the conversation with context
-chat_response = rag_client.collection.chat(
-    collection_id="<collection_id>",
+chat_response = client.collection.chat(
+    collection_id="my_unique_collection_id",
     message="Can you explain the latest paper's methodology?",
     chat_history=chat_history
 )
@@ -298,24 +296,24 @@ console.log("Chat with collection", response);
 
   <Step title="Categorize a Resource">
     <CodeGroup>
-  
- ```python Python
-  from wetro import Wetrocloud
+```python Python
+from wetro import Wetrocloud
 
-  client = Wetrocloud(api_key="your_api_key")
-  tools_client = client.tools
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
 
-  # Categorize content
-  categorize_response = tools_client.categorize(
-      resource="match review: John Cena vs. The Rock.",
-      type="text",
-      json_schema='{"label": "string"}',
-      categories=["wrestling", "entertainment", "sports", "news"],
-      prompt="Categorize the text to see which category it best fits")
+# Categorize content
+categorize_response = client.categorize(
+    resource="match review: John Cena vs. The Rock.",
+    type="text",
+    json_schema={"label": "string"},
+    categories=["wrestling", "entertainment", "sports", "news"],
+    prompt="Categorize the text to see which category it best fits"
+)
 
-  print(categorize_response)
-  print("\nThe text is categorized as:", categorize_response.response["label"])
-  ```
+print(categorize_response)
+print("\nThe text is categorized as:", categorize_response.response["label"])
+```
    
 ```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
@@ -347,21 +345,20 @@ console.log("Categorizing resource", result);
   </Step>
 
   <Step title="Remove a Resource">
-    This endpoint is used to delete a collection
+    Remove a resource from your collection using the `collection_id` and `resource_id`.
     <CodeGroup>
-  
-
 ```python Python
 from wetro import Wetrocloud
 
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-rag_client = client.rag
 
 # Delete the resource from the collection
-delete_response = rag_client.collection.delete_resource(
-    collection_id="research_paper",
-    resource_id=insert_response.resource_id
+delete_response = client.collection.delete_resource(
+    collection_id="my_unique_collection_id",
+    resource_id="resource_id_to_delete"
 )
+
 print(delete_response)
 ```
 
@@ -377,53 +374,53 @@ const response = await wetrocloud.deleteResource({
 console.log("Deleting resource", response);
 ```
 
-    ```bash cURL
-        curl --request DELETE \
-          --url https://api.wetrocloud.com/v1/resource/remove/ \
-          --header 'Authorization: Token <api-key>'
-          --form 'collection_id=<collection_id>' \
-          --form 'resource_id=<resource_id>' \
-      ```
+```bash cURL
+    curl --request DELETE \
+      --url https://api.wetrocloud.com/v1/resource/remove/ \
+      --header 'Authorization: Token <api-key>'
+      --form 'collection_id=<collection_id>' \
+      --form 'resource_id=<resource_id>' \
+```
     </CodeGroup>
   </Step>
 
   <Step title="Delete a Collection">
-    This endpoint is used to delete a collection
+    Delete a collection using its `collection_id`.
     <CodeGroup>
-     
-```python python
+```python Python
 from wetro import Wetrocloud
 
-# Initialize the Wetrocloud clients
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-rag_client = client.rag
 
 # Delete the collection
-delete_collection = rag_client.collection.delete_collection(collection_id="my_unique_collection_id")
+delete_collection = client.collection.delete_collection(
+    collection_id="my_unique_collection_id"
+)
 
 print(delete_collection)
-  ```
-
-```javascript NodeJS
-    import Wetrocloud from "wetro-sdk";
-
-    const wetrocloud = new Wetrocloud({apiKey:"your_api_key"});
-    const response = await wetrocloud.deleteCollection({
-      collection_id:'<collection_id>',
-    });
-
-    console.log("Deleting collection", response);
 ```
 
-      ```bash cURL
-        curl --request DELETE \
-          --url https://api.wetrocloud.com/v1/collection/delete/ \
-          --header 'Authorization: Token <api-key>'
-      ```
+```javascript NodeJS
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud({apiKey:"your_api_key"});
+const response = await wetrocloud.deleteCollection({
+  collection_id:'<collection_id>',
+});
+
+console.log("Deleting collection", response);
+```
+
+```bash cURL
+    curl --request DELETE \
+      --url https://api.wetrocloud.com/v1/collection/delete/ \
+      --header 'Authorization: Token <api-key>'
+```
     </CodeGroup>
   </Step>
 </Steps>
 
 Great, that was easy!
 
-If you want to get a more in depth understanding of how wetrocloud API fits together head on over to the [API reference](/api-reference/api-endpoints).
+If you want to get a more in depth understanding of how wetrocloud SDK works, head on over to the [API reference](/api-reference/api-endpoints).

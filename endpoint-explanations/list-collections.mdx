@@ -24,12 +24,11 @@ This list has a pagination of up to <b>20</b> items per request. `Next` and `Pre
 ```python Python
 from wetro import Wetrocloud
     
-# Access Modules
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-rag_client = client.rag
 
 # Get all collections
-all_collections = rag_client.get_collection_list()
+all_collections = client.collection.get_collection_list()
 
 print(all_collections)
 ```

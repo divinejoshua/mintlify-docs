@@ -30,20 +30,21 @@ Send a `POST` request to the `/v1/categorize/` endpoint with the required parame
 ```python Python
 from wetro import Wetrocloud
 
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-tools_client = client.tools
 
 # Categorize content
-categorize_response = tools_client.categorize(
+categorize_response = client.categorize(
     resource="match review: John Cena vs. The Rock.",
     type="text",
-    json_schema='{"label": "string"}',
+    json_schema={"label": "string"},
     categories=["football", "coding", "entertainment", "basketball", "wrestling", "information"],
-    prompt="Where does this fall under?")
+    prompt="Where does this fall under?"
+)
 
-  print(categorize_response)
-  print("\nThe text is categorized as:", categorize_response.response["label"])
-  ```
+print(categorize_response)
+print("\nThe text is categorized as:", categorize_response.response["label"])
+```
 
 ```javascript Javascript
 import Wetrocloud from "wetro-sdk";
@@ -60,7 +61,7 @@ const response = await wetrocloud.categorize({
   });
 
   console.log("Categorizing resource", result);
-````
+```
 
 ```bash cURL
 curl --request POST \

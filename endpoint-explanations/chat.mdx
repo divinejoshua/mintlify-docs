@@ -16,9 +16,8 @@ The `chat` endpoint allows you to converse with your collection allowing it to r
 ```python Python
 from wetro import Wetrocloud
 
-# Access Module
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-rag_client = client.rag
 
 # Create a chat history
 chat_history = [
@@ -27,8 +26,8 @@ chat_history = [
 ]
 
 # Continue the conversation with context
-chat_response = rag_client.collection.chat(
-    collection_id="<collection_id>",
+chat_response = client.collection.chat(
+    collection_id="my_unique_collection_id",
     message="Tell me more",
     chat_history=chat_history
 )
@@ -73,7 +72,6 @@ curl --request POST \
   "success": true
 }
 ```
-
 | Field     | Description                                           |
 |-----------|-------------------------------------------------------|
 | `response` | Conversational response to the message.                |

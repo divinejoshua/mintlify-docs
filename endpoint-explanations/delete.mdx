@@ -29,12 +29,13 @@ To delete a collection, send a `DELETE` request to the `/v1/collection/delete/` 
 ```python Python
 from wetro import Wetrocloud
 
-# Access Modules
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-rag_client = client.rag
 
 # Delete the collection
-delete_collection = rag_client.collection.delete_collection(collection_id="<collection_id>")
+delete_collection = client.collection.delete_collection(
+    collection_id="my_unique_collection_id"
+)
 
 print(delete_collection)
 ```

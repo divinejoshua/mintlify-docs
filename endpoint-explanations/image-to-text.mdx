@@ -20,11 +20,11 @@ Free text response provides natural, conversational-style answers to your querie
 ```python Python
 from wetro import Wetrocloud
 
+# Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-tools_client = client.tools
-    
+
 # Extract text from an image and answer questions about it
-ocr_response = tools_client.image_to_text(
+ocr_response = client.image_to_text(
     image_url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQBQcwHfud1w3RN25Wgys6Btt_Y-4mPrD2kg&s",
     request_query="What animal is this?"
 )
