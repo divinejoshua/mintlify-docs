@@ -17,8 +17,6 @@ By default, Wetrocloud API supports these types of resources:
 | **Youtube**        | youtube          | Youtube videos with youtube URLs.                                                                |
 | **Audio**          | audio | Supports various audio file types including `.3ga`, `.8svx`, `.aac`, `.ac3`, `.aif`, `.aiff`, `.alac`, `.amr`, `.ape`, `.au`, `.dss`, `.flac`, `.flv`, `.m4a`, `.m4b`, `.m4p`, `.m4r`, `.mp3`, `.mpga`, `.ogg`, `.oga`, `.mogg`, `.opus`, `.qcp`, `.tta`, `.voc`, `.wav`, `.wma`, `.wv`|
 
-<Note> To use the `file` type, all files must be provided as URLs. You can consider services like Amazon S3, Cloudinary, or similar platforms to host your files and provide their URLs to the API. </Note>
-
 Once inserted, these resources are indexed for use in Retrieval-Augmented Generation (RAG) workflows.
 
 ## When to Use the Insert Endpoint
@@ -36,8 +34,8 @@ To insert a resource into a collection, make a `POST` request to the `/v1/resour
 
 | Parameter       | Type   | Description                                            |
 |------------------|--------|--------------------------------------------------------|
-| `collection_id` | String | The unique ID obtained from the `/collection/create/` endpoint. |
-| `resource` | String | The resource (e.g., a website). |
+| `collection_id` | String | The unique ID obtained from the [`/collection/create/`](create) endpoint. |
+| `resource` | String | The resource (e.g. file path, file URL, a website). |
 | `type` | String | The type of resource to insert (e.g., `web`, `file`, `text`, `json`, `youtube`). |
 
 ### Request Example

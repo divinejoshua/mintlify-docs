@@ -3,17 +3,6 @@ title: 'Image to text (OCR)'
 description: 'Learn how to query images in WetroCloud to retrieve information, descriptions, or answers based on the image using the WetroCloud APIs image-to-text endpoint.'
 ---
 The `image-to-text` endpoint allows you to analyze an image and ask questions about its content via the WetroCloud API.  
-This endpoint supports two response formats to suit different use cases:  
-
-- **Free Text Response**: A natural language answer to your query.  
-- **Structured Output Response**: A structured JSON output (Coming Soon...).
-
-Each response type has unique request and response formats, which are explained in detail on their respective pages.  
-
-
-## Free Text Response
-
-Free text response provides natural, conversational-style answers to your queries. It is ideal for general Q&A and scenarios where a narrative or contextualized explanation is needed. Unlike structured output, free text does not require additional parameters like `json_schema` and `json_schema_rules`.
 
 ### Request Example
 <CodeGroup>
@@ -60,9 +49,7 @@ curl --request POST \
 ```
 </CodeGroup>
 
----
-
-### Response Example: Free Text
+### Response Example
 
 ```json
 {

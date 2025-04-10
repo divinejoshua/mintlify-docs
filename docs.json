@@ -43,14 +43,14 @@
                 "group": "Query collections",
                 "pages": [
                   "endpoint-explanations/overview-query",
+                  "endpoint-explanations/query-free-text",
                   "endpoint-explanations/query-streaming",
                   "endpoint-explanations/query-json-schema"
                 ]
               },
               "endpoint-explanations/chat",
               "endpoint-explanations/remove-resource",
-              "endpoint-explanations/delete",
-              "endpoint-explanations/structured_output"
+              "endpoint-explanations/delete"
             ]
           },
           {
