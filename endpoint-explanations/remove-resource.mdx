@@ -44,23 +44,28 @@ print(delete_response)
 import Wetrocloud from "wetro-sdk";
 
 // Initialize the Wetrocloud client
-const wetrocloud = new Wetrocloud();
-
-// Delete the resource
-const response = await wetrocloud.deleteResource({
-  collection_id: '<collection_id>',
-  resource_id: '<resource_id>'
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
 });
 
-console.log("Deleting resource", response);
+// Delete the resource
+const response = await client.deleteResource({
+  collection_id: "my_unique_collection_id",
+  resource_id: "resource_id_to_delete"
+});
+
+console.log("Resource deleted:", response);
 ```
 
 ```bash cURL
 curl --request DELETE \
-    --url https://api.wetrocloud.com/v1/resource/remove/ \
-    --header 'Authorization: Token <api-key>' \
-    --form 'collection_id=<collection_id>' \
-    --form 'resource_id=<resource_id>'
+  --url https://api.wetrocloud.com/v1/resource/remove/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "my_unique_collection_id",
+    "resource_id": "resource_id_to_delete"
+  }'
 ```
 </CodeGroup>
 

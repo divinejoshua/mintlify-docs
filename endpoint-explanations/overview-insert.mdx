@@ -57,17 +57,22 @@ insert_response = client.collection.insert_resource(
 print(insert_response)
 ```
 
-```javascript Javascript
+```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
-const response = await wetrocloud.insertResource({
-  collection_id: "<collection_id>",
-  resource: "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+
+// Insert a web resource
+const response = await client.insertResource({
+  collection_id: "my_unique_collection_id",
+  resource: "https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09",
   type: "web"
 });
 
-console.log("insert a resource", response);
+console.log("Resource inserted:", response);
 ```
 
 ```bash cURL
@@ -76,11 +81,11 @@ curl --request POST \
   --header 'Authorization: Token <api-key>' \
   --header 'Content-Type: application/json' \
   --data '{
-    "collection_id": "<collection_id>",
-    "resource": "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
+    "collection_id": "my_unique_collection_id",
+    "resource": "https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09",
     "type": "web"
   }'
-  ```
+```
 </CodeGroup>
 
 ### Successful Response
@@ -108,3 +113,4 @@ A successful response confirms the operation and tracks token usage.
 - **[Create Collection](create)**: Start by creating a collection to hold your resources.
 - **[Query Resources](query)**: Access and retrieve insights from the indexed resources.
 - **[Delete Collection](delete)**: Remove collections and their resources when no longer needed.
+

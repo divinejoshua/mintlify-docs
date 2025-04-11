@@ -39,15 +39,20 @@ delete_collection = client.collection.delete_collection(
 
 print(delete_collection)
 ```
-```javascript Javascript
+```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
-const response = await wetrocloud.deleteCollection({
-  collection_id:'<collection_id>',
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
 });
 
-console.log("Deleting collection", response);
+// Delete the collection
+const response = await client.collection.deleteCollection({
+  collection_id: "my_unique_collection_id"
+});
+
+console.log("Delete response:", response);
 ```
 
 ```bash cURL
@@ -56,7 +61,7 @@ curl --request DELETE \
   --header 'Authorization: Token <api-key>' \
   --header 'Content-Type: application/json' \
   --data '{
-        "collection_id": "<collection_id>",
+    "collection_id": "my_unique_collection_id"
   }'
 ```
 

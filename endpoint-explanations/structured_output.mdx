@@ -78,16 +78,28 @@ print(response)
 import Wetrocloud from "wetro-sdk";
 
 // Initialize the Wetrocloud client
-const wetrocloud = new Wetrocloud();
-
-const response = await wetrocloud.queryResource({
-  collection_id:'<collection_id>',
-  request_query: 'What is this about?',
-  json_schema:{ topic: "", description: "" },
-  json_schema_rules: "Give a very short description of every page on the document from",
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
 });
 
-console.log("Querying resource", response);
+// Define schema and rules
+const schema = {
+  month: "string",
+  sales: "number",
+  trend: "string"
+};
+const rules = "Extract monthly sales data and trends";
+
+// Query with structured output
+const response = await client.queryCollection({
+  collection_id: "my_unique_collection_id",
+  request_query: "What are the sales trends for Q1?",
+  json_schema: schema,
+  json_schema_rules: rules,
+});
+
+// Structured output data
+console.log("Structured output:", response);
 ```
 
 ```bash cURL
@@ -135,19 +147,28 @@ for chunk in streaming_response:
 import Wetrocloud from "wetro-sdk";
 
 // Initialize the Wetrocloud client
-const wetrocloud = new Wetrocloud();
-
-const response = await wetrocloud.queryResource({
-  collection_id:'<collection_id>',
-  request_query: 'What is this about?',
-  json_schema:{ topic: "", description: "" },
-  json_schema_rules: "Give a very short description of every page on the document from",
-  stream: true
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
 });
 
-for await (const item of response) {
-    console.log("Received item:", item);
-}
+// Define schema and rules
+const schema = {
+  month: "string",
+  sales: "number",
+  trend: "string"
+};
+const rules = "Extract monthly sales data and trends";
+
+// Query with structured output
+const response = await client.queryCollection({
+  collection_id: "my_unique_collection_id",
+  request_query: "What are the sales trends for Q1?",
+  json_schema: schema,
+  json_schema_rules: rules,
+});
+
+// Structured output data
+console.log("Structured output:", response);
 ```
 </CodeGroup>
 

@@ -35,17 +35,23 @@ print(all_collections)
 
 ```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
- 
-const wetrocloud = new Wetrocloud();
-const response = await wetrocloud.listCollections();
 
-console.log("Lisiting Collections", response);
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+
+// Get all collections
+const response = await client.listCollections();
+
+// Print collection details
+console.log("Available collections:", response);
 ```
 
 ```bash cURL
 curl --request GET \
---url 'https://api.wetrocloud.com/v1/collection/all/' \
---header 'Authorization: Token <api-token>'
+  --url https://api.wetrocloud.com/v1/collection/all/ \
+  --header 'Authorization: Token <api-key>'
 ```
 </CodeGroup>
 

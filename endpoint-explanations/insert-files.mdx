@@ -78,17 +78,22 @@ insert_response = client.collection.insert_resource(
 print(insert_response)
 ```
 
-```javascript Javascript
+```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
-const response = await wetrocloud.insertResource({
-  collection_id: "<collection_id>",
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+                            
+const response = await client.insertResource({
+  collection_id: "my_unique_collection_id",
   resource: "https://didiai-test.s3.us-east-2.amazonaws.com/paul_graham_essay.pdf",
   type: "file"
+
 });
 
-console.log("insert a resource", response);
+console.log("File inserted:", response);
 ```
 
 ```bash cURL

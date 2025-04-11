@@ -41,22 +41,30 @@ collection = client.create_collection(
 print(collection)
 ```
 
-```javascript Javascript
+```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
 
-const collection_id = 'unique_id'; //this is optional if not specified one would be generated for you.
-const response = await wetrocloud.createCollection({ collection_id });
+// Create a collection
+const response = await client.createCollection({
+  collection_id: "my_unique_collection_id",
+});
 
-console.log("Creating Collection", response);
+console.log("Collection created:", response);
 ```
 
-```cURL cURL
+```bash cURL
 curl --request POST \
-      --url https://api.wetrocloud.com/v1/collection/create/ \
-      --header 'Authorization: Token <api-key>'
-      --form 'collection_id=<collection_id>' \
+  --url https://api.wetrocloud.com/v1/collection/create/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "my_unique_collection_id"
+  }'
 ```
 </CodeGroup>
 

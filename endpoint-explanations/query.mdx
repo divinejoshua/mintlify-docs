@@ -41,12 +41,12 @@ const wetrocloud = new Wetrocloud();
 const collectionId = '<collection_id>';
 const query = 'What are the sales trends for Q1?';
 
-const response = await wetrocloud.queryResource({
+const response = await wetrocloud.queryCollection({
   collection_id: collectionId,
   request_query: query,
 });
 
-console.log("Querying resource", response);
+console.log("Querying collection", response);
 ```
 
 ```bash cURL
@@ -55,7 +55,7 @@ curl --request POST \
   --header 'Authorization: Token <api-key>' \
   --header 'Content-Type: application/json' \
   --data '{
-    "collection_id": "<collection_id>",
+    "collection_id": "my_unique_collection_id",
     "request_query": "What are the sales trends for Q1?"
   }'
 ```
@@ -89,7 +89,7 @@ const wetrocloud = new Wetrocloud();
 const collectionId = '<collection_id>';
 const query = 'What are the sales trends for Q1?';
 
-const response = await wetrocloud.queryResource({
+const response = await wetrocloud.queryCollection({
   collection_id: collectionId,
   request_query: query,
   stream: true
@@ -124,3 +124,4 @@ for await (const item of response) {
 | `response` | Conversational response to the query.                |
 | `tokens`   | Number of tokens used for processing.                |
 | `success`  | Indicates whether the query was successful.          |
+
