@@ -49,7 +49,7 @@ curl --request POST \
   --header 'Authorization: Token <api-key>' \
   --header 'Content-Type: application/json' \
   --data '{
-    "collection_id": "<collection_id>",
+    "collection_id": "my_unique_collection_id",
     "resource": "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
     "type": "web"
   }'
@@ -81,3 +81,4 @@ A successful response confirms the operation and tracks token usage.
 - **[Create Collection](create)**: Start by creating a collection to hold your resources.
 - **[Query Resources](query)**: Access and retrieve insights from the indexed resources.
 - **[Delete Collection](delete)**: Remove collections and their resources when no longer needed.
+

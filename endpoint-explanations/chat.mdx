@@ -60,12 +60,17 @@ console.log("Chat response:", response);
 
 ```bash cURL
 curl --request POST \
-    --url https://api.wetrocloud.com/v1/collection/chat/ \
-    --header 'Authorization: Token <api-key>' \
-    --header 'Content-Type: multipart/form-data' \
-    --form 'collection_id=<collection_id>' \
-    --form 'message=Tell me more' \
-    --form 'chat_history=[{"role":"user","content":"What is this all about?"}, {"role":"system","content":"This is about Queen Elizabeth_II of England"}]' \
+  --url https://api.wetrocloud.com/v1/collection/chat/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "my_unique_collection_id",
+    "message": "Can you explain the latest paper'\''s methodology?",
+    "chat_history": [
+      {"role": "user", "content": "What is this collection about?"},
+      {"role": "system", "content": "It stores research papers on AI technology."}
+    ]
+  }'
 ```
 </CodeGroup> 
 

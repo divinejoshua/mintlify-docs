@@ -47,10 +47,13 @@ If you want a list of items and not just a single item, you can specify the json
 <CodeGroup>
 ```bash cURL
 curl --request POST \
- --url 'https://api.wetrocloud.com/v1/data-extraction/' \
- --form 'website="https://www.forbes.com/real-time-billionaires/#7583ee253d78"' \
- --form 'json_schema=[{"name":"<name of rich man>", "networth":"<amount worth>"}]' \
- --header 'Authorization: Token <api-key>'
+  --url https://api.wetrocloud.com/v1/data-extraction/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "website": "https://www.forbes.com/real-time-billionaires/#7583ee253d78",
+    "json_schema": [{"name": "name of rich man", "networth": "amount worth"}]
+  }'
 ```
 ```python Python
 from wetro import Wetrocloud
@@ -61,7 +64,7 @@ client = Wetrocloud(api_key="your_api_key")
 # Extract structured data from a website
 extract_response = client.extract(
    website="https://www.forbes.com/real-time-billionaires/#7583ee253d78",
-   json_schema='[{"name": "<name>", "networth": "<networth>"}]'
+   json_schema='[{"name": "name of rich man", "networth": "amount worth"}]'
 )
 print(extract_response)
 ```

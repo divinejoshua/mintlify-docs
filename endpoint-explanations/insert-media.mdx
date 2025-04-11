@@ -56,7 +56,7 @@ curl --request POST \
   --header 'Authorization: Token <api-key>' \
   --header 'Content-Type: application/json' \
   --data '{
-    "collection_id": "<collection_id>",
+    "collection_id": "my_unique_collection_id",
     "resource": "https://res.cloudinary.com/dxcb59rb3/video/upload/v1744140560/PodcastingHouse-20181018-TheBriefingRoom_z6kfeq.mp3",
     "type": "audio"
   }'
@@ -134,3 +134,4 @@ A successful response confirms the operation and tracks token usage.
 - **[Create Collection](create)**: Start by creating a collection to hold your resources.
 - **[Query Resources](query)**: Access and retrieve insights from the indexed resources.
 - **[Delete Collection](delete)**: Remove collections and their resources when no longer needed.
+

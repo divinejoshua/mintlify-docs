@@ -57,11 +57,14 @@ const response = await client.createCollection({
 console.log("Collection created:", response);
 ```
 
-```cURL cURL
+```bash cURL
 curl --request POST \
-      --url https://api.wetrocloud.com/v1/collection/create/ \
-      --header 'Authorization: Token <api-key>'
-      --form 'collection_id=<collection_id>' \
+  --url https://api.wetrocloud.com/v1/collection/create/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "my_unique_collection_id"
+  }'
 ```
 </CodeGroup>
 

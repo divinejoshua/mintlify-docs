@@ -50,7 +50,7 @@ curl --request POST \
   --header 'Authorization: Token <api-key>' \
   --header 'Content-Type: application/json' \
   --data '{
-    "collection_id": "<collection_id>",
+    "collection_id": "my_unique_collection_id",
     "resource": "https://youtu.be/dQw4w9WgXcQ?si=0QKWYSM2QB03PoMh",
     "type": "youtube"
   }'
@@ -82,3 +82,4 @@ A successful response confirms the operation and tracks token usage.
 - **[Create Collection](create)**: Start by creating a collection to hold your resources.
 - **[Query Resources](query)**: Access and retrieve insights from the indexed resources.
 - **[Delete Collection](delete)**: Remove collections and their resources when no longer needed.
+
