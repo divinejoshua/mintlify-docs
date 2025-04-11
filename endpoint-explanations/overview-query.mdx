@@ -13,105 +13,12 @@ Each response type has unique request and response formats, which are explained 
 
 ## Free Text Response
 
-Free text response provides natural, conversational-style answers to your queries. It is ideal for general Q&A and scenarios where a narrative or contextualized explanation is needed. Unlike structured output, free text does not require additional parameters like `json_schema` and `json_schema_rules`.
-
-### Request Example
-<CodeGroup>
-
-```python Python
-from wetro import Wetrocloud
-
-# Initialize the Wetrocloud client
-client = Wetrocloud(api_key="your_api_key")
-
-# Query the collection
-response = client.collection.query_collection(
-    collection_id="my_unique_collection_id",
-    request_query="What are the sales trends for Q1?"
-)
-
-print(query_response)
-```
-
-```javascript JavaScript
-import Wetrocloud from "wetro-sdk";
-
-// Initialize the Wetrocloud client
-const client = new Wetrocloud({
-  apiKey: "your_api_key"
-});
-
-// Query the collection
-const response = await client.queryCollection({
-  collection_id: "my_unique_collection_id",
-  request_query: "What are the sales trends for Q1?",
-});
-
-console.log("Query response:", response);
-```
-
-```bash cURL
-curl --request POST \
-  --url https://api.wetrocloud.com/v1/collection/query/ \
-  --header 'Authorization: Token <api-key>' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "collection_id": "<collection_id>",
-    "request_query": "What are the sales trends for Q1?"
-  }'
-```
-</CodeGroup>
-
-### Request Example with Stream
-<CodeGroup>
-```python Python
-from wetro import Wetrocloud
-
-# Initialize the Wetrocloud client
-client = Wetrocloud(api_key="your_api_key")
-
-# Query the collection with streaming
-streaming_response = client.collection.query_collection(
-    collection_id="my_unique_collection_id",
-    request_query="What are the sales trends for Q1?",
-    stream=True
-)
-
-# Process streaming response
-for chunk in streaming_response:
-    print(chunk.response, end="")
-```
-
-```javascript JavaScript
-import Wetrocloud from "wetro-sdk";
-
-// Initialize the Wetrocloud client
-const client = new Wetrocloud({
-  apiKey: "your_api_key"
-});
-
-// Query with streaming enabled
-const response = await client.queryCollection({
-  collection_id: "my_unique_collection_id",
-  request_query: "What are the sales trends for Q1?",
-  stream: true
-});
-
-// Process streaming response
-for await (const chunk of response) {
-  console.log("Received chunk:", chunk.response);
-}
-```
-</CodeGroup>
-
----
-
-| Field               | Description                                          |
-|---------------------|------------------------------------------------------|
-| `collection_id`     | Collection Id.                                       |
-| `query`             | This is the prompt.                                  |
-| `model` (optional)  | Pass in the model you want.                          |
-
+| Parameter           | Type   | Description                                                                 |
+|-------------------------|--------|-----------------------------------------------------------------------------|
+| `collection_id`(required) | String | The unique ID of the collection to query.                                   |
+| `request_query`(required) | String | The search term or query text.                                              |
+| `stream`(optional)  | Boolean | Enables streaming response if True, it's False by default|
+| `model`(optional)   | String | Specific model you desire to query response [Check out our list of supported models here](models)|
 
 ### Response Example: Free Text
 
@@ -126,5 +33,47 @@ for await (const chunk of response) {
 | Field     | Description                                           |
 |-----------|-------------------------------------------------------|
 | `response` | Conversational response to the query.                |
+| `tokens`   | Number of tokens used for processing.                |
+| `success`  | Indicates whether the query was successful.          |
+
+## Structured Output Response
+Structured output is a feature that allows large language models (LLMs) to generate responses in a specific format with your resources. Structured output is best for extracting structured data to fit your application's needs. It returns data formatted with the `json_schema` and `json_schema_rules` you provide.
+To use the structured output feature you need to provide the following parameters:
+<Warning>
+Streaming is not supported when doing structured output response
+</Warning>
+
+| Parameter           | Type   | Description                                                                 |
+|----------------------|--------|-----------------------------------------------------------------------------|
+| `collection_id` (required)     | String | The unique ID of the collection to query obtained from the [`/collection/create/`](create) endpoint.     |
+| `request_query` (required)     | String | The search term or query text.                                              |
+| `json_schema` (required)       | String | The desired structure for the JSON response.                                |
+| `json_schema_rules` (required) | String | Custom rules to guide the response's adherence to the specified JSON schema.|
+| `model`(optional)   | String | Specific model you desire to query response [Check out our list of supported models here](models)|
+
+### Response Example: Structured Output
+```json
+{
+    "response": [
+        {
+            "month": "January",
+            "sales": 15000
+        },
+        {
+            "month": "February",
+            "sales": 18000
+        },
+        {
+            "month": "March",
+            "sales": 17000
+        }
+    ],
+    "tokens": 4007,
+    "success": true
+}
+```
+| Field     | Description                                           |
+|-----------|-------------------------------------------------------|
+| `response` | JSON object structured as per the provided schema.   |
 | `tokens`   | Number of tokens used for processing.                |
 | `success`  | Indicates whether the query was successful.          |

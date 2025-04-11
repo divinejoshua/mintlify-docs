@@ -3,32 +3,36 @@ title: 'Structured Output'
 description: 'Learn how to retrieve structured data from a collection using the Wetrocloud API'
 ---
 
-## Structured Output Response
+# Structured Output Response
 Structured output is a feature that allows large language models (LLMs) to generate responses in a specific format with your resources. Structured output is best for extracting structured data to fit your application's needs. It returns data formatted with the `json_schema` and `json_schema_rules` you provide.
 To use the structured output feature you need to provide the following parameters:
+<Warning>
+Streaming is not supported when doing structured output response
+</Warning>
 
 | Parameter           | Type   | Description                                                                 |
 |----------------------|--------|-----------------------------------------------------------------------------|
-| `collection_id`      | String | The unique ID of the collection to query.                                   |
+| `collection_id`      | String | The unique ID of the collection to query obtained from the [`/collection/create/`](create) endpoint.     |
 | `request_query`      | String | The search term or query text.                                              |
 | `json_schema`        | String | The desired structure for the JSON response.                                |
 | `json_schema_rules`  | String | Custom rules to guide the response's adherence to the specified JSON schema.|
+| `model`(optional)   | String | Specific model you desire to query response [Check out our list of supported models here](models)|
+
 
 ### `json_schema`
-
 The `json_schema` parameter defines the structure of the response you want the system to return. This parameter helps ensure the output matches your application's requirements.
 
-**Example JSON Schema**
+#### Example JSON Schema
 
 ```json
 {
     "topic" : "string",
     "description" : "string",
-    "description" : "int"
+    "count" : "int"
 }
 ```
 
-**Example JSON Schema (List)**
+#### Example JSON Schema (List)
 
 If you want a list of items and not just a single item, you can specify the json schema by putting the entire object in a list
 
@@ -37,7 +41,7 @@ If you want a list of items and not just a single item, you can specify the json
   {
     "topic" : "string",
     "description" : "string",
-    "description" : "int"
+    "count" : "int"
   }
 ]
 ```
@@ -48,10 +52,18 @@ If you want a list of items and not just a single item, you can specify the json
 
 The `json_schema_rules` parameter allows you to define custom rules for how the schema is applied. Another way to think about this is that it is a set of instructions for the LLM to follow when generating the response. This can also be in form of a more detailed prompt This can include constraints on the data, additional formatting, or validation logic.
 
+#### Example JSON Schema Rules 
+```json
+rules = "Give a very short description of every page on the document from"
+```
 
+#### Example JSON Schema Rules (List)
+```json
+rules = ["Give a very short description of every page on the document from", "Make sure there are no less than 5 topics"]
+```
 ---
-**Example Requests**
 
+## Example Requests
 <CodeGroup>
 
 ```python Python
@@ -61,15 +73,15 @@ from wetro import Wetrocloud
 client = Wetrocloud(api_key="your_api_key")
 
 # Define a JSON schema for structured output
-json_schema = [{"topic": "", "description": ""}]
+json_schema = [{"month": "", "sales": "int"}]
 
 # Add processing rules
-rules = "Give a very short description of every page on the document from"
+rules = "Give a breakdown of the sales for each month"
 
 # Query with structured output requirements
 response = client.collection.query_collection(
     collection_id="my_unique_collection_id",
-    request_query="What is this about?",
+    request_query="Generate a sales report",
     json_schema=json_schema,
     json_schema_rules=rules
 )
@@ -90,6 +102,7 @@ const response = await client.queryCollection({
   request_query: "What are the sales trends for Q1?",
   json_schema: { month: "string", sales: "number" },
   json_schema_rules: "Extract monthly sales data"
+
 });
 
 console.log("Query response:", response);
@@ -99,14 +112,14 @@ console.log("Query response:", response);
 curl --request POST \
  --url 'https://api.wetrocloud.com/v1/collection/query/' \
  --form 'collection_id=<collection_id>' \
- --form 'request_query=What is this about?' \
- --form 'json_schema=[{"topic":"","description":""}]' \
- --form 'json_schema_rules=Give a very short description of every page on the document from' \
+ --form 'request_query=Generate a sales report' \
+ --form 'json_schema=[{"month":"","sales":"int"}]' \
+ --form 'json_schema_rules=Give a breakdown of the sales for each month' \
  --header 'Authorization: Token <api-key>'
 ```
 </CodeGroup>
 
-**Example Response**
+## Example Response
 ```json
 {
     "response": [

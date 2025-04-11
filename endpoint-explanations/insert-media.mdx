@@ -5,9 +5,15 @@ description: 'Learn how to insert media files using Wetrocloud'
 
 ## How to Insert a Media File
 
-To insert a media file into a collection, make a `POST` request to the `/v1/resource/insert/` endpoint with the required parameters in the body. The resource should be a URL pointing to the media file you want to index. Supported audio file types include `.3ga`, `.8svx`, `.aac`, `.ac3`, `.aif`, `.aiff`, `.alac`, `.amr`, `.ape`, `.au`, `.dss`, `.flac`, `.flv`, `.m4a`, `.m4b`, `.m4p`, `.m4r`, `.mp3`, `.mpga`, `.ogg`, `.oga`, `.mogg`, `.opus`, `.qcp`, `.tta`, `.voc`, `.wav`, `.wma`, `.wv`.
+To insert a media file into a collection, make a `POST` request to the `/v1/resource/insert/` endpoint with the required parameters in the body and make sure you use the `audio` type.
+Supported audio file types include `.3ga`, `.8svx`, `.aac`, `.ac3`, `.aif`, `.aiff`, `.alac`, `.amr`, `.ape`, `.au`, `.dss`, `.flac`, `.flv`, `.m4a`, `.m4b`, `.m4p`, `.m4r`, `.mp3`, `.mpga`, `.ogg`, `.oga`, `.mogg`, `.opus`, `.qcp`, `.tta`, `.voc`, `.wav`, `.wma`, `.wv`.
 
-### Request Example
+<Note>
+To use the `audio` type, the resource can either be provided as URLs or if you are using our SDKs the resource can be the path to the media file.
+Note: File paths only work with our SDKs if you are calling our API's directly, all files must be provided as URLs. You can consider services like Amazon S3, Cloudinary, or similar platforms to host your files and provide their URLs to the API. 
+</Note>
+
+### Request Example (Media file as URL)
 <CodeGroup>
  
 ```python Python
@@ -51,6 +57,52 @@ curl --request POST \
   --header 'Content-Type: application/json' \
   --data '{
     "collection_id": "<collection_id>",
+    "resource": "https://res.cloudinary.com/dxcb59rb3/video/upload/v1744140560/PodcastingHouse-20181018-TheBriefingRoom_z6kfeq.mp3",
+    "type": "audio"
+  }'
+```
+</CodeGroup>
+
+### Request Example (File Path)
+<CodeGroup>
+ 
+```python Python
+from wetro import Wetrocloud
+    
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
+    
+# Insert a media file into a Collection
+insert_response = client.collection.insert_resource(
+    collection_id="my_unique_collection_id",
+    resource="./folder/PodcastingHouse-20181018-TheBriefingRoom_z6kfeq.mp3", # Replace with your actual file path
+    type="audio"
+)
+    
+print(insert_response)
+```
+
+```javascript Javascript
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+const response = await wetrocloud.insertResource({
+  collection_id: "<collection_id>",
+  resource: "./folder/PodcastingHouse-20181018-TheBriefingRoom_z6kfeq.mp3", // Replace with your actual file path
+  type: "audio"
+});
+
+console.log("insert a resource", response);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.wetrocloud.com/v1/resource/insert/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "<collection_id>",
+    # File path is not accepted via our direct API, therefore files must be provided as URL
     "resource": "https://res.cloudinary.com/dxcb59rb3/video/upload/v1744140560/PodcastingHouse-20181018-TheBriefingRoom_z6kfeq.mp3",
     "type": "audio"
   }'

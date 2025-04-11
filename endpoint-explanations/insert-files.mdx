@@ -5,9 +5,15 @@ description: 'Learn how to insert files using Wetrocloud'
 
 ## How to Insert a File
 
-To insert a file into a collection, make a `POST` request to the `/v1/resource/insert/` endpoint with the required parameters in the body.
+To insert a file into a collection, make a `POST` request to the `/v1/resource/insert/` endpoint with the required parameters in the body and make sure you use the `file` type.
 
-### Request Example
+<Note>
+To use the `file` type, the resource can either be provided as URLs or if you are using our SDKs the resource can be the path to the file.
+Note: File paths only work with our SDKs if you are calling our API's directly, all files must be provided as URLs. You can consider services like Amazon S3, Cloudinary, or similar platforms to host your files and provide their URLs to the API. 
+</Note>
+
+
+### Request Example (File Path)
 <CodeGroup>
  
 ```python Python
@@ -19,7 +25,53 @@ client = Wetrocloud(api_key="your_api_key")
 # Insert a file into a Collection
 insert_response = client.collection.insert_resource(
     collection_id="my_unique_collection_id",
-    resource="C:/Users/Desktop/Resource.pdf", 
+    resource="./essay/paul_graham_essay.pdf", # Replace with your actual file path
+    type="file"
+)
+    
+print(insert_response)
+```
+
+```javascript Javascript
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+const response = await wetrocloud.insertResource({
+  collection_id: "<collection_id>",
+  resource: "./essay/paul_graham_essay.pdf", // Replace with your actual file path
+  type: "file"
+});
+
+console.log("insert a resource", response);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.wetrocloud.com/v1/resource/insert/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "<collection_id>",
+    # File path is not accepted via our direct API, therefore files must be provided as URL
+    "resource": "https://didiai-test.s3.us-east-2.amazonaws.com/paul_graham_essay.pdf", 
+    "type": "file"
+  }'
+```
+</CodeGroup>
+
+### Request Example (File as URL)
+<CodeGroup>
+ 
+```python Python
+from wetro import Wetrocloud
+    
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
+    
+# Insert a file into a Collection
+insert_response = client.collection.insert_resource(
+    collection_id="my_unique_collection_id",
+    resource="https://didiai-test.s3.us-east-2.amazonaws.com/paul_graham_essay.pdf",
     type="file"
 )
     
@@ -33,12 +85,12 @@ import Wetrocloud from "wetro-sdk";
 const client = new Wetrocloud({
   apiKey: "your_api_key"
 });
-
-// Insert file
+                            
 const response = await client.insertResource({
   collection_id: "my_unique_collection_id",
-  resource: "C:/Users/Desktop/Resource.pdf",
-  type: "file",
+  resource: "https://didiai-test.s3.us-east-2.amazonaws.com/paul_graham_essay.pdf",
+  type: "file"
+
 });
 
 console.log("File inserted:", response);
@@ -51,7 +103,7 @@ curl --request POST \
   --header 'Content-Type: application/json' \
   --data '{
     "collection_id": "<collection_id>",
-    "resource": "C:/Users/Desktop/Resource.pdf",
+    "resource": "https://didiai-test.s3.us-east-2.amazonaws.com/paul_graham_essay.pdf", 
     "type": "file"
   }'
 ```

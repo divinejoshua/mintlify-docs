@@ -1,0 +1,78 @@
+---
+title: 'Free Text'
+description: 'Learn how to query your collections in WetroCloud for both free text'
+---
+
+## Free Text Response
+
+Free text response provides natural, conversational-style answers to your queries. It is ideal for general Q&A and scenarios where a narrative or contextualized explanation is needed. 
+This response format supports [streaming](query-streaming)
+
+| Parameter           | Type   | Description                                                                 |
+|-------------------------|--------|-----------------------------------------------------------------------------|
+| `collection_id`(required) | String | The unique ID of the collection to query. obtained from the [`/collection/create/`](create) endpoint.  |
+| `request_query`(required) | String | The search term or query text.                                              |
+| `stream`(optional)  | Boolean | Enables streaming response if True, it's False by default|
+| `model`(optional)   | String | Specific model you desire to query response [Check out our list of supported models here](models)|
+
+### Request Example
+<CodeGroup>
+
+```python Python
+from wetro import Wetrocloud
+
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
+
+# Query the collection
+response = client.collection.query_collection(
+    collection_id="my_unique_collection_id",
+    request_query="What are the sales trends for Q1?"
+)
+
+print(query_response)
+```
+
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+
+const collectionId = '<collection_id>';
+const query = 'What are the sales trends for Q1?';
+
+const response = await wetrocloud.queryResource({
+  collection_id: collectionId,
+  request_query: query,
+});
+
+console.log("Querying resource", response);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.wetrocloud.com/v1/collection/query/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "<collection_id>",
+    "request_query": "What are the sales trends for Q1?"
+  }'
+```
+</CodeGroup>
+
+### Response Example: Free Text
+
+```json
+{
+  "response": "The sales for Q1 increased by 20% compared to last year, with online channels contributing significantly.",
+  "tokens": 120,
+  "success": true
+}
+```
+
+| Field     | Description                                           |
+|-----------|-------------------------------------------------------|
+| `response` | Conversational response to the query.                |
+| `tokens`   | Number of tokens used for processing.                |
+| `success`  | Indicates whether the query was successful.          |
