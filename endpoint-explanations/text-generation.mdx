@@ -63,7 +63,10 @@ print(response)
 ```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
 
 // Text Generation
 const response = await wetrocloud.textGeneration({
@@ -74,7 +77,7 @@ const response = await wetrocloud.textGeneration({
   model: "llama-3.3-70b"
 })
 
-console.log("Generation without RAG", result);
+console.log("Generated text:", response);
 ```
 
 ```bash curl

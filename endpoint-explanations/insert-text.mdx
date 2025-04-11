@@ -26,17 +26,22 @@ insert_response = client.collection.insert_resource(
 print(insert_response)
 ```
 
-```javascript Javascript
+```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
-const response = await wetrocloud.insertResource({
-  collection_id: "<collection_id>",
-  resource: "Rise of LLM models",
-  type: "text"
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
 });
 
-console.log("insert a resource", response);
+// Insert text content
+const response = await client.insertResource({
+  collection_id: "my_unique_collection_id",
+  resource: "Large language models (LLMs) have revolutionized natural language processing, enabling sophisticated text generation and understanding. These models, trained on vast amounts of data, can perform tasks ranging from translation to creative writing.",
+  type: "text",
+});
+
+console.log("Text inserted:", response);
 ```
 
 ```bash cURL

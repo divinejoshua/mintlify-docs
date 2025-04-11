@@ -23,8 +23,8 @@ The `json_schema` parameter defines the structure of the response you want the s
 
 ```json
 {
-  "name":"<name of rich man>", 
-  "networth":"<amount worth>"
+  "name":"name of rich man", 
+  "networth":"amount worth"
 }
 ```
 
@@ -35,8 +35,8 @@ If you want a list of items and not just a single item, you can specify the json
 ```json
 [
   {
-    "name":"<name of rich man>", 
-    "networth":"<amount worth>"
+    "name":"name of rich man", 
+    "networth":"amount worth"
   }
 ]
 ```
@@ -70,19 +70,19 @@ print(extract_response)
 ```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
-
-const website_url = "https://www.forbes.com/real-time-billionaires/#7583ee253d78"
-const json_schema = [{ "name": "<name of rich man>", "networth": "<amount worth>" }]
-
-// Extract structured data from a website
-const response = await wetrocloud.extract({
-   website_url,
-  json_schema:
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
 });
 
-console.log("Data extraction", result);
-````
+// Extract structured data from a website
+const response = await client.extract({
+  website: "https://www.forbes.com/real-time-billionaires/#7583ee253d78",
+  json_schema: [{ name: "name of rich man", networth: "amount worth" }]
+});
+
+console.log("Data extraction:", response);
+```
 </CodeGroup>
 
 

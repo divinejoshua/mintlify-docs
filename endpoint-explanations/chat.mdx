@@ -37,17 +37,25 @@ print(chat_response)
 ```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
-const response = await wetrocloud.chat({
- collection_id:"<collection_id>",
- message:"Tell me more",
- chat_history:[
-    {"role":"user", "content":"What is this all about?"}, 
-    {"role":"system","content":"This is about Queen Elizabeth_II of England"}
- ]
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
 });
 
-console.log("Chat with collection", response);
+// Create chat history
+const chatHistory = [
+  { role: "user", content: "What is this document about?" },
+  { role: "system", content: "This document explains machine learning concepts." }
+];
+
+// Continue the conversation with context
+const response = await client.chat({
+  collection_id: "my_unique_collection_id",
+  message: "Can you explain the key concepts in detail?",
+  chat_history: chatHistory,
+});
+
+console.log("Chat response:", response);
 ```
 
 ```bash cURL

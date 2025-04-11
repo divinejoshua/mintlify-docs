@@ -34,19 +34,22 @@ print(ocr_response)
 ```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
 
 const imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQBQcwHfud1w3RN25Wgys6Btt_Y-4mPrD2kg&s';
 const query = 'What animal is this?';
 
 // Extract text from an image and answer questions about it
-const response = await wetrocloud.imageToText({
+const response = await client.imageToText({
   image_url: imageUrl,
   request_query: query
-})
+});
 
-console.log("Image to text", response);
-````
+console.log("Image to text:", response);
+```
 
 ```bash cURL
 curl --request POST \

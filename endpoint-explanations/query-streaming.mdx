@@ -35,27 +35,27 @@ for chunk in streaming_response:
     print(chunk.response, end="")
 ```
 
-```javascript Javascript
+```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
-
-const collectionId = '<collection_id>';
-const query = 'What are the sales trends for Q1?';
-
-const response = await wetrocloud.queryResource({
-  collection_id: collectionId,
-  request_query: query,
-  stream: true
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
 });
 
-for await (const item of response) {
-    console.log("Received item:", item);
+// Query with streaming enabled
+const response = await client.queryCollection({
+  collection_id: "my_unique_collection_id",
+  request_query: "What are the sales trends for Q1?",
+  stream: true,
+});
+
+// Process streaming response
+for await (const chunk of response) {
+  console.log("Chunk received:", chunk.response);  // Print with newlines
 }
 ```
 </CodeGroup>
-
----
 
 | Field               | Description                                          |
 |---------------------|------------------------------------------------------|

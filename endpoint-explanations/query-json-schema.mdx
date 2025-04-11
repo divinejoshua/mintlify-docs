@@ -76,19 +76,23 @@ response = client.collection.query_collection(
 print(response)
 ```
 
-```javascript Javascript
+```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
-
-const response = await wetrocloud.queryResource({
-  collection_id:'<collection_id>',
-  request_query: 'What is this about?',
-  json_schema:{ topic: "", description: "" },
-  json_schema_rules: "Give a very short description of every page on the document from",
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
 });
 
-console.log("Querying resource", response);
+// Query with structured output
+const response = await client.queryCollection({
+  collection_id: "my_unique_collection_id",
+  request_query: "What are the sales trends for Q1?",
+  json_schema: { month: "string", sales: "number" },
+  json_schema_rules: "Extract monthly sales data"
+});
+
+console.log("Query response:", response);
 ```
 
 ```bash cURL

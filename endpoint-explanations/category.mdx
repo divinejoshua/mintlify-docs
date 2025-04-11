@@ -46,21 +46,24 @@ print(categorize_response)
 print("\nThe text is categorized as:", categorize_response.response["label"])
 ```
 
-```javascript Javascript
+```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
 
-//Categorize content
-const response = await wetrocloud.categorize({
-    resource: "match review: John Cena vs. The Rock",
-    type: "text",
-    json_schema: { 'label': '' },
-    categories: ["football", "coding", "entertainment", "basketball", "wrestling", "information"],
-    prompt: "Where does this fall under?"
-  });
+// Categorize content
+const response = await client.categorize({
+  resource: "match review: John Cena vs. The Rock",
+  type: "text",
+  json_schema: { label: "string" },
+  categories: ["football", "coding", "entertainment", "basketball", "wrestling", "information"],
+  prompt: "Where does this fall under?"
+});
 
-  console.log("Categorizing resource", result);
+console.log("Category result:", response);
 ```
 
 ```bash cURL

@@ -26,17 +26,22 @@ insert_response = client.collection.insert_resource(
 print(insert_response)
 ```
 
-```javascript Javascript
+```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
-const response = await wetrocloud.insertResource({
-  collection_id: "<collection_id>",
-  resource: "https://youtu.be/dQw4w9WgXcQ?si=0QKWYSM2QB03PoMh",
-  type: "youtube"
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
 });
 
-console.log("insert a resource", response);
+// Insert YouTube video
+const response = await client.insertResource({
+  collection_id: "my_unique_collection_id",
+  resource: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  type: "youtube",
+});
+
+console.log("YouTube video inserted:", response);
 ```
 
 ```bash cURL
