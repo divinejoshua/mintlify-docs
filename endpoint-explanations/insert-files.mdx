@@ -32,12 +32,17 @@ insert_response = client.collection.insert_resource(
 print(insert_response)
 ```
 
-```javascript Javascript
+```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
-const response = await wetrocloud.insertResource({
-  collection_id: "<collection_id>",
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+
+// Insert a file into a Collection
+const response = await client.insertResource({
+  collection_id: "my_unique_collection_id",
   resource: "./essay/paul_graham_essay.pdf", // Replace with your actual file path
   type: "file"
 });
@@ -51,8 +56,8 @@ curl --request POST \
   --header 'Authorization: Token <api-key>' \
   --header 'Content-Type: application/json' \
   --data '{
-    "collection_id": "<collection_id>",
-    # File path is not accepted via our direct API, therefore files must be provided as URL
+    "collection_id": "my_unique_collection_id",
+    # File Paths are not accepted via cURL, therefore files must be provided as URL
     "resource": "https://didiai-test.s3.us-east-2.amazonaws.com/paul_graham_essay.pdf", 
     "type": "file"
   }'
@@ -102,7 +107,7 @@ curl --request POST \
   --header 'Authorization: Token <api-key>' \
   --header 'Content-Type: application/json' \
   --data '{
-    "collection_id": "<collection_id>",
+    "collection_id": "my_unique_collection_id",
     "resource": "https://didiai-test.s3.us-east-2.amazonaws.com/paul_graham_essay.pdf", 
     "type": "file"
   }'

@@ -110,12 +110,15 @@ console.log("Query response:", response);
 
 ```bash cURL
 curl --request POST \
- --url 'https://api.wetrocloud.com/v1/collection/query/' \
- --form 'collection_id=<collection_id>' \
- --form 'request_query=Generate a sales report' \
- --form 'json_schema=[{"month":"","sales":"int"}]' \
- --form 'json_schema_rules=Give a breakdown of the sales for each month' \
- --header 'Authorization: Token <api-key>'
+  --url https://api.wetrocloud.com/v1/collection/query/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "my_unique_collection_id",
+    "request_query": "Generate a sales report",
+    "json_schema": [{"month": "", "sales": "int"}],
+    "json_schema_rules": "Give a breakdown of the sales for each month"
+  }'
 ```
 </CodeGroup>
 
