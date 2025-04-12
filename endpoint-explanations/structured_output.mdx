@@ -104,12 +104,15 @@ console.log("Structured output:", response);
 
 ```bash cURL
 curl --request POST \
- --url 'https://api.wetrocloud.com/v1/collection/query/' \
- --form 'collection_id=<collection_id>' \
- --form 'request_query=What is this about?' \
- --form 'json_schema=[{"topic":"","description":""}]' \
- --form 'json_schema_rules=Give a very short description of every page on the document from' \
- --header 'Authorization: Token <api-key>'
+  --url https://api.wetrocloud.com/v1/collection/query/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "my_unique_collection_id",
+    "request_query": "What is this about?",
+    "json_schema": [{"topic": "", "description": ""}],
+    "json_schema_rules": "Give a very short description of every page on the document from"
+  }'
 ```
 </CodeGroup>
 
