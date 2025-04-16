@@ -42,50 +42,47 @@ To insert a resource into a collection, make a `POST` request to the `/v1/resour
 
 ### Request Example
 <CodeGroup>
-    ```bash cURL
-    curl --request POST \
-      --url https://api.wetrocloud.com/v1/resource/insert/ \
-      --header 'Authorization: Token <api-key>' \
-      --header 'Content-Type: application/json' \
-      --data '{
-        "collection_id": "<collection_id>",
-        "resource": "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
-        "type": "web"
-      }'
-    ```
-    ```python Python
-    import requests
+ 
+```python Python
+from wetro import Wetrocloud
+    
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
+    
+# Insert a Resource into a Collection
+insert_response = client.collection.insert_resource(
+    collection_id="my_unique_collection_id",
+    resource="https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.", 
+    type="web"
+)
+    
+print(insert_response)
+```
 
-    url = "https://api.wetrocloud.com/v1/resource/insert/"
-    headers = {
-        "Authorization": "Token <api-key>",
-    }
-    payload = {
-        "collection_id": "<collection_id>",
-        "resource": "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
-        "type": "web"
-    }
-    response = requests.post(url, headers=headers, payload=payload)
-    print(response.json())
-    ```
-    ```javascript JavaScript
-    const axios = require('axios');
+```javascript Javascript
+import Wetrocloud from "wetro-sdk";
 
-    const url = 'https://api.wetrocloud.com/v1/resource/insert/';
-    const headers = {
-        'Authorization': 'Token <api-key>',
-        'Content-Type': 'application/json'
-    };
-    const data = {
-        collection_id: '<collection_id>',
-        resource: 'https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.',
-        type: 'web'
-    };
+const wetrocloud = new Wetrocloud();
+const response = await wetrocloud.insertResource({
+  collection_id: "<collection_id>",
+  resource: "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
+  type: "web"
+});
 
-    axios.post(url, data, { headers })
-        .then(response => console.log(response.data))
-        .catch(error => console.error(error));
-    ```
+console.log("insert a resource", response);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.wetrocloud.com/v1/resource/insert/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "my_unique_collection_id",
+    "resource": "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
+    "type": "web"
+  }'
+```
 </CodeGroup>
 
 ### Successful Response
@@ -101,7 +98,6 @@ A successful response confirms the operation and tracks token usage.
   "tokens": 35
 }
 ```
-
 | Field      | Description                                     |
 |------------|-------------------------------------------------|
 | `success`  | Indicates whether the resource was inserted successfully. |
@@ -113,3 +109,5 @@ A successful response confirms the operation and tracks token usage.
 - **[Create Collection](create)**: Start by creating a collection to hold your resources.
 - **[Query Resources](query)**: Access and retrieve insights from the indexed resources.
 - **[Delete Collection](delete)**: Remove collections and their resources when no longer needed.
+
+

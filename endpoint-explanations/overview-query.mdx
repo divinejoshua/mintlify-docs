@@ -1,0 +1,79 @@
+---
+title: 'Overview Query'
+description: 'Learn how to query your collections in WetroCloud for both free text and structured responses.'
+---
+The `query` endpoint allows you to retrieve information from a collection (your resources) via the WetroCloud API.  
+This endpoint supports two response formats to suit different use cases:  
+
+- **Free Text Response**: A natural language answer to your query.  
+- **Structured Output Response**: A structured JSON output.
+
+Each response type has unique request and response formats, which are explained in detail on their respective pages.  
+
+
+## Free Text Response
+
+| Parameter           | Type   | Description                                                                 |
+|-------------------------|--------|-----------------------------------------------------------------------------|
+| `collection_id`(required) | String | The unique ID of the collection to query.                                   |
+| `request_query`(required) | String | The search term or query text.                                              |
+| `stream`(optional)  | Boolean | Enables streaming response if True, it's False by default|
+| `model`(optional)   | String | Specific model you desire to query response [Check out our list of supported models here](models)|
+
+### Response Example: Free Text
+
+```json
+{
+  "response": "The sales for Q1 increased by 20% compared to last year, with online channels contributing significantly.",
+  "tokens": 120,
+  "success": true
+}
+```
+
+| Field     | Description                                           |
+|-----------|-------------------------------------------------------|
+| `response` | Conversational response to the query.                |
+| `tokens`   | Number of tokens used for processing.                |
+| `success`  | Indicates whether the query was successful.          |
+
+## Structured Output Response
+Structured output is a feature that allows large language models (LLMs) to generate responses in a specific format with your resources. Structured output is best for extracting structured data to fit your application's needs. It returns data formatted with the `json_schema` and `json_schema_rules` you provide.
+To use the structured output feature you need to provide the following parameters:
+<Warning>
+Streaming is not supported when doing structured output response
+</Warning>
+
+| Parameter           | Type   | Description                                                                 |
+|----------------------|--------|-----------------------------------------------------------------------------|
+| `collection_id` (required)     | String | The unique ID of the collection to query obtained from the [`/collection/create/`](create) endpoint.     |
+| `request_query` (required)     | String | The search term or query text.                                              |
+| `json_schema` (required)       | String | The desired structure for the JSON response.                                |
+| `json_schema_rules` (required) | String | Custom rules to guide the response's adherence to the specified JSON schema.|
+| `model`(optional)   | String | Specific model you desire to query response [Check out our list of supported models here](models)|
+
+### Response Example: Structured Output
+```json
+{
+    "response": [
+        {
+            "month": "January",
+            "sales": 15000
+        },
+        {
+            "month": "February",
+            "sales": 18000
+        },
+        {
+            "month": "March",
+            "sales": 17000
+        }
+    ],
+    "tokens": 4007,
+    "success": true
+}
+```
+| Field     | Description                                           |
+|-----------|-------------------------------------------------------|
+| `response` | JSON object structured as per the provided schema.   |
+| `tokens`   | Number of tokens used for processing.                |
+| `success`  | Indicates whether the query was successful.          |

@@ -43,51 +43,48 @@ View models supported by WetroCloud [here](/endpoint-explanations/models).
 
 ### Request Example
 <CodeGroup>
+  ```python Python
+from wetro import Wetrocloud
+
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
+
+# Text Generation
+response = client.generate_text(
+    messages=[
+        {"role": "system", "content": "You are a helpful assistant."}, 
+        {"role": "user", "content": "Write a short poem about technology."}
+    ],
+    model="llama-3.3-70b"
+)
+print(response)
+  ```
+
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
+
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+
+// Text Generation
+const response = await wetrocloud.textGeneration({
+  messages: [
+      {"role": "system", "content": "You are a helpful assistant."}, 
+      {"role": "user", "content": "Write a short poem about technology."}
+  ],
+  model: "llama-3.3-70b"
+})
+
+console.log("Generated text:", response);
+```
+
 ```bash curl
- --location 'https://api.wetrocloud.com/v1/text-generation/' \
+--location 'https://api.wetrocloud.com/v1/text-generation/' \
   --header 'Authorization: Token <api-key>' \
   --form 'messages="[{\"role\": \"user\", \"content\": \"what is a large language model?\"}]"' \
   --form 'model="llama-3.3-70b"'
-```
-```python Python
-import requests
-
-url = "https://api.wetrocloud.com/v1/text-generation/"
-headers = {
-    "Authorization": "Token <api-key>"
-}
-data = {
-    "messages": [{"role": "user", "content": "what is a large language model?"}],
-    "model": "llama-3.3-70b"
-}
-
-response = requests.post(url, headers=headers, files=data)
-print(response.json())
-```
-```javascript JavaScript
-const axios = require('axios');
-const FormData = require('form-data');
-
-const apiKey = 'YOUR_API_KEY';
-const formData = new FormData();
-
-formData.append('messages', JSON.stringify([
-  { role: 'user', content: 'what is a large language model?' }
-]));
-formData.append('model', 'llama-3.3-70b');
-
-axios.post('https://api.wetrocloud.com/v1/text-generation/', formData, {
-  headers: {
-    'Authorization': 'Token <api-key>',
-    ...formData.getHeaders()
-  }
-})
-.then(response => {
-  console.log('Response:', response.data);
-})
-.catch(error => {
-  console.error('Error:', error.response ? error.response.data : error.message);
-});
 ```
 </CodeGroup>
 
@@ -108,4 +105,3 @@ axios.post('https://api.wetrocloud.com/v1/text-generation/', formData, {
 | `response` | Conversational response to the query.                |
 | `tokens`   | Number of tokens used for processing.                |
 | `success`  | Indicates whether the query was successful.          |
-

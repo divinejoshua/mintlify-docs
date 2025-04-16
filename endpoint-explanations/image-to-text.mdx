@@ -3,20 +3,43 @@ title: 'Image to text (OCR)'
 description: 'Learn how to query images in WetroCloud to retrieve information, descriptions, or answers based on the image using the WetroCloud APIs image-to-text endpoint.'
 ---
 The `image-to-text` endpoint allows you to analyze an image and ask questions about its content via the WetroCloud API.  
-This endpoint supports two response formats to suit different use cases:  
-
-- **Free Text Response**: A natural language answer to your query.  
-- **Structured Output Response**: A structured JSON output (Coming Soon...).
-
-Each response type has unique request and response formats, which are explained in detail on their respective pages.  
-
-
-## Free Text Response
-
-Free text response provides natural, conversational-style answers to your queries. It is ideal for general Q&A and scenarios where a narrative or contextualized explanation is needed. Unlike structured output, free text does not require additional parameters like `json_schema` and `json_schema_rules`.
 
 ### Request Example
 <CodeGroup>
+```python Python
+from wetro import Wetrocloud
+
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
+
+# Extract text from an image and answer questions about it
+ocr_response = client.image_to_text(
+    image_url = "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQBQcwHfud1w3RN25Wgys6Btt_Y-4mPrD2kg&s",
+    request_query="What animal is this?"
+)
+print(ocr_response)
+```
+
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
+
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+
+const imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQBQcwHfud1w3RN25Wgys6Btt_Y-4mPrD2kg&s';
+const query = 'What animal is this?';
+
+// Extract text from an image and answer questions about it
+const response = await client.imageToText({
+  image_url: imageUrl,
+  request_query: query
+});
+
+console.log("Image to text:", response);
+```
+
 ```bash cURL
 curl --request POST \
   --url https://api.wetrocloud.com/v1/image-to-text/ \
@@ -27,53 +50,9 @@ curl --request POST \
     "request_query": "What animal is this?"
   }'
 ```
-```python Python
-import requests
-
-url = "https://api.wetrocloud.com/v1/image-to-text/"
-headers = {
-    "Authorization": "Token <api-key>",
-    "Content-Type": "application/json"
-}
-data = {
-    "image_url": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQBQcwHfud1w3RN25Wgys6Btt_Y-4mPrD2kg&s",
-    "request_query": "What animal is this?"
-}
-
-response = requests.post(url, headers=headers, json=data)
-print(response.json())
-```
-```javascript JavaScript
-const axios = require('axios');
-
-const apiKey = '<api-key>';
-const imageUrl = 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTQBQcwHfud1w3RN25Wgys6Btt_Y-4mPrD2kg&s';
-const query = 'What animal is this?';
-
-const requestData = {
-  image_url: imageUrl,
-  request_query: query
-};
-
-axios.post('https://api.wetrocloud.com/v1/image-to-text/', requestData, {
-  headers: {
-    'Authorization': `Token ${apiKey}`,
-    'Content-Type': 'application/json'
-  }
-})
-.then(response => {
-  console.log('Response:', response.data);
-})
-.catch(error => {
-  console.error('Error:', error.response ? error.response.data : error.message);
-});
-
-```
 </CodeGroup>
 
----
-
-### Response Example: Free Text
+### Response Example
 
 ```json
 {

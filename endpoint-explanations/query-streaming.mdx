@@ -1,0 +1,73 @@
+---
+title: 'Free Text: Streaming'
+description: 'Learn how to query your collections in Wetrocloud for while streaming the response'
+---
+## Free Text Response: Streaming
+
+Free text response provides natural, conversational-style answers to your queries. It is ideal for general Q&A and scenarios where a narrative or contextualized explanation is needed. 
+Streaming the response gives makes it faster and gives the chatbot effect of the system typing out the answer for you
+
+### Request Example
+<CodeGroup>
+```python Python
+from wetro import Wetrocloud
+
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
+
+# Query the collection with streaming
+streaming_response = client.collection.query_collection(
+    collection_id="my_unique_collection_id",
+    request_query="What are the sales trends for Q1?",
+    stream=True
+)
+
+# Process streaming response
+for chunk in streaming_response:
+    print(chunk.response, end="")
+```
+
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
+
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+
+// Query with streaming enabled
+const response = await client.queryCollection({
+  collection_id: "my_unique_collection_id",
+  request_query: "What are the sales trends for Q1?",
+  stream: true,
+});
+
+// Process streaming response
+for await (const chunk of response) {
+  console.log("Chunk received:", chunk.response);  // Print with newlines
+}
+```
+</CodeGroup>
+<Note> Note: If you are not familiar with streaming, the response is returned in chunks, so your have to loop through the response to get its full content.</Note>
+
+### Process streaming response
+<CodeGroup>
+```python Python
+# Process streaming response
+for chunk in streaming_response:
+    print(chunk.response, end="")
+```
+```javascript Javascript
+for await (const item of response) {
+    console.log("Received item:", item);
+}
+```
+</CodeGroup>
+
+### Response Example
+
+| Field     | Description                                           |
+|-----------|-------------------------------------------------------|
+| `response` | Conversational response to the query.                |
+| `tokens`   | Number of tokens used for processing.                |
+| `success`  | Indicates whether the query was successful.          |

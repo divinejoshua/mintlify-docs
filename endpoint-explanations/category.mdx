@@ -27,59 +27,58 @@ Send a `POST` request to the `/v1/categorize/` endpoint with the required parame
 **Request Example**
 
 <CodeGroup>
-  ```bash cURL
-    curl --request POST \
-      --url https://api.wetrocloud.com/v1/categorize/ \
-      --header 'Authorization: Token <api-key>' \
-      --header 'Content-Type: application/json' \
-      --data '{
-        "resource": "match review: John Cena vs. The Rock are fighting",
-        "type": "text",
-        "json_schema": "{'label':'string'}",
-        "categories": ["football", "coding", "entertainment", "basketball", "wrestling", "information"]
-        "prompt": "Where does this fall under?",
-      }'
-  ```
-  ```python Python
-    import requests
+```python Python
+from wetro import Wetrocloud
 
-    url = "https://api.wetrocloud.com/v1/categorize/"
-    headers = {
-        "Authorization": "Token <api-key>",
-    }
-    data = {
-        "resource": "match review: John Cena vs. The Rock are fighting",
-        "type": "text",
-        "json_schema": "{'label':'string'}",
-        "categories": ["football", "coding", "entertainment", "basketball", "wrestling", "information"]
-        "prompt": "Where does this fall under?",
-    }
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
 
-    response = requests.post(url, headers=headers, json=data)
-    print(response.json())
-  ```
-  ```javascript JavaScript
-    const axios = require('axios');
+# Categorize content
+categorize_response = client.categorize(
+    resource="match review: John Cena vs. The Rock.",
+    type="text",
+    json_schema={"label": "string"},
+    categories=["football", "coding", "entertainment", "basketball", "wrestling", "information"],
+    prompt="Where does this fall under?"
+)
 
-    axios.post('https://api.wetrocloud.com/v1/categorize/', {
-      resource: "match review: John Cena vs. The Rock are fighting",
-      type: "text",
-      json_schema: "{'label':'string'}",
-      categories: ["football", "coding", "entertainment", "basketball", "wrestling", "information"]
-      prompt: "Where does this fall under?",
-    }, {
-      headers: {
-        'Authorization': 'Token <api-key>',
-        'Content-Type': 'application/json'
-      }
-    })
-    .then(response => {
-      console.log(response.data);
-    })
-    .catch(error => {
-      console.error('Error:', error);
-    });
-  ```
+print(categorize_response)
+print("\nThe text is categorized as:", categorize_response.response["label"])
+```
+
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
+
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+
+// Categorize content
+const response = await client.categorize({
+  resource: "match review: John Cena vs. The Rock",
+  type: "text",
+  json_schema: { label: "string" },
+  categories: ["football", "coding", "entertainment", "basketball", "wrestling", "information"],
+  prompt: "Where does this fall under?"
+});
+
+console.log("Category result:", response);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.wetrocloud.com/v1/categorize/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "resource": "match review: John Cena vs. The Rock.",
+    "type": "text",
+    "json_schema": {"label": "string"},
+    "categories": ["football", "coding", "entertainment", "basketball", "wrestling", "information"],
+    "prompt": "Categorize the text to see which category it best fits"
+  }'
+```
 </CodeGroup>
 
 **Successful Response**

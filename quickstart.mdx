@@ -10,7 +10,7 @@ Visit the [Wetrocloud console](https://console.wetrocloud.com/) to get your API 
 import WarningCallout from '/snippets/snippet-warning.mdx';
 
 #### Introduction 
-This guide is for developers looking to get started with the WetroCloud API quickly. Using simple cURL commands, you’ll learn how to:
+This guide is for developers looking to get started with the WetroCloud API quickly. Using simple cURL commands, you'll learn how to:
 
 - Create a collection
 - Insert resources into the collection
@@ -23,185 +23,235 @@ This guide is for developers looking to get started with the WetroCloud API quic
 **Prerequisites:**
 - An API key from the [Wetrocloud Console](https://console.wetrocloud.com)
 
-By the end, you’ll have queried your first resource using Wetrocloud API.
+By the end, you'll have queried your first resource using Wetrocloud API.
 
 <WarningCallout/>
 
 <Steps>
+  <Step title="Getting Started">
+    <CodeGroup>
+  ```bash Python
+  pip install wetro
+  ```
+  ```bash JavaScript
+  npm install wetro-sdk
+  ```
+  ```bash cURL
+    curl --base_url  https://api.wetrocloud.com/v1/
+  ```
+    </CodeGroup>
+  </Step>
+
+  <Step title="Setting Up API Key">
+    <CodeGroup>
+
+```python Python
+from wetro import Wetrocloud
+
+# Initialize the main client and access modules
+client = Wetrocloud(api_key="your_api_key")
+```
+
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
+
+// Initialize the main client and access modules
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+```
+
+```bash cURL
+curl --request GET \
+  --url https://api.wetrocloud.com/v1/ \
+  --header 'Authorization: Token <api-key>'
+```
+
+    </CodeGroup>
+  </Step>
+
   <Step title="Create a Collection">
     First, create a `collection_id` to group your resources.
     <CodeGroup>
-      ```bash cURL
-        curl --request POST \
-          --url https://api.wetrocloud.com/v1/collection/create/ \
-          --header 'Authorization: Token <api-key>'
-          --form 'collection_id=<collection_id>' \
-        ```
-      ```python Python
-        import requests
+```python Python
+from wetro import Wetrocloud
 
-        url = "https://api.wetrocloud.com/v1/collection/create/"
-        headers = {"Authorization": "Token <api-key>"}
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
 
-        data = {
-            "collection_id": "<collection_id>"
-        }
+# Create a collection
+collection = client.collection.create_collection(
+  collection_id="my_unique_collection_id"
+)
 
-        response = requests.post(url, headers=headers,data=data)
-        print(response.json())
-      ```
-      ```javascript JavaScript
-        const axios = require('axios');
-        const FormData = require('form-data');
+print(collection)
+```
+  
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
 
-        const url = 'https://api.wetrocloud.com/v1/collection/create/';
-        const headers = { 'Authorization': 'Token <api-key>' };
-        const formData = new FormData();
-        formData.append('collection_id', '<collection_id>');
+// Initialize the client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
 
-        axios.post(url, formData, { headers })
-          .then(response => console.log(response.data))
-          .catch(error => console.error(error));
-      ```
+// Create a collection (id is optional)
+const response = await client.createCollection({
+  collection_id: "my_unique_collection_id"
+});
+
+console.log(response);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.wetrocloud.com/v1/collection/create/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "my_unique_collection_id"
+  }'
+```
     </CodeGroup>
   </Step>
 
   <Step title="List all available collections">
     After creating a collection, you can get all your available collections on wetrocloud.
     <CodeGroup>
-      ```bash cURL
-        curl --request GET \
-          --url https://api.wetrocloud.com/v1/collection/all/ \
-          --header 'Authorization: Token <api-token>'
-      ```
-      ```python Python
-        import requests
+```python Python
+from wetro import Wetrocloud
 
-        response = requests.get(
-            'https://api.wetrocloud.com/v1/collection/all/',
-            headers={
-                'Authorization': 'Token <api-token>'
-            }
-        )
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
 
-        try:
-            print(response.json())
-        except ValueError:
-            print(response.text)
-      ```
+# Get all collections
+all_collections = client.collection.get_collection_list()
 
-      ```javascript JavaScript
-        const axios = require('axios');
+# print the response
+print(all_collections)
+```
 
-        axios.get('https://api.wetrocloud.com/v1/collection/all/', {
-          headers: {
-            'Authorization': 'Token <api-token>'
-          }
-        })
-        .then(response => {
-          console.log(response.data);
-        })
-        .catch(error => {
-          console.error('Error:', error);
-        });
-      ```
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
+
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+
+// Get all collections
+const response = await client.listCollections();
+
+console.log("Available collections:", response);
+```
+
+```bash cURL
+curl --request GET \
+  --url https://api.wetrocloud.com/v1/collection/all/ \
+  --header 'Authorization: Token <api-key>'
+```
     </CodeGroup>
   </Step>
 
   <Step title="Insert a Resource into the Collection">
     Add a resource to your collection using the `collection_id` you created earlier
     <CodeGroup>
-      ```bash cURL
-        curl --request POST \
-          --url https://api.wetrocloud.com/v1/resource/insert/ \
-          --header 'Authorization: Token <api-key>' \
-          --header 'Content-Type: multipart/form-data' \
-          --form 'collection_id=<collection_id>' \
-          --form 'resource=https://en.wikipedia.org/wiki/Elizabeth_II' \
-          --form 'type=web'
-      ```
-      ```python Python
-        import requests
+  
+```python Python
+from wetro import Wetrocloud
+    
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
 
-        url = "https://api.wetrocloud.com/v1/resource/insert/"
-        headers = {
-            "Authorization": "Token <api-key>"
-        }
-        data = {
-            "collection_id": "<collection_id>",
-            "resource": "https://en.wikipedia.org/wiki/Elizabeth_II",
-            "type": "web"
-        }
+# Insert a Resource into a Collection
+insert_response=client.collection.insert_resource(
+  collection_id="my_unique_collection_id",
+  resource="https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09",
+  type="web"
+)
 
-        response = requests.post(url, headers=headers, data=data)
-        print(response.json())
-      ```
-      ```javascript JavaScript
-        const axios = require('axios');
-        const FormData = require('form-data');
+# Print the response
+print(insert_response)
+```
 
-        const url = 'https://api.wetrocloud.com/v1/resource/insert/';
-        const formData = new FormData();
-        formData.append('collection_id', '<collection_id>');
-        formData.append('resource', 'https://en.wikipedia.org/wiki/Elizabeth_II');
-        formData.append('type', 'web');
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
 
-        const headers = {
-            'Authorization': 'Token <api-key>',
-            ...formData.getHeaders()
-        };
+// Initialize the client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
 
-        axios.post(url, formData, { headers })
-            .then(response => console.log(response.data))
-            .catch(error => console.error(error));
-      ```
+// Insert a web resource
+const response = await client.insertResource({
+  collection_id: "my_unique_collection_id",
+  resource: "https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09",
+  type: "web"
+});
+
+console.log("Resource inserted:", response);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.wetrocloud.com/v1/resource/insert/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "my_unique_collection_id",
+    "resource": "https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09",
+    "type": "web"
+  }'
+```
     </CodeGroup>
   </Step>
 
   <Step title="Query Collection">
     Query your collection using the `collection_id` created earlier by providing a query in the `request_query` field.
     <CodeGroup>
-      ```bash cURL
-        curl --request POST \
-          --url https://api.wetrocloud.com/v1/collection/query/ \
-          --header 'Authorization: Token <api-key>' \
-          --header 'Content-Type: multipart/form-data' \
-          --form 'collection_id=<collection_id>' \
-          --form 'request_query=What is this all about?' \
-      ```
-      ```python Python
-        import requests
+```python Python
+from wetro import Wetrocloud
 
-        url = "https://api.wetrocloud.com/v1/collection/query/"
-        headers = {
-            "Authorization": "Token <api-key>"
-        }
-        data = {
-            "collection_id": "<collection_id>",
-            "request_query": "What is this all about?"
-        }
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
 
-        response = requests.post(url, headers=headers, data=data)
-        print(response.json())
-      ```
-      ```javascript JavaScript
-        const axios = require('axios');
-        const FormData = require('form-data');
+# Query the collection
+query_response = client.collection.query_collection(
+    collection_id="my_unique_collection_id",
+    request_query="What are the key points of the article?"
+)
 
-        const url = 'https://api.wetrocloud.com/v1/collection/query/';
-        const formData = new FormData();
-        formData.append('collection_id', '<collection_id>');
-        formData.append('request_query', 'What is this all about?');
+# Print the response
+print(query_response)
+```
 
-        const headers = {
-            'Authorization': 'Token <api-key>',
-            ...formData.getHeaders()
-        };
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
 
-        axios.post(url, formData, { headers })
-            .then(response => console.log(response.data))
-            .catch(error => console.error(error));
-      ```
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+
+// Query the collection
+const response = await client.queryCollection({
+  collection_id: "my_unique_collection_id",
+  request_query: "What are the key points of the article?"
+});
+
+console.log("Query response:", response);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.wetrocloud.com/v1/collection/query/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "my_unique_collection_id",
+    "request_query": "What are the key points of the article?"
+  }'
+```
     </CodeGroup> 
     <Info>
       To keep things simple we made use of the `/collection/query/` endpoint without `structured output`
@@ -211,187 +261,221 @@ By the end, you’ll have queried your first resource using Wetrocloud API.
   <Step title="Chat with Collection">
     Chat with your collection using the `collection_id` created earlier by providing a message in the `message` field and continue conversations by passing `chat_history`.
     <CodeGroup>
-      ```bash cURL
-        curl --request POST \
-          --url https://api.wetrocloud.com/v1/collection/chat/ \
-          --header 'Authorization: Token <api-key>' \
-          --header 'Content-Type: multipart/form-data' \
-          --form 'collection_id=<collection_id>' \
-          --form 'message=Tell me more' \
-          --form 'chat_history=[{"role":"user","content":"What is this all about?"}, {"role":"system","content":"This is about Queen Elizabeth_II of England"}]' \
-      ```
-      ```python Python
-        import requests
+```python Python
+from wetro import Wetrocloud
 
-        url = "https://api.wetrocloud.com/v1/collection/chat/"
-        headers = {
-            "Authorization": "Token <api-key>"
-        }
-        data = {
-            "collection_id": "<collection_id>",
-            "message": "Tell me more",
-            "chat_history": [{"role":"user","content":"What is this all about?"}, 
-            {"role":"system","content":"This is about Queen Elizabeth_II of England"}]
-        }
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
 
-        response = requests.post(url, headers=headers, data=data)
-        print(response.json())
-      ```
-      ```javascript JavaScript
-        const axios = require('axios');
-        const FormData = require('form-data');
+# Create a chat history
+chat_history = [
+    {"role": "user", "content": "What is this collection about?"}, 
+    {"role": "system", "content": "It stores research papers on AI technology."}
+]
 
-        const url = 'https://api.wetrocloud.com/v1/collection/query/';
-        const formData = new FormData();
-        formData.append('collection_id', '<collection_id>');
-        formData.append('message', 'Tell me more');
-        formData.append('chat_history', [{"role":"user",  "content":"What is this all about?"}, 
-            {"role":"system","content":"This is about Queen Elizabeth_II of England"}]);
+# Continue the conversation with context
+chat_response = client.collection.chat(
+    collection_id="my_unique_collection_id",
+    message="Can you explain the latest paper's methodology?",
+    chat_history=chat_history
+)
 
-        const headers = {
-            'Authorization': 'Token <api-key>',
-            ...formData.getHeaders()
-        };
+# Print the chat response
+print(chat_response)
+``` 
 
-        axios.post(url, formData, { headers })
-            .then(response => console.log(response.data))
-            .catch(error => console.error(error));
-      ```
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
+
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+
+// Create chat history
+const chatHistory = [
+  { role: "user", content: "What is this collection about?" },
+  { role: "system", content: "It stores research papers on AI technology." }
+];
+
+// Chat with context
+const response = await client.chat({
+  collection_id: "my_unique_collection_id",
+  message: "Can you explain the latest paper's methodology?",
+  chat_history: chatHistory
+});
+
+console.log("Chat response:", response);
+```
+   
+```bash cURL
+   curl --request POST \
+        --url https://api.wetrocloud.com/v1/collection/chat/ \
+        --header 'Authorization: Token <api-key>' \
+        --header 'Content-Type: application/json' \
+        --data '{
+          "collection_id": "my_unique_collection_id",
+          "message": "Can you explain the latest paper'\''s methodology?",
+          "chat_history": [
+            {"role": "user", "content": "What is this collection about?"},
+            {"role": "system", "content": "It stores research papers on AI technology."}
+          ]
+        }'
+```
     </CodeGroup> 
   </Step>
 
   <Step title="Categorize a Resource">
     <CodeGroup>
-    ```bash cURL
-      curl --request POST \
-        --url https://api.wetrocloud.com/v1/categorize/ \
-        --header 'Authorization: Token <api-key>' \
-        --header 'Content-Type: multipart/form-data' \
-        --form 'resource=match review: John Cena vs. The Rock.' \
-        --form type=text \
-        --form 'json_schema={"label":"string" }' \
-        --form 'categories=["football", "coding", "entertainment", "basketball", "wrestling", "information"]'
-    ```
-    ```python Python
-      import requests
+```python Python
+from wetro import Wetrocloud
 
-      url = "https://api.wetrocloud.com/v1/categorize/"
-      headers = {
-          "Authorization": "Token <api-key>"
-      }
-      data = {
-          "resource": "match review: John Cena vs. The Rock.",
-          "type": "text",
-          "json_schema": {"label": "string"},
-          "categories": ["football", "coding", "entertainment", "basketball", "wrestling", "information"]
-      }
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
 
-      response = requests.post(url, headers=headers, data=data)
-      print(response.json())
-    ```
-    ```javascript JavaScript
-      const axios = require('axios');
-      const FormData = require('form-data');
+# Categorize content
+categorize_response = client.categorize(
+    resource="match review: John Cena vs. The Rock.",
+    type="text",
+    json_schema={"label": "string"},
+    categories=["wrestling", "entertainment", "sports", "news"],
+    prompt="Categorize the text to see which category it best fits"
+)
 
-      const url = 'https://api.wetrocloud.com/v1/categorize/';
-      const formData = new FormData();
-      formData.append('resource', 'match review: John Cena vs. The Rock.');
-      formData.append('type', 'text');
-      formData.append('json_schema', JSON.stringify({"label": "string"}));
-      formData.append('categories', JSON.stringify(["football", "coding", "entertainment", "basketball", "wrestling", "information"]));
+print(categorize_response)
+print("\nThe text is categorized as:", categorize_response.response["label"])
+```
+   
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
 
-      const headers = {
-          'Authorization': 'Token <api-key>',
-          ...formData.getHeaders()
-      };
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
 
-      axios.post(url, formData, { headers })
-          .then(response => console.log(response.data))
-          .catch(error => console.error(error));
-    ```
+// Categorize content
+const response = await client.categorize({
+  resource: "match review: John Cena vs. The Rock",
+  type: "text",
+  json_schema: { label: "string" },
+  categories: ["wrestling", "entertainment", "sports", "news"],
+  prompt: "Categorize the text to see which category it best fits"
+});
+
+console.log("Categorization:", response);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.wetrocloud.com/v1/categorize/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "resource": "match review: John Cena vs. The Rock.",
+    "type": "text",
+    "json_schema": {"label": "string"},
+    "categories": ["wrestling", "entertainment", "sports", "news"],
+    "prompt": "Categorize the text to see which category it best fits"
+  }'
+```
     </CodeGroup>
   </Step>
 
   <Step title="Remove a Resource">
-    This endpoint is used to delete a collection
+    Remove a resource from your collection using the `collection_id` and `resource_id`.
     <CodeGroup>
-      ```bash cURL
-        curl --request DELETE \
-          --url https://api.wetrocloud.com/v1/resource/remove/ \
-          --header 'Authorization: Token <api-key>'
-          --form 'collection_id=<collection_id>' \
-          --form 'resource_id=<resource_id>' \
-      ```
-      ```python Python
-        import requests
+```python Python
+from wetro import Wetrocloud
 
-        url = "https://api.wetrocloud.com/v1/resource/remove/"
-        headers = {
-            "Authorization": "Token <api-key>"
-        }
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
 
-        data = {
-            "collection_id": "<collection_id>",
-            "resource_id": "<resource_id>"
-        }
+# Delete the resource from the collection
+delete_response = client.collection.delete_resource(
+    collection_id="my_unique_collection_id",
+    resource_id="resource_id_to_delete"
+)
 
-        response = requests.delete(url, headers=headers,data=data)
-        print(response.json())
-      ```
-      ```javascript JavaScript
-        const axios = require('axios');
-        const FormData = require('form-data');
+print(delete_response)
+```
 
-        const url = 'https://api.wetrocloud.com/v1/resource/remove/';
-        const headers = {
-            'Authorization': 'Token <api-key>'
-        };
-        const formData = new FormData();
-        formData.append('collection_id', '<collection_id>');
-        formData.append('resource_id', '<resource_id>');
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
 
-        axios.delete(url, formData, { headers })
-            .then(response => console.log(response.data))
-            .catch(error => console.error(error));
-      ```
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+
+// Remove a resource
+const response = await client.deleteResource({
+  collection_id: "my_unique_collection_id",
+  resource_id: "resource_id_to_delete"
+});
+
+console.log("Resource deleted:", response);
+```
+
+```bash cURL
+curl --request DELETE \
+  --url https://api.wetrocloud.com/v1/resource/remove/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "my_unique_collection_id",
+    "resource_id": "resource_id_to_delete"
+  }'
+```
     </CodeGroup>
   </Step>
 
   <Step title="Delete a Collection">
-    This endpoint is used to delete a collection
+    Delete a collection using its `collection_id`.
     <CodeGroup>
-      ```bash cURL
-        curl --request DELETE \
-          --url https://api.wetrocloud.com/v1/collection/delete/ \
-          --header 'Authorization: Token <api-key>'
-      ```
-      ```python Python
-        import requests
+```python Python
+from wetro import Wetrocloud
 
-        url = "https://api.wetrocloud.com/v1/collection/delete/"
-        headers = {
-            "Authorization": "Token <api-key>"
-        }
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
 
-        response = requests.delete(url, headers=headers)
-        print(response.json())
-      ```
-      ```javascript JavaScript
-        const axios = require('axios');
+# Delete the collection
+delete_collection = client.collection.delete_collection(
+    collection_id="my_unique_collection_id"
+)
 
-        const url = 'https://api.wetrocloud.com/v1/collection/delete/';
-        const headers = {
-            'Authorization': 'Token <api-key>'
-        };
+print(delete_collection)
+```
 
-        axios.delete(url, { headers })
-            .then(response => console.log(response.data))
-            .catch(error => console.error(error));
-      ```
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
+
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+
+// Delete collection
+const response = await client.deleteCollection({
+  collection_id: "my_unique_collection_id"
+});
+
+console.log("Collection deleted:", response);
+```
+
+```bash cURL
+curl --request DELETE \
+  --url https://api.wetrocloud.com/v1/collection/delete/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "my_unique_collection_id"
+  }'
+```
     </CodeGroup>
   </Step>
 </Steps>
 
 Great, that was easy!
 
-If you want to get a more in depth understanding of how wetrocloud API fits together head on over to the [API reference](/api-reference/api-endpoints).
+If you want to get a more in depth understanding of how wetrocloud SDK works, head on over to the [API reference](/api-reference/api-endpoints).

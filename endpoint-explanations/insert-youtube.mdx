@@ -1,0 +1,85 @@
+---
+title: 'YouTube'
+description: 'Learn how to insert YouTube videos using Wetrocloud'
+---
+
+## How to Insert a YouTube Video
+
+To insert a YouTube video into a collection, make a `POST` request to the `/v1/resource/insert/` endpoint with the required parameters in the body. The resource should be a valid YouTube URL and make sure you use the `youtube` type.
+
+### Request Example
+<CodeGroup>
+ 
+```python Python
+from wetro import Wetrocloud
+    
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
+    
+# Insert a YouTube video into a Collection
+insert_response = client.collection.insert_resource(
+    collection_id="my_unique_collection_id",
+    resource="https://youtu.be/dQw4w9WgXcQ?si=0QKWYSM2QB03PoMh", 
+    type="youtube"
+)
+    
+print(insert_response)
+```
+
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
+
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+
+// Insert YouTube video
+const response = await client.insertResource({
+  collection_id: "my_unique_collection_id",
+  resource: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
+  type: "youtube",
+});
+
+console.log("YouTube video inserted:", response);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.wetrocloud.com/v1/resource/insert/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "my_unique_collection_id",
+    "resource": "https://youtu.be/dQw4w9WgXcQ?si=0QKWYSM2QB03PoMh",
+    "type": "youtube"
+  }'
+```
+</CodeGroup>
+
+### Successful Response
+
+A successful response confirms the operation and tracks token usage.
+
+**Example Response**
+
+```json
+{
+  "resource_id": "79621681-b680-4918-948d-d7f8c482426a",
+  "success": true,
+  "tokens": 35
+}
+```
+
+| Field      | Description                                     |
+|------------|-------------------------------------------------|
+| `success`  | Indicates whether the resource was inserted successfully. |
+| `tokens`   | Number of tokens consumed during the operation. |
+| `resource_id`   | Unique ID for the resource, this is required when removing a resource |
+
+## Related Operations
+
+- **[Create Collection](create)**: Start by creating a collection to hold your resources.
+- **[Query Resources](query)**: Access and retrieve insights from the indexed resources.
+- **[Delete Collection](delete)**: Remove collections and their resources when no longer needed.
+

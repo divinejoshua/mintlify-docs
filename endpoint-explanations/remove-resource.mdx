@@ -25,45 +25,48 @@ To remove resource from a collection, send a `DELETE` request to the `/resource/
 
 ### Request Example
 <CodeGroup>
-    ```bash cURL
-    curl --request DELETE \
-        --url https://api.wetrocloud.com/v1/resource/remove/ \
-        --header 'Authorization: Token <api-key>'
-        --form 'collection_id=<collection_id>' \
-        --form 'resource_id=<resource_id>' \
-    ```
-    ```python Python
-    import requests
+  
+```python Python
+from wetro import Wetrocloud
 
-    url = "https://api.wetrocloud.com/v1/resource/remove/"
-    headers = {
-        "Authorization": "Token <api-key>"
-    }
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
 
-    data = {
-        "collection_id": "<collection_id>",
-        "resource_id": "<resource_id>"
-    }
+# Delete the resource from the collection
+delete_response = client.collection.delete_resource(
+    collection_id="my_unique_collection_id",
+    resource_id="resource_id"
+)
+print(delete_response)
+```
 
-    response = requests.delete(url, headers=headers,data=data)
-    print(response.json())
-    ```
-    ```javascript JavaScript
-    const axios = require('axios');
-    const FormData = require('form-data');
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
 
-    const url = 'https://api.wetrocloud.com/v1/resource/remove/';
-    const headers = {
-        'Authorization': 'Token <api-key>'
-    };
-    const formData = new FormData();
-    formData.append('collection_id', '<collection_id>');
-    formData.append('resource_id', '<resource_id>');
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
 
-    axios.delete(url, formData, { headers })
-        .then(response => console.log(response.data))
-        .catch(error => console.error(error));
-    ```
+// Delete the resource
+const response = await client.deleteResource({
+  collection_id: "my_unique_collection_id",
+  resource_id: "resource_id_to_delete"
+});
+
+console.log("Resource deleted:", response);
+```
+
+```bash cURL
+curl --request DELETE \
+  --url https://api.wetrocloud.com/v1/resource/remove/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "my_unique_collection_id",
+    "resource_id": "resource_id_to_delete"
+  }'
+```
 </CodeGroup>
 
 ---

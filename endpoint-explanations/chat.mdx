@@ -13,52 +13,65 @@ The `chat` endpoint allows you to converse with your collection allowing it to r
 
 ### Request Example
 <CodeGroup>
-    ```bash cURL
-    curl --request POST \
-        --url https://api.wetrocloud.com/v1/collection/chat/ \
-        --header 'Authorization: Token <api-key>' \
-        --header 'Content-Type: multipart/form-data' \
-        --form 'collection_id=<collection_id>' \
-        --form 'message=Tell me more' \
-        --form 'chat_history=[{"role":"user","content":"What is this all about?"}, {"role":"system","content":"This is about Queen Elizabeth_II of England"}]' \
-    ```
-    ```python Python
-    import requests
+```python Python
+from wetro import Wetrocloud
 
-    url = "https://api.wetrocloud.com/v1/collection/chat/"
-    headers = {
-        "Authorization": "Token <api-key>"
-    }
-    data = {
-        "collection_id": "<collection_id>",
-        "message": "Tell me more",
-        "chat_history": [{"role":"user","content":"What is this all about?"}, 
-        {"role":"system","content":"This is about Queen Elizabeth_II of England"}]
-    }
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
 
-    response = requests.post(url, headers=headers, data=data)
-    print(response.json())
-    ```
-    ```javascript JavaScript
-    const axios = require('axios');
-    const FormData = require('form-data');
+# Create a chat history
+chat_history = [
+   {"role":"user", "content":"What is this document about?"}, 
+   {"role":"system","content":"This is the sales record of a company over the past 5 years"}
+]
 
-    const url = 'https://api.wetrocloud.com/v1/collection/query/';
-    const formData = new FormData();
-    formData.append('collection_id', '<collection_id>');
-    formData.append('message', 'Tell me more');
-    formData.append('chat_history', [{"role":"user",  "content":"What is this all about?"}, 
-        {"role":"system","content":"This is about Queen Elizabeth_II of England"}]);
+# Continue the conversation with context
+chat_response = client.collection.chat(
+    collection_id="my_unique_collection_id",
+    message="Can you give me an idea of how my company is doing this Q1 compared to last year?",
+    chat_history=chat_history
+)
+print(chat_response)
+```
 
-    const headers = {
-        'Authorization': 'Token <api-key>',
-        ...formData.getHeaders()
-    };
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
 
-    axios.post(url, formData, { headers })
-        .then(response => console.log(response.data))
-        .catch(error => console.error(error));
-    ```
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+
+// Create chat history
+const chatHistory = [
+  { role: "user", content: "What is this document about?" },
+  { role: "system", content: "This is the sales record of a company over the past 5 years" }
+];
+
+// Continue the conversation with context
+const response = await client.chat({
+  collection_id: "my_unique_collection_id",
+  message: "Can you give me an idea of how my company is doing this Q1 compared to last year?",
+  chat_history: chatHistory,
+});
+
+console.log("Chat response:", response);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.wetrocloud.com/v1/collection/chat/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "collection_id": "my_unique_collection_id",
+    "message": "Can you give me an idea of how my company is doing this Q1 compared to last year?",
+    "chat_history": [
+      {"role": "user", "content": "What is this document about?"},
+      {"role": "system", "content": "This is the sales record of a company over the past 5 years"}
+    ]
+  }'
+```
 </CodeGroup> 
 
 ---
@@ -72,7 +85,6 @@ The `chat` endpoint allows you to converse with your collection allowing it to r
   "success": true
 }
 ```
-
 | Field     | Description                                           |
 |-----------|-------------------------------------------------------|
 | `response` | Conversational response to the message.                |

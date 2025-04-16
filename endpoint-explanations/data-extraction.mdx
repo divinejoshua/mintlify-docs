@@ -7,7 +7,7 @@ This endpoint supports just one response formats to suit different use cases:
 
 ## Structured Output Response
 
-Structured output is a feature that allows large language models (LLMs) to generate responses in a specific format with your resources. Structured output is best for extracting structured data to fit your application’s needs. It returns data formatted with the `json_schema` and `json_schema_rules` you provide.
+Structured output is a feature that allows large language models (LLMs) to generate responses in a specific format with your resources. Structured output is best for extracting structured data to fit your application's needs. It returns data formatted with the `json_schema` and `json_schema_rules` you provide.
 To use the structured output feature you need to provide the following parameters:
 
 | Parameter           | Type   | Description                                                                 |
@@ -23,8 +23,8 @@ The `json_schema` parameter defines the structure of the response you want the s
 
 ```json
 {
-  "name":"<name of rich man>", 
-  "networth":"<amount worth>"
+  "name":"name of rich man", 
+  "networth":"amount worth"
 }
 ```
 
@@ -35,8 +35,8 @@ If you want a list of items and not just a single item, you can specify the json
 ```json
 [
   {
-    "name":"<name of rich man>", 
-    "networth":"<amount worth>"
+    "name":"name of rich man", 
+    "networth":"amount worth"
   }
 ]
 ```
@@ -47,55 +47,44 @@ If you want a list of items and not just a single item, you can specify the json
 <CodeGroup>
 ```bash cURL
 curl --request POST \
- --url 'https://api.wetrocloud.com/v1/data-extraction/' \
- --form 'website="https://www.forbes.com/real-time-billionaires/#7583ee253d78"' \
- --form 'json_schema=[{"name":"<name of rich man>", "networth":"<amount worth>"}]' \
- --header 'Authorization: Token <api-key>'
+  --url https://api.wetrocloud.com/v1/data-extraction/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "website": "https://www.forbes.com/real-time-billionaires/#7583ee253d78",
+    "json_schema": [{"name": "name of rich man", "networth": "amount worth"}]
+  }'
 ```
 ```python Python
-import requests
-import json
+from wetro import Wetrocloud
 
-form_data = {
-    'website': "https://www.forbes.com/real-time-billionaires/#7583ee253d78",
-    'json_schema': json.dumps([{"name":"<name of rich man>", "networth":"<amount worth>"}])
-}
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
 
-response = requests.post(
-    'https://api.wetrocloud.com/v1/data-extraction/',
-    data=form_data,
-    headers={
-        'Authorization': 'Token <api-key>'
-    }
+# Extract structured data from a website
+extract_response = client.extract(
+   website="https://www.forbes.com/real-time-billionaires/#7583ee253d78",
+   json_schema='[{"name": "name of rich man", "networth": "amount worth"}]'
 )
-
-try:
-    print(response.json())
-except ValueError:
-    print(response.text)
+print(extract_response)
 ```
 
 
-```javascript Javascript
-const axios = require('axios');
-const FormData = require('form-data');
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
 
-const formData = new FormData();
-formData.append('website', 'https://www.forbes.com/real-time-billionaires/#7583ee253d78');
-formData.append('json_schema', JSON.stringify([{"name":"<name of rich man>", "networth":"<amount worth>"}]));
-
-axios.post('https://api.wetrocloud.com/v1/data-extraction/', formData, {
- headers: {
-   'Authorization': 'Token <api-key>',
-   ...formData.getHeaders()
- }
-})
-.then(response => {
- console.log(response.data);
-})
-.catch(error => {
- console.error('Error:', error);
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
 });
+
+// Extract structured data from a website
+const response = await client.extract({
+  website: "https://www.forbes.com/real-time-billionaires/#7583ee253d78",
+  json_schema: [{ name: "name of rich man", networth: "amount worth" }]
+});
+
+console.log("Data extraction:", response);
 ```
 </CodeGroup>
 

@@ -1,0 +1,68 @@
+---
+title: 'Overview Insert'
+description: 'Learn how to insert resources using the Wetrocloud API'
+---
+<Info>
+At a glance: <br/> Use the `/resource/insert/` endpoint to add resources (URLs, files, text or JSON) to a collection for indexing and retrieval. Simply provide a `collection_id`, `resource`, and `type`.
+</Info>
+
+**Inserting resources** is a core operation that enables you to populate a collection with the data you want to organize and query.
+By default, Wetrocloud API supports these types of resources:
+| **Resource** | **Parameter** | **Description**                                                                                                            |
+|:--------------------|:-------------------|:----------------------------------------------------------------------------------------------------------------------------|
+| [**File**](insert-files)          | file             | Supports various file types including `.csv`, `.docx`, `.epub`, `.hwp`, `.ipynb`, `.jpeg`, `.jpg`, `.mbox`, `.md`, `.mp3`, `.mp4`, `.pdf`, `.png`, `.ppt`, `.pptm`, `.pptx`. |
+| [**Text**](insert-text)           | text             | Plain text content.                                                                                                       |
+| [**JSON**]()           | json             | Structured data in JSON format.                                                                                           |
+| [**Web**](insert-web)            | web              | Web-based resources, such as websites.                                                                |
+| [**Youtube**](insert-youtube)        | youtube          | Youtube videos with youtube URLs.                                                                |
+| [**Audio**](insert-media)          | audio | Supports various audio file types including `.3ga`, `.8svx`, `.aac`, `.ac3`, `.aif`, `.aiff`, `.alac`, `.amr`, `.ape`, `.au`, `.dss`, `.flac`, `.flv`, `.m4a`, `.m4b`, `.m4p`, `.m4r`, `.mp3`, `.mpga`, `.ogg`, `.oga`, `.mogg`, `.opus`, `.qcp`, `.tta`, `.voc`, `.wav`, `.wma`, `.wv`|
+<Warning>
+Inserting a resource with the wrong resource type, might lead to failure or irregularities in inserting and querying the resource, pay attention to the right resource type when inserting
+</Warning>
+Once inserted, these resources are indexed for use in Retrieval-Augmented Generation (RAG) workflows.
+
+## When to Use the Insert Endpoint
+
+Use the `/v1/resource/insert/` endpoint when you need to:
+
+- Add data to a specific collection identified by `collection_id`.
+- Prepare a dataset for RAG workflows.
+
+## How to Insert a Resource
+
+To insert a resource into a collection, make a `POST` request to the `/v1/resource/insert/` endpoint with the required parameters in the body.
+
+### Required Parameters
+
+| Parameter       | Type   | Description                                            |
+|------------------|--------|--------------------------------------------------------|
+| `collection_id` | String | The unique ID obtained from the [`/collection/create/`](create) endpoint. |
+| `resource` | String | The resource (e.g. file path, file URL, a website). |
+| `type` | String | The type of resource to insert (e.g., `web`, `file`, `text`, `json`, `youtube`). |
+
+### Successful Response
+
+A successful response confirms the operation and tracks token usage.
+
+**Example Response**
+
+```json
+{
+  "resource_id": "79621681-b680-4918-948d-d7f8c482426a",
+  "success": true,
+  "tokens": 35
+}
+```
+
+| Field      | Description                                     |
+|------------|-------------------------------------------------|
+| `success`  | Indicates whether the resource was inserted successfully. |
+| `tokens`   | Number of tokens consumed during the operation. |
+| `resource_id`   | Unique ID for the resource, this is required when removing a resource |
+
+## Related Operations
+
+- **[Create Collection](create)**: Start by creating a collection to hold your resources.
+- **[Query Resources](query)**: Access and retrieve insights from the indexed resources.
+- **[Delete Collection](delete)**: Remove collections and their resources when no longer needed.
+

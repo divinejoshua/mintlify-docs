@@ -17,57 +17,87 @@ Free text response provides natural, conversational-style answers to your querie
 
 ### Request Example
 <CodeGroup>
+
+```python Python
+from wetro import Wetrocloud
+
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
+
+# Query the collection
+response = client.collection.query_collection(
+    collection_id="my_unique_collection_id",
+    request_query="What are the sales trends for Q1?"
+)
+
+print(query_response)
+```
+
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+
+const collectionId = '<collection_id>';
+const query = 'What are the sales trends for Q1?';
+
+const response = await wetrocloud.queryCollection({
+  collection_id: collectionId,
+  request_query: query,
+});
+
+console.log("Querying collection", response);
+```
+
 ```bash cURL
 curl --request POST \
   --url https://api.wetrocloud.com/v1/collection/query/ \
   --header 'Authorization: Token <api-key>' \
   --header 'Content-Type: application/json' \
   --data '{
-    "collection_id": "<collection_id>",
+    "collection_id": "my_unique_collection_id",
     "request_query": "What are the sales trends for Q1?"
   }'
 ```
+</CodeGroup>
+
+### Request Example with Stream
+<CodeGroup>
 ```python Python
-import requests
+from wetro import Wetrocloud
 
-url = "https://api.wetrocloud.com/v1/collection/query/"
-headers = {
-    "Authorization": "Token <api-key>",
-    "Content-Type": "application/json"
-}
-data = {
-    "collection_id": "<collection_id>",
-    "request_query": "What are the sales trends for Q1?"
-}
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
 
-response = requests.post(url, headers=headers, json=data)
-print(response.json())
+# Query the collection with streaming
+streaming_response = client.collection.query_collection(
+    collection_id="my_unique_collection_id",
+    request_query="What are the sales trends for Q1?",
+    stream=True
+)
+
+# Process streaming response
+for chunk in streaming_response:
+    print(chunk.response, end="")
 ```
-```javascript JavaScript
-const axios = require('axios');
 
-const apiKey = '<api-key>';
+```javascript Javascript
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+
 const collectionId = '<collection_id>';
 const query = 'What are the sales trends for Q1?';
 
-const requestData = {
+const response = await wetrocloud.queryCollection({
   collection_id: collectionId,
-  request_query: query
-};
-
-axios.post('https://api.wetrocloud.com/v1/collection/query/', requestData, {
-  headers: {
-    'Authorization': `Token ${apiKey}`,
-    'Content-Type': 'application/json'
-  }
-})
-.then(response => {
-  console.log('Response:', response.data);
-})
-.catch(error => {
-  console.error('Error:', error.response ? error.response.data : error.message);
+  request_query: query,
+  stream: true
 });
 
+for await (const item of response) {
+    console.log("Received item:", item);
+}
 ```
 </CodeGroup>
 
@@ -89,9 +119,9 @@ axios.post('https://api.wetrocloud.com/v1/collection/query/', requestData, {
   "success": true
 }
 ```
-
 | Field     | Description                                           |
 |-----------|-------------------------------------------------------|
 | `response` | Conversational response to the query.                |
 | `tokens`   | Number of tokens used for processing.                |
 | `success`  | Indicates whether the query was successful.          |
+
