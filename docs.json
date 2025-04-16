@@ -20,7 +20,8 @@
               "how-to-access-your-API-Key",
               "quickstart",
               "endpoint-explanations/models",
-              "endpoint-explanations/openai-compatibility"
+              "endpoint-explanations/openai-compatibility",
+              "sdk"
             ]
           },
           {
