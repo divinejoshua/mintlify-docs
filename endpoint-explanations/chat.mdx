@@ -21,14 +21,14 @@ client = Wetrocloud(api_key="your_api_key")
 
 # Create a chat history
 chat_history = [
-   {"role":"user", "content":"What is this all about?"}, 
-   {"role":"system","content":"This is about Queen Elizabeth_II of England"}
+   {"role":"user", "content":"What is this document about?"}, 
+   {"role":"system","content":"This is the sales record of a company over the past 5 years"}
 ]
 
 # Continue the conversation with context
 chat_response = client.collection.chat(
     collection_id="my_unique_collection_id",
-    message="Tell me more",
+    message="Can you give me an idea of how my company is doing this Q1 compared to last year?",
     chat_history=chat_history
 )
 print(chat_response)
@@ -45,13 +45,13 @@ const client = new Wetrocloud({
 // Create chat history
 const chatHistory = [
   { role: "user", content: "What is this document about?" },
-  { role: "system", content: "This document explains machine learning concepts." }
+  { role: "system", content: "This is the sales record of a company over the past 5 years" }
 ];
 
 // Continue the conversation with context
 const response = await client.chat({
   collection_id: "my_unique_collection_id",
-  message: "Can you explain the key concepts in detail?",
+  message: "Can you give me an idea of how my company is doing this Q1 compared to last year?",
   chat_history: chatHistory,
 });
 
@@ -65,10 +65,10 @@ curl --request POST \
   --header 'Content-Type: application/json' \
   --data '{
     "collection_id": "my_unique_collection_id",
-    "message": "Can you explain the latest paper'\''s methodology?",
+    "message": "Can you give me an idea of how my company is doing this Q1 compared to last year?",
     "chat_history": [
-      {"role": "user", "content": "What is this collection about?"},
-      {"role": "system", "content": "It stores research papers on AI technology."}
+      {"role": "user", "content": "What is this document about?"},
+      {"role": "system", "content": "This is the sales record of a company over the past 5 years"}
     ]
   }'
 ```

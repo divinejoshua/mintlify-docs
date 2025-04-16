@@ -10,13 +10,15 @@ At a glance: <br/> Use the `/resource/insert/` endpoint to add resources (URLs, 
 By default, Wetrocloud API supports these types of resources:
 | **Resource** | **Parameter** | **Description**                                                                                                            |
 |:--------------------|:-------------------|:----------------------------------------------------------------------------------------------------------------------------|
-| **File**           | file             | Supports various file types including `.csv`, `.docx`, `.epub`, `.hwp`, `.ipynb`, `.jpeg`, `.jpg`, `.mbox`, `.md`, `.mp3`, `.mp4`, `.pdf`, `.png`, `.ppt`, `.pptm`, `.pptx`. |
-| **Text**           | text             | Plain text content.                                                                                                       |
-| **JSON**           | json             | Structured data in JSON format.                                                                                           |
-| **Web**            | web              | Web-based resources, such as websites.                                                                |
-| **Youtube**        | youtube          | Youtube videos with youtube URLs.                                                                |
-| **Audio**          | audio | Supports various audio file types including `.3ga`, `.8svx`, `.aac`, `.ac3`, `.aif`, `.aiff`, `.alac`, `.amr`, `.ape`, `.au`, `.dss`, `.flac`, `.flv`, `.m4a`, `.m4b`, `.m4p`, `.m4r`, `.mp3`, `.mpga`, `.ogg`, `.oga`, `.mogg`, `.opus`, `.qcp`, `.tta`, `.voc`, `.wav`, `.wma`, `.wv`|
-
+| [**File**](insert-files)          | file             | Supports various file types including `.csv`, `.docx`, `.epub`, `.hwp`, `.ipynb`, `.jpeg`, `.jpg`, `.mbox`, `.md`, `.mp3`, `.mp4`, `.pdf`, `.png`, `.ppt`, `.pptm`, `.pptx`. |
+| [**Text**](insert-text)           | text             | Plain text content.                                                                                                       |
+| [**JSON**]()           | json             | Structured data in JSON format.                                                                                           |
+| [**Web**](insert-web)            | web              | Web-based resources, such as websites.                                                                |
+| [**Youtube**](insert-youtube)        | youtube          | Youtube videos with youtube URLs.                                                                |
+| [**Audio**](insert-media)          | audio | Supports various audio file types including `.3ga`, `.8svx`, `.aac`, `.ac3`, `.aif`, `.aiff`, `.alac`, `.amr`, `.ape`, `.au`, `.dss`, `.flac`, `.flv`, `.m4a`, `.m4b`, `.m4p`, `.m4r`, `.mp3`, `.mpga`, `.ogg`, `.oga`, `.mogg`, `.opus`, `.qcp`, `.tta`, `.voc`, `.wav`, `.wma`, `.wv`|
+<Warning>
+Inserting a resource with the wrong resource type, might lead to failure or irregularities in inserting and querying the resource, pay attention to the right resource type when inserting
+</Warning>
 Once inserted, these resources are indexed for use in Retrieval-Augmented Generation (RAG) workflows.
 
 ## When to Use the Insert Endpoint

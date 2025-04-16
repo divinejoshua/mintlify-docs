@@ -8,7 +8,7 @@ This endpoint allows you to generate a unique `collection_id`. You would use thi
 </Info>
 ## What is a Collection?
 
-A collection in the WetroCloud API acts as a container for resources such as text, files and the other [supported types](/api-reference/supported-resource-types). Every collection is identified by a unique `collection_id`.
+A collection in the WetroCloud API acts as a container for resources such as text, files and the other [supported resource types](/api-reference/supported-resource-types). Every collection is identified by a unique `collection_id`.
 
 ## How to Create a Collection
 
@@ -79,12 +79,13 @@ If the request is valid, the response will include:
 
 ```json
 {
-  "collection_id": "72b52a94-9dba-40eb-8018-dc425d173d00",
+  "collection_id": "my_unique_collection_id",
   "success": true
 }
 ```
 ## Related Operations
 
+- **[List Collections](list-collections)**: Displays list of all your existing collections on wetrocloud.
 - **[Insert Resources](insert)**: Add resources like websites, videos, and files to a collection.
 - **[Query Resources](query)**: Access and retrieve insights from the indexed resources.
 - **[Delete Collection](delete)**: Remove collections and their resources when no longer needed.
