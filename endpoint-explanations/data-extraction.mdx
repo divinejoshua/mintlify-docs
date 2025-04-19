@@ -80,7 +80,7 @@ const client = new Wetrocloud({
 
 // Extract structured data from a website
 const response = await client.extract({
-  website_url: "https://www.forbes.com/real-time-billionaires/#7583ee253d78",
+  website: "https://www.forbes.com/real-time-billionaires/#7583ee253d78",
   json_schema: [{ name: "name of rich man", networth: "amount worth" }]
 });
 
