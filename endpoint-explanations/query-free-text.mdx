@@ -36,17 +36,16 @@ print(query_response)
 ```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
-const wetrocloud = new Wetrocloud();
-
-const collectionId = '<collection_id>';
-const query = 'What are the sales trends for Q1?';
-
-const response = await wetrocloud.queryResource({
-  collection_id: collectionId,
-  request_query: query,
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
 });
 
-console.log("Querying resource", response);
+const response = await client.queryCollection({
+  collection_id: "my_unique_collection_id",
+  request_query: "What are the sales trends for Q1?",
+});
+
+console.log("Querying response", response);
 ```
 
 ```bash cURL
