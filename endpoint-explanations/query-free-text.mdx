@@ -41,7 +41,7 @@ const wetrocloud = new Wetrocloud();
 const collectionId = '<collection_id>';
 const query = 'What are the sales trends for Q1?';
 
-const response = await wetrocloud.queryResource({
+const response = await wetrocloud.queryCollection({
   collection_id: collectionId,
   request_query: query,
 });
