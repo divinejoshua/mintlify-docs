@@ -1,0 +1,331 @@
+---
+title: 'Overview Transcript'
+description: 'Learn how to generate Transcripts using Wetrocloud API'
+---
+<Info>
+At a glance: <br/> Use the `/v2/transcript/` endpoint to get transcripts from resources.
+</Info>
+
+
+**Transcript** is a core operation that enables you to get transcripts from videos.
+
+By default, the Wetrocloud API supports transcripts from these resource types:
+| **Resource** | **Parameter** | **Description**                                                                                                            |
+|:--------------------|:-------------------|:----------------------------------------------------------------------------------------------------------------------------|
+| **Yotube**           | 'youtube'            | Supports all youtube video formats
+
+
+## How to Generate Transcripts
+
+To get transcripts, make a `POST` request to the `/v2/transcript/` endpoint with the required parameters in the body.
+
+### Required Parameters
+
+| Parameter       | Type   | Description                                            |
+|------------------|--------|--------------------------------------------------------|
+| `link` | String | A URL for your resource. 
+| `resource_type` | String | The type of resource to insert (e.g., `youtube`). |
+
+
+### Request Example
+<CodeGroup>
+ 
+```python Python
+from wetro import Wetrocloud
+    
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
+    
+# Insert a Resource into a Collection
+insert_response = client.collection.insert_resource(
+    collection_id="my_unique_collection_id",
+    resource="https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.", 
+    type="web"
+)
+    
+print(insert_response)
+```
+
+```javascript Javascript
+import Wetrocloud from "wetro-sdk";
+
+const wetrocloud = new Wetrocloud();
+const response = await wetrocloud.transcript({
+    resource:"https://www.youtube.com/watch?v=m4qBwGnubew&pp=ygURZ29vZ2xlIGFpIHJlbGVhc2U%3D",
+    resource_type: "youtube"
+});
+
+console.log("transcripts", response);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.wetrocloud.com/v2/markdown-converter/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "resource:"https://www.youtube.com/watch?v=m4qBwGnubew&pp=ygURZ29vZ2xlIGFpIHJlbGVhc2U%3D",
+    "resource_type": "youtube"
+  }'
+```
+</CodeGroup>
+
+### Successful Response
+
+A successful response confirms the operation and tracks token usage.
+
+**Example Response**
+
+```json
+{
+  "response": {
+    "data": [
+      {
+        "start": "0.166",
+        "dur": "0.668",
+        "text": "[keyboard clicking]"
+      },
+      {
+        "start": "0.834",
+        "dur": "1.067",
+        "text": "[electricity zaps]\n[keyboard clicking]"
+      },
+      {
+        "start": "1.901",
+        "dur": "1.202",
+        "text": "[keyboard click]\n[upbeat music begins]"
+      },
+      {
+        "start": "3.370",
+        "dur": "0.500",
+        "text": "[keyboard click]"
+      },
+      {
+        "start": "4.537",
+        "dur": "0.501",
+        "text": "[keyboard click]"
+      },
+      {
+        "start": "5.505",
+        "dur": "0.801",
+        "text": "[explosion]\n[keyboard click]"
+      },
+      {
+        "start": "6.306",
+        "dur": "0.834",
+        "text": "[keyboard click]"
+      },
+      {
+        "start": "7.340",
+        "dur": "1.135",
+        "text": "Project Astra"
+      },
+      {
+        "start": "12.112",
+        "dur": "1.201",
+        "text": "This blew my mind!"
+      },
+      {
+        "start": "16.916",
+        "dur": "1.802",
+        "text": "It's an AI assistant"
+      },
+      {
+        "start": "18.718",
+        "dur": "2.036",
+        "text": "that can actually do tasks for you."
+      },
+      {
+        "start": "20.754",
+        "dur": "2.335",
+        "text": "Gemini 2.0 is very legit."
+      },
+      {
+        "start": "29.429",
+        "dur": "2.369",
+        "text": "You have to go try NotebookLM."
+      },
+      {
+        "start": "31.798",
+        "dur": "2.369",
+        "text": "You talk about amazing."
+      },
+      {
+        "start": "34.167",
+        "dur": "1.635",
+        "text": "Google announced that they’ve been working on Willow,"
+      },
+      {
+        "start": "35.802",
+        "dur": "1.401",
+        "text": "and it went from solving a problem"
+      },
+      {
+        "start": "37.203",
+        "dur": "3.270",
+        "text": "in 10 septillion years to under five minutes."
+      },
+      {
+        "start": "40.473",
+        "dur": "1.502",
+        "text": "Do you understand how insane that is?"
+      },
+      {
+        "start": "41.975",
+        "dur": "3.136",
+        "text": "Veo 2, what some people in the community say"
+      },
+      {
+        "start": "45.111",
+        "dur": "3.837",
+        "text": "is the best model we have seen so far."
+      },
+      {
+        "start": "48.948",
+        "dur": "0.968",
+        "text": "Absolutely bananas."
+      },
+      {
+        "start": "49.916",
+        "dur": "2.436",
+        "text": "I’m using Google AI Studio now,"
+      },
+      {
+        "start": "52.352",
+        "dur": "3.103",
+        "text": "and it’s completely lights out."
+      },
+      {
+        "start": "55.455",
+        "dur": "2.002",
+        "text": "At the moment the AI world is all about"
+      },
+      {
+        "start": "57.457",
+        "dur": "1.535",
+        "text": "the deep research."
+      },
+      {
+        "start": "58.992",
+        "dur": "2.135",
+        "text": "Introducing AI Mode."
+      },
+      {
+        "start": "61.127",
+        "dur": "2.102",
+        "text": "Google just dropped AI Mode in Google search"
+      },
+      {
+        "start": "63.229",
+        "dur": "1.168",
+        "text": "powered by Gemini."
+      },
+      {
+        "start": "64.397",
+        "dur": "1.268",
+        "text": "Okay Google."
+      },
+      {
+        "start": "65.665",
+        "dur": "2.836",
+        "text": "Gemma 3 is here and it is insane."
+      },
+      {
+        "start": "68.501",
+        "dur": "2.069",
+        "text": "These models are small, they're efficient."
+      },
+      {
+        "start": "70.570",
+        "dur": "3.637",
+        "text": "This is truly self-improving Artificial Intelligence."
+      },
+      {
+        "start": "74.207",
+        "dur": "2.269",
+        "text": "So Google just released Gemini 2.5 Pro"
+      },
+      {
+        "start": "76.476",
+        "dur": "3.236",
+        "text": "and it's the best coding AI I've ever used."
+      },
+      {
+        "start": "79.712",
+        "dur": "1.168",
+        "text": "Next I wanted to create a"
+      },
+      {
+        "start": "80.880",
+        "dur": "2.769",
+        "text": "3D floating island simulation."
+      },
+      {
+        "start": "83.650",
+        "dur": "2.102",
+        "text": "Look at how good that is."
+      },
+      {
+        "start": "86.219",
+        "dur": "1.268",
+        "text": "Google just changed the game..."
+      },
+      {
+        "start": "87.487",
+        "dur": "0.901",
+        "text": "- ... again.\n- They are doing something..."
+      },
+      {
+        "start": "88.388",
+        "dur": "1.201",
+        "text": "- Hands on...\n[overlapping voices]"
+      },
+      {
+        "start": "89.589",
+        "dur": "2.135",
+        "text": "- ... absolutely insane features.\n[overlapping voices]"
+      },
+      {
+        "start": "91.724",
+        "dur": "1.001",
+        "text": "- It's a really big deal.\n[overlapping voices]"
+      },
+      {
+        "start": "92.725",
+        "dur": "0.768",
+        "text": "- Pretty incredible."
+      },
+      {
+        "start": "93.493",
+        "dur": "2.469",
+        "text": "[keyboard clicking]"
+      },
+      {
+        "start": "96.930",
+        "dur": "2.135",
+        "text": "[car revs then screeches]"
+      },
+      {
+        "start": "99.065",
+        "dur": "4.605",
+        "text": "[music continues, then fades out]"
+      }
+    ]
+  },
+  "tokens": 3674,
+  "success": true
+}
+```
+| Field      | Description                                     |
+|------------|-------------------------------------------------|
+| `success`  | Indicates whether the resource was inserted successfully. |
+| `tokens`   | Number of tokens consumed during the operation. |
+| `response`   | Result for the transcripts generation |
+
+## Related Operations
+
+- **[Create Collection](create)**: Start by creating a collection to hold your resources.
+- **[Query Resources](query)**: Access and retrieve insights from the indexed resources.
+- **[Delete Collection](delete)**: Remove collections and their resources when no longer needed.
+
+
