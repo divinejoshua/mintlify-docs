@@ -1,0 +1,119 @@
+---
+title: 'Images'
+description: 'Learn how to generate Markdown for images using Wetrocloud API'
+---
+
+## How to Generate Markdown for files
+
+Make a `POST` request to the `/v2/markdown-converter/` endpoint with the required parameters in the body and make sure you use the `image` type.
+
+<Note>
+To use the `image` type, the resource should be provided as URLs.
+</Note>
+
+
+### Request Example
+<CodeGroup>
+ 
+```python Python
+from wetro import Wetrocloud
+    
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
+    
+# Insert a file into a Collection
+insert_response = client.collection.insert_resource(
+    collection_id="my_unique_collection_id",
+    resource="./essay/paul_graham_essay.pdf", # Replace with your actual file path
+    type="file"
+)
+    
+print(insert_response)
+```
+
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
+
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+
+// Insert a file into a Collection
+const response = await client.markDownConverter({
+  resource: "https://res.cloudinary.com/dxcb59rb3/image/upload/v1747912102/zy69smzbjqtogtjlszki.jpg", 
+  resource_type:"image"
+});
+
+console.log("converted to markdown", response);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.wetrocloud.com/v2/markdown-converter/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "resource": "https://res.cloudinary.com/dxcb59rb3/image/upload/v1747912102/zy69smzbjqtogtjlszki.jpg", 
+    "type": "image"
+  }'
+```
+</CodeGroup>
+
+
+### Successful Response
+
+A successful response confirms the operation and tracks token usage.
+
+**Example Response**
+
+```json
+  {
+      response: '## Summary of the Month\n' +
+        '\n' +
+        '### Activities conducted:\n' +
+        '\n' +
+        '*   **Automation**: \n' +
+        '    *   Formed a partnership with Carlson \n' +
+        '    *   Allocation of resources \n' +
+        '*   **Business Process Representation**: \n' +
+        '    *   Attended a business local drones competition\n' +
+        '*   **Field Application**: \n' +
+        '    *   Development of a cost-effective car/compassionate bot at par\n' +
+        '*   **Challenges and Solutions**: \n' +
+        '    *   Technical problems included in-law/licensing\n' +
+        '\n' +
+        '### Key Figures:\n' +
+        '\n' +
+        '*   **Costs:**\n' +
+        '    *   4,000,000\n' +
+        '    *   10,000\n' +
+        '*   **Calculations:**\n' +
+        '    *   12(10,000) = 120,000\n' +
+        '    *   Automatic formatting: \n' +
+        '        *   8,000,000 + x + 4(10,000) = 120,000 + 3,200,000\n' +
+        '        *   8,000,000 + x + 40,000 = 3,320,000\n' +
+        '        *   8,040,000 + x = 3,320,000\n' +
+        '    *   To find x, we rearrange the equation: \n' +
+        '        *   x = 3,320,000 - 8,040,000 \n' +
+        '        *   x = -4,720,000 \n' +
+        '\n' +
+        'The information is presented in a structured format using Markdown. \n' +
+        '\n' +
+        'Let me know if you need anything else.',
+      tokens: 946,
+      success: true
+    }
+```
+
+| Field      | Description                                     |
+|------------|-------------------------------------------------|
+| `success`  | Indicates whether the resource was inserted successfully. |
+| `tokens`   | Number of tokens consumed during the operation. |
+| `response`   | Result for the markdown generation |
+
+## Related Operations
+
+- **[Create Collection](create)**: Start by creating a collection to hold your resources.
+- **[Query Resources](query)**: Access and retrieve insights from the indexed resources.
+- **[Delete Collection](delete)**: Remove collections and their resources when no longer needed.

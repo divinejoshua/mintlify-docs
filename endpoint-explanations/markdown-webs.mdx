@@ -1,0 +1,188 @@
+---
+title: 'Websites'
+description: 'Learn how to generate Markdown for websites using Wetrocloud API'
+---
+
+## How to Generate Markdown for files
+
+Make a `POST` request to the `/v2/markdown-converter/` endpoint with the required parameters in the body and make sure you use the `web` type.
+
+<Note>
+The resource should be a valid URL and make sure you use the `web` type.
+</Note>
+
+
+### Request Example
+<CodeGroup>
+ 
+```python Python
+from wetro import Wetrocloud
+    
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
+    
+# Insert a file into a Collection
+insert_response = client.collection.insert_resource(
+    collection_id="my_unique_collection_id",
+    resource="./essay/paul_graham_essay.pdf", # Replace with your actual file path
+    type="file"
+)
+    
+print(insert_response)
+```
+
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
+
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+
+// Insert a file into a Collection
+const response = await client.markDownConverter({
+  resource: "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
+  resource_type: "web"
+});
+
+console.log("converted to markdown", response);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.wetrocloud.com/v2/markdown-converter/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "link": "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.", 
+    "resource_type": "web"
+  }'
+```
+</CodeGroup>
+
+
+### Successful Response
+
+A successful response confirms the operation and tracks token usage.
+
+**Example Response**
+
+```json
+  {
+      response: '[Sitemap](/sitemap/sitemap.xml)\n' +
+        '\n' +
+        '[Open in app](https://rsci.app.link/?%24canonical_url=https%3A%2F%2Fmedium.com%2Fp%2F1656693721f9&%7Efeature=LoOpenInAppButton&%7Echannel=ShowPostUnderUser&source=post_page---top_nav_layout_nav-----------------------------------------)\n' +
+        '\n' +
+        'Sign up\n' +
+        '\n' +
+        '[Sign in](/m/signin?operation=login&redirect=https%3A%2F%2Fmedium.com%2F%40AlexanderObregon%2Fa-brief-history-of-artificial-intelligence-1656693721f9&source=post_page---top_nav_layout_nav-----------------------global_nav------------------)\n' +
+        '\n' +
+        '[Medium Logo](/?source=post_page---top_nav_layout_nav-----------------------------------------)\n' +
+        '\n' +
+        '[Write](/m/signin?operation=register&redirect=https%3A%2F%2Fmedium.com%2Fnew-story&source=---top_nav_layout_nav-----------------------new_post_topnav------------------)\n' +
+        '\n' +
+        'Sign up\n' +
+        '\n' +
+        '[Sign in](/m/signin?operation=login&redirect=https%3A%2F%2Fmedium.com%2F%40AlexanderObregon%2Fa-brief-history-of-artificial-intelligence-1656693721f9&source=post_page---top_nav_layout_nav-----------------------global_nav------------------)\n' +
+        '\n' +
+        '![](https://miro.medium.com/v2/resize:fill:64:64/1*dmbNkD5D-u45r44go_cf0g.png)\n' +
+        '\n' +
+        '# A Brief History of Artificial Intelligence\n' +
+        '\n' +
+        '[![Alexander Obregon](https://miro.medium.com/v2/resize:fill:64:64/1*i2BLX3qBID5JabZAYI3EJQ.jpeg)](/%40AlexanderObregon?source=post_page---byline--1656693721f9---------------------------------------)\n' +
+        '\n' +
+        '[Alexander Obregon](/%40AlexanderObregon?source=post_page---byline--1656693721f9---------------------------------------)\n' +
+        '\n' +
+        'Follow\n' +
+        '\n' +
+        '7 min read\n' +
+        '\n' +
+        '·\n' +
+        '\n' +
+        'Jan 20, 2024\n' +
+        '\n' +
+        '--\n' +
+        '\n' +
+        'Listen\n' +
+        '\n' +
+        'Share\n' +
+        '\n' +
+        '![]()\n' +
+        '\n' +
+        '[Image Source](http://www.vpnsrus.com) from [mikemacmarketing](https://commons.wikimedia.org/wiki/File%3AArtificial_Intelligence%2C_AI.jpg)\n' +       
+        '\n' +
+        '# Introduction\n' +
+        '\n' +
+        'Artificial Intelligence (AI) has been a subject of both fascination and intense research for decades. Its evolution from a conceptual framework to practical applications in our daily lives marks one of the most intriguing and rapidly advancing areas of technology. In this article, we explore the journey of AI, beginning with its theoretical underpinnings in the mid-20th century, through its periods of both skepticism and success, to its current state, where neural networks and deep learning are breaking new ground.\n' +
+        '\n' +
+        '# Early Developments in Artificial Intelligence\n' +
+        '\n' +
+        'The seeds of AI were sown in the fertile ground of mathematics and philosophy. Alan Turing, a British mathematician, played a pivotal role in conceptualizing the potential of intelligent machines. In 1950, with his groundbreaking paper “Computing Machinery and Intelligence,” Turing not only proposed what is now known as the Turing Test but also laid the philosophical groundwork for AI. This test, based on a machine’s ability to exhibit intelligent behavior indistinguishable from that of a human, set a benchmark that still influences AI development today.\n' +
+        '\n' +
+        '## The Birth of Machine Learning\n' +
+        '\n' +
+        'The term “Artificial Intelligence” was officially coined in 1956 by John McCarthy, a computer scientist, during the Dartmouth Conference. This conference, attended by prominent figures like Marvin Minsky, Claude Shannon, and Nathan Rochester, is often regarded as the birth of AI as a field of research. The early focus was on creating systems that could solve problems and reason logically. An example of these efforts was the Logic Theorist, developed by Allen Newell and Herbert A. Simon in 1956. This program was designed to mimic human problem-solving skills and was capable of proving mathematical theorems, marking a significant milestone in AI.\n' +
+        '\n' +
+        '## The Emergence of Expert Systems\n' +
+        '\n' +
+        'The 1960s and 1970s witnessed the rise of expert systems, a significant area in AI research. These systems were designed to emulate the decision-making abilities of a human expert. One of the most successful early expert systems was DENDRAL, a project started in the late 1960s at Stanford University. DENDRAL was a rule-based system designed to apply knowledge of organic chemistry to infer molecular structures. Its success demonstrated the potential of AI in specialized, knowledge-intensive domains.\n' +
+        '\n' +
+        '## AI in the Public Consciousness\n' +
+        '\n' +
+        'AI began to capture the public imagination during these early years. The period saw the publication of influential books and articles, as well as the portrayal of AI in science fiction, which played a significant role in shaping public perception of AI. This era of optimism was marked by predictions of machines that could soon outthink humans, a sentiment that contributed to inflated expectations around the capabilities of AI.\n' +
+        '\n' +
+        '## Challenges and Limitations\n' +
+        '\n' +
+        'Despite these early successes, the field faced significant challenges. Early AI systems relied heavily on hard-coded rules and symbolic logic, which limited their ability to learn and adapt. These systems struggled with tasks that humans find simple, like understanding natural language or recognizing objects in images. This limitation was partly due to the lack of computational power and partly due to a limited understanding of how these complex tasks could be encoded into software.\n' +
+        '\n' +
+        '# The AI Winter and Revival\n' +
+        '\n' +
+        'The AI Winter refers to a period, primarily during the late 1970s to the 1980s, when the optimism surrounding AI turned to skepticism, leading to significant reductions in funding and interest in AI research. This phase was triggered by several factors. Firstly, the early AI systems failed to scale up to more complex tasks, revealing the limitations of the then-prevalent approaches, like rule-based systems. These systems struggled with the complexities and subtleties of real-world environments. Secondly, the computational power and data necessary for more advanced AI were simply not available at the time.\n' +
+        '\n' +
+        'This period was marked by two major reports that critically assessed the progress of AI. In the UK, the Lighthill Report of 1973, presented to the British Science Research Council, cast doubt on the overly optimistic claims of AI researchers, leading to cuts in funding for AI projects. Similarly, in the United States, a report by the National Science Foundation in 1983 echoed these concerns, resulting in reduced government funding.\n' +
+        '\n' +
+        '## The Revival of AI: New Approaches and Technologies\n' +
+        '\n' +
+        'The revival of AI in the late 1980s and 1990s can be attributed to several key factors. Firstly, there was a shift from rule-based systems to machine learning approaches, where computers were programmed to learn from data. This change in approach allowed AI systems to handle more complex, nuanced tasks.\n' +  
+        '\n' +
+        'One of the landmarks of this era was the development of neural networks, particularly backpropagation algorithms, which enabled more effective training of multi-layer neural networks. This breakthrough was significant in advancing the field of deep learning.\n' +
+        '\n' +
+        'Another pivotal moment was the introduction of more powerful and affordable computers, which provided the necessary computational resources to process large datasets and run complex algorithms. This technological advancement was complemented by the burgeoning availability of data, which became a crucial fuel for machine learning models.\n' +
+        '\n' +
+        '## High-Profile Successes\n' +
+        '\n' +
+        'The resurgence of AI was also marked by high-profile successes that captured public attention. One of the most notable was the victory of IBM’s Deep Blue, a chess-playing computer, over world champion Garry Kasparov in 1997. This event demonstrated the potential of AI in complex problem-solving and served as a turning point in public and industry perceptions of AI.\n' +
+        '\n' +
+        'Another significant development during this period was the progress in natural language processing (NLP), as seen in systems like IBM’s Watson, which famously won the game show “Jeopardy!” in 2011. These achievements showcased the ability of AI to understand and process human language, a critical step towards more sophisticated AI applications.\n' +
+        '\n' +
+        '## The Foundation for Modern AI\n' +
+        '\n' +
+        'The late 20th century revival laid the groundwork for the current state of AI. The shift to data-driven approaches and the development of more sophisticated algorithms, coupled with advancements in computational power, set the stage for the rapid progress in AI that we witness today. This period also saw the establishment of important AI research centers and increased investment from both public and private sectors, signaling a renewed confidence in the potential of AI.\n' +
+        '\n' +
+        '# The Rise of Neural Networks\n' +
+        '\n' +
+        'The 21st century has been marked by significant breakthroughs in the field of deep learning, a subset of machine learning where artificial neural networks learn from vast amounts of data. This period saw the development of more sophisticated neural network architectures, inspired by the human brain’s structure and function. The key to these advancements was the invention and refinement of deep neural networks, characterized by multiple layers that enable the extraction of high-level features from raw input data.\n' +
+        '\n' +
+        'One landmark achievement in deep learning was the development of convolutional neural networks (CNNs), particularly effective in image and video recognition tasks. This was exemplified in 2012 by AlexNet, a CNN designed by Alex Krizhevsky, Ilya Sutskever, and Geoffrey Hinton, which significantly outperformed other competitors in the ImageNet Large Scale Visual Recognition Challenge. This success brought deep learning to the forefront of AI research and application.\n' +
+        '\n' +
+        '## The Explosion of Data and Computational Power\n' +
+        '\n' +
+        'The proliferation of digital data and significant advancements in computational power, particularly through GPUs (Graphics Processing Units), have been crucial in fueling the rise of neural networks. The availability of large datasets allowed neural networks to learn from a diverse array of examples, improving their accuracy and strength. Simultaneously, GPUs provided the necessary computational horsepower to efficiently train these large and complex models, a process that would have been prohibitively slow or even impossible with earlier hardware.\n' +
+        '\n' +
+        '## Applications and Impa'... 5297 more characters,
+      tokens: 15297,
+      success: true
+    }
+```
+
+| Field      | Description                                     |
+|------------|-------------------------------------------------|
+| `success`  | Indicates whether the resource was inserted successfully. |
+| `tokens`   | Number of tokens consumed during the operation. |
+| `response`   | Result for the markdown generation |
+
+## Related Operations
+
+- **[Create Collection](create)**: Start by creating a collection to hold your resources.
+- **[Query Resources](query)**: Access and retrieve insights from the indexed resources.
+- **[Delete Collection](delete)**: Remove collections and their resources when no longer needed.

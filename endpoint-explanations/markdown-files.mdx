@@ -1,0 +1,212 @@
+---
+title: 'Files'
+description: 'Learn how to generate Markdown for files using Wetrocloud API'
+---
+
+## How to Generate Markdown for files
+
+Make a `POST` request to the `/v2/markdown-converter/` endpoint with the required parameters in the body and make sure you use the `file` type.
+
+<Note>
+To use the `file` type, the resource can either be provided as URLs or if you are using our SDKs the resource can be the path to the file.
+Note: File paths only work with our SDKs if you are calling our API's directly, all files must be provided as URLs. You can consider services like Amazon S3, Cloudinary, or similar platforms to host your files and provide their URLs to the API. 
+</Note>
+
+
+### Request Example (File Path)
+<CodeGroup>
+ 
+```python Python
+from wetro import Wetrocloud
+    
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
+    
+# Insert a file into a Collection
+insert_response = client.collection.insert_resource(
+    collection_id="my_unique_collection_id",
+    resource="./essay/paul_graham_essay.pdf", # Replace with your actual file path
+    type="file"
+)
+    
+print(insert_response)
+```
+
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
+
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+
+// Insert a file into a Collection
+const response = await client.markDownConverter({
+  resource: "./essay/paul_graham_essay.pdf", // Replace with your actual file path
+  resource_type:
+});
+
+console.log("converted to markdown", response);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.wetrocloud.com/v2/markdown-converter/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    # File Paths are not accepted via cURL, therefore files must be provided as URL
+    "resource": "https://res.cloudinary.com/dxcb59rb3/image/upload/v1746640907/Payverse_Demo_wfhxr9.pdf", 
+    "type": "file"
+  }'
+```
+</CodeGroup>
+
+### Request Example (File as URL)
+<CodeGroup>
+ 
+```python Python
+from wetro import Wetrocloud
+    
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
+    
+# Insert a file into a Collection
+insert_response = client.collection.insert_resource(
+    collection_id="my_unique_collection_id",
+    resource="https://didiai-test.s3.us-east-2.amazonaws.com/paul_graham_essay.pdf",
+    type="file"
+)
+    
+print(insert_response)
+```
+
+```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
+
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+                            
+const response = await client.markDownConverter({
+  resource: "https://res.cloudinary.com/dxcb59rb3/image/upload/v1746640907/Payverse_Demo_wfhxr9.pdf",
+  resource_type: "file"
+
+});
+
+console.log("converted to markdown", response);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.wetrocloud.com/v1/resource/insert/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    "resource": "https://didiai-test.s3.us-east-2.amazonaws.com/paul_graham_essay.pdf", 
+    "type": "file"
+  }'
+```
+</CodeGroup>
+
+### Successful Response
+
+A successful response confirms the operation and tracks token usage.
+
+**Example Response**
+
+```json
+ {
+      response: '1. How do I convert BTC to Naira using Payv3rse?\n' +
+        '\n' +
+        'To convert BTC to Naira:\n' +
+        '\n' +
+        '1.  Log in to your Payv3rse account.\n' +
+        '2.  Tap on the "Convert" button.\n' +
+        '3.  Select BTC as your crypto and enter the amount you want to convert.\n' +
+        '4.  Choose your Naira bank account for payout.\n' +
+        '5.  Confirm the transaction.\n' +
+        '\n' +
+        'Your funds will be deposited within 2 minutes.\n' +
+        '\n' +
+        '2. What cryptocurrencies can I convert?\n' +
+        '\n' +
+        'Currently, Payv3rse supports:\n' +
+        '\n' +
+        '●  Bitcoin (BTC)\n' +
+        '●  Ethereum (ETH)\n' +
+        '●  USDT (TRC20 & ERC20)\n' +
+        '●  BNB (BEP20)\n' +
+        '\n' +
+        'More tokens will be added soon.\n' +
+        '\n' +
+        '3. How long does it take to receive funds in my bank account?\n' +
+        '\n' +
+        'Once your crypto transaction is confirmed, Payv3rse will process your payout in under 2\n' +
+        'minutes.\n' +
+        '\n' +
+        "4. Why hasn't my bank withdrawal arrived yet?\n" +
+        '\n' +
+        'Most bank transfers complete instantly.\n' +
+        'If it’s been more than 5 minutes, please:\n' +
+        '\n' +
+        '●  Confirm your crypto was sent and confirmed on the blockchain.\n' +
+        '●  Check that your bank account details are correct.\n' +
+        '●  Contact support if needed — we’re here to help.\n' +
+        '\n' +
+        '5. What are the fees for converting crypto to Naira?\n' +
+        '\n' +
+        '\fPayv3rse charges a flat 1.5% transaction fee, which is automatically deducted from your\n' +
+        'total before payout.\n' +
+        '\n' +
+        'There are no hidden fees.\n' +
+        '\n' +
+        '6. Is Payv3rse safe?\n' +
+        '\n' +
+        'Yes. We use:\n' +
+        '\n' +
+        '●  End-to-end encryption\n' +
+        '●  Two-factor authentication (2FA)\n' +
+        '●  Cold wallet storage for large funds\n' +
+        '\n' +
+        'Your security is our top priority.\n' +
+        '\n' +
+        '7. Can freelancers use Payv3rse to get paid?\n' +
+        '\n' +
+        'Absolutely. Freelancers can:\n' +
+        '\n' +
+        '●  Receive crypto payments from clients worldwide.\n' +
+        '●\n' +
+        '●  Withdraw to their local bank account.\n' +
+        '\n' +
+        'Instantly convert to Naira.\n' +
+        '\n' +
+        'No registration as a business required.\n' +
+        '\n' +
+        '8. How do I use the OTC desk for large transactions?\n' +
+        '\n' +
+        'To use our OTC service:\n' +
+        '\n' +
+        '1.  Go to the OTC Desk section in the app.\n' +
+        '2.  Choose the crypto and volume you want to off-ramp.\n' +
+        '3.  Submit a request — our team will confirm exchange rates and complete your transfer\n' +
+        '\n' +
+        'at the best available price.\n' +
+        '\n',
+      tokens: 1884,
+      success: true
+    }
+```
+
+| Field      | Description                                     |
+|------------|-------------------------------------------------|
+| `success`  | Indicates whether the resource was inserted successfully. |
+| `tokens`   | Number of tokens consumed during the operation. |
+| `response`   | Result for the markdown generation |
+
+## Related Operations
+
+- **[Create Collection](create)**: Start by creating a collection to hold your resources.
+- **[Query Resources](query)**: Access and retrieve insights from the indexed resources.
+- **[Delete Collection](delete)**: Remove collections and their resources when no longer needed.

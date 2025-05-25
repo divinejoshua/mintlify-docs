@@ -51,7 +51,16 @@
               },
               "endpoint-explanations/chat",
               "endpoint-explanations/remove-resource",
-              "endpoint-explanations/delete"
+              "endpoint-explanations/delete",
+              {
+                "group": "Generate Markdown",
+                "pages": [
+                  "endpoint-explanations/overview-markdown",
+                  "endpoint-explanations/markdown-files",
+                  "endpoint-explanations/markdown-webs", 
+                  "endpoint-explanations/markdown-images"
+                ]
+              }
             ]
           },
           {
@@ -139,6 +148,11 @@
     }
   },
   "contextual": {
-    "options": ["copy", "view", "chatgpt", "claude"]
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude"
+    ]
   }
 }
