@@ -25,8 +25,9 @@
             ]
           },
           {
-                "group": "Data Extraction",
+                "group": "Data Extraction API",
                 "pages": [
+                  "endpoint-explanations/data-extraction",
                   {
                     "group": "Markdown Converter",
                     "pages": [
@@ -80,7 +81,6 @@
               "endpoint-explanations/category",
               "endpoint-explanations/text-generation",
               "endpoint-explanations/image-to-text",
-              "endpoint-explanations/data-extraction",
               "token-optimization"
             ]
           }
