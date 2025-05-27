@@ -42,14 +42,13 @@ from wetro import Wetrocloud
 # Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
     
-# Insert a Resource into a Collection
-insert_response = client.collection.insert_resource(
-    collection_id="my_unique_collection_id",
-    resource="https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.", 
-    type="web"
+# Generate Markdown
+markdown_response = client.markdown_converter(
+  link = "https://res.cloudinary.com/dxcb59rb3/image/upload/v1746640907/Payverse_Demo_wfhxr9.pdf",
+  resource_type = "file"
 )
-    
-print(insert_response)
+
+print(markdown_response)
 ```
 
 ```javascript Javascript
@@ -70,7 +69,7 @@ curl --request POST \
   --header 'Authorization: Token <api-key>' \
   --header 'Content-Type: application/json' \
   --data '{
-    "resource:"https://res.cloudinary.com/dxcb59rb3/image/upload/v1746640907/Payverse_Demo_wfhxr9.pdf",
+    "resource":"https://res.cloudinary.com/dxcb59rb3/image/upload/v1746640907/Payverse_Demo_wfhxr9.pdf",
     "resource_type": "file"
   }'
 ```
@@ -173,8 +172,8 @@ A successful response confirms the operation and tracks token usage.
 
 ## Related Operations
 
-- **[Create Collection](create)**: Start by creating a collection to hold your resources.
-- **[Query Resources](query)**: Access and retrieve insights from the indexed resources.
-- **[Delete Collection](delete)**: Remove collections and their resources when no longer needed.
+- **[Markdown Converter for Files](markdown-files)**: Start converting your files to markdown
+- **[Markdown Converter for Websites](markdown-webs)**: Start converting your websites to markdown
+- **[Markdown Converter for Images](markdown-images)**: Start converting your images to markdown
 
 

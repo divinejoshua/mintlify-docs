@@ -25,6 +25,26 @@
             ]
           },
           {
+                "group": "Data Extraction",
+                "pages": [
+                  {
+                    "group": "Markdown Converter",
+                    "pages": [
+                      "endpoint-explanations/overview-markdown",
+                      "endpoint-explanations/markdown-files",
+                      "endpoint-explanations/markdown-webs", 
+                      "endpoint-explanations/markdown-images"
+                    ]
+                  }, 
+                {
+                  "group": "Transcript",
+                  "pages": [
+                    "endpoint-explanations/overview-transcript"
+                  ]
+                }
+                ]
+              },
+          {
             "group": "RAG API",
             "pages": [
               "endpoint-explanations/create",
@@ -51,22 +71,7 @@
               },
               "endpoint-explanations/chat",
               "endpoint-explanations/remove-resource",
-              "endpoint-explanations/delete",
-              {
-                "group": "Markdown Converter",
-                "pages": [
-                  "endpoint-explanations/overview-markdown",
-                  "endpoint-explanations/markdown-files",
-                  "endpoint-explanations/markdown-webs", 
-                  "endpoint-explanations/markdown-images"
-                ]
-              }, 
-               {
-                "group": "Transcript",
-                "pages": [
-                  "endpoint-explanations/overview-transcript"
-                ]
-              }
+              "endpoint-explanations/delete"
             ]
           },
           {

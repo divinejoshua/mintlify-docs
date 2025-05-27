@@ -1,5 +1,5 @@
 ---
-title: 'Overview Transcript'
+title: 'Youtube Transcript'
 description: 'Learn how to generate Transcripts using Wetrocloud API'
 ---
 <Info>
@@ -12,7 +12,7 @@ At a glance: <br/> Use the `/v2/transcript/` endpoint to get transcripts from re
 By default, the Wetrocloud API supports transcripts from these resource types:
 | **Resource** | **Parameter** | **Description**                                                                                                            |
 |:--------------------|:-------------------|:----------------------------------------------------------------------------------------------------------------------------|
-| **Yotube**           | 'youtube'            | Supports all youtube video formats
+| **Youtube**           | 'youtube'            | Supports all youtube video formats
 
 
 ## How to Generate Transcripts
@@ -35,15 +35,12 @@ from wetro import Wetrocloud
     
 # Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
-    
-# Insert a Resource into a Collection
-insert_response = client.collection.insert_resource(
-    collection_id="my_unique_collection_id",
-    resource="https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.", 
-    type="web"
+  
+transcript_response = client.transcript(
+    link="https://www.youtube.com/watch?v=m4qBwGnubew&pp=ygURZ29vZ2xlIGFpIHJlbGVhc2U%3D",
+    resource_type="youtube"
 )
-    
-print(insert_response)
+print(transcript_response)
 ```
 
 ```javascript Javascript
@@ -64,7 +61,7 @@ curl --request POST \
   --header 'Authorization: Token <api-key>' \
   --header 'Content-Type: application/json' \
   --data '{
-    "resource:"https://www.youtube.com/watch?v=m4qBwGnubew&pp=ygURZ29vZ2xlIGFpIHJlbGVhc2U%3D",
+    "resource":"https://www.youtube.com/watch?v=m4qBwGnubew&pp=ygURZ29vZ2xlIGFpIHJlbGVhc2U%3D",
     "resource_type": "youtube"
   }'
 ```
@@ -322,10 +319,5 @@ A successful response confirms the operation and tracks token usage.
 | `tokens`   | Number of tokens consumed during the operation. |
 | `response`   | Result for the transcripts generation |
 
-## Related Operations
-
-- **[Create Collection](create)**: Start by creating a collection to hold your resources.
-- **[Query Resources](query)**: Access and retrieve insights from the indexed resources.
-- **[Delete Collection](delete)**: Remove collections and their resources when no longer needed.
 
 

@@ -22,14 +22,13 @@ from wetro import Wetrocloud
 # Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
     
-# Insert a file into a Collection
-insert_response = client.collection.insert_resource(
-    collection_id="my_unique_collection_id",
-    resource="./essay/paul_graham_essay.pdf", # Replace with your actual file path
-    type="file"
+# Generate Markdown
+markdown_response = client.markdown_converter(
+  link = "./example/Payverse_Demo_wfhxr9.pdf", # Replace with your actual file path
+  resource_type = "file"
 )
-    
-print(insert_response)
+
+print(markdown_response)
 ```
 
 ```javascript JavaScript
@@ -40,10 +39,10 @@ const client = new Wetrocloud({
   apiKey: "your_api_key"
 });
 
-// Insert a file into a Collection
+// Generate Markdown
 const response = await client.markDownConverter({
-  resource: "./essay/paul_graham_essay.pdf", // Replace with your actual file path
-  resource_type:
+  resource: "./example/Payverse_Demo_wfhxr9.pdf", // Replace with your actual file path
+  resource_type: "file"
 });
 
 console.log("converted to markdown", response);
@@ -71,28 +70,22 @@ from wetro import Wetrocloud
 # Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
     
-# Insert a file into a Collection
-insert_response = client.collection.insert_resource(
-    collection_id="my_unique_collection_id",
-    resource="https://didiai-test.s3.us-east-2.amazonaws.com/paul_graham_essay.pdf",
-    type="file"
+# Generate Markdown
+markdown_response = client.markdown_converter(
+  link = "https://res.cloudinary.com/dxcb59rb3/image/upload/v1746640907/Payverse_Demo_wfhxr9.pdf",
+  resource_type = "file"
 )
-    
-print(insert_response)
+
+print(markdown_response)
 ```
 
-```javascript JavaScript
+```javascript Javascript
 import Wetrocloud from "wetro-sdk";
 
-// Initialize the Wetrocloud client
-const client = new Wetrocloud({
-  apiKey: "your_api_key"
-});
-                            
-const response = await client.markDownConverter({
-  resource: "https://res.cloudinary.com/dxcb59rb3/image/upload/v1746640907/Payverse_Demo_wfhxr9.pdf",
-  resource_type: "file"
-
+const wetrocloud = new Wetrocloud();
+const response = await wetrocloud.markDownConverter({
+    resource:"https://res.cloudinary.com/dxcb59rb3/image/upload/v1746640907/Payverse_Demo_wfhxr9.pdf",
+    resource_type: "file"
 });
 
 console.log("converted to markdown", response);
@@ -100,12 +93,12 @@ console.log("converted to markdown", response);
 
 ```bash cURL
 curl --request POST \
-  --url https://api.wetrocloud.com/v1/resource/insert/ \
+  --url https://api.wetrocloud.com/v2/markdown-converter/ \
   --header 'Authorization: Token <api-key>' \
   --header 'Content-Type: application/json' \
   --data '{
-    "resource": "https://didiai-test.s3.us-east-2.amazonaws.com/paul_graham_essay.pdf", 
-    "type": "file"
+    "resource":"https://res.cloudinary.com/dxcb59rb3/image/upload/v1746640907/Payverse_Demo_wfhxr9.pdf",
+    "resource_type": "file"
   }'
 ```
 </CodeGroup>
@@ -207,6 +200,7 @@ A successful response confirms the operation and tracks token usage.
 
 ## Related Operations
 
-- **[Create Collection](create)**: Start by creating a collection to hold your resources.
-- **[Query Resources](query)**: Access and retrieve insights from the indexed resources.
-- **[Delete Collection](delete)**: Remove collections and their resources when no longer needed.
+- **[Markdown Converter Overview ](overview-markdown)**: Learn to convert any file, image or websites to markdown with wetrocloud
+- **[Markdown Converter for Websites](markdown-webs)**: Start converting your websites to markdown
+- **[Markdown Converter for Images](markdown-images)**: Start converting your images to markdown
+

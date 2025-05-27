@@ -3,7 +3,7 @@ title: 'Websites'
 description: 'Learn how to generate Markdown for websites using Wetrocloud API'
 ---
 
-## How to Generate Markdown for files
+## How to Generate Markdown for Websites
 
 Make a `POST` request to the `/v2/markdown-converter/` endpoint with the required parameters in the body and make sure you use the `web` type.
 
@@ -21,14 +21,13 @@ from wetro import Wetrocloud
 # Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
     
-# Insert a file into a Collection
-insert_response = client.collection.insert_resource(
-    collection_id="my_unique_collection_id",
-    resource="./essay/paul_graham_essay.pdf", # Replace with your actual file path
-    type="file"
+# Generate Markdown
+markdown_response = client.markdown_converter(
+  link = "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.", 
+  resource_type = "web"
 )
-    
-print(insert_response)
+
+print(markdown_response)
 ```
 
 ```javascript JavaScript
@@ -39,7 +38,7 @@ const client = new Wetrocloud({
   apiKey: "your_api_key"
 });
 
-// Insert a file into a Collection
+// Generate Markdown
 const response = await client.markDownConverter({
   resource: "https://medium.com/@AlexanderObregon/a-brief-history-of-artificial-intelligence-1656693721f9#:~:text=In%20this%20article%2C%20we%20explore,learning%20are%20breaking%20new%20ground.",
   resource_type: "web"
@@ -183,6 +182,6 @@ A successful response confirms the operation and tracks token usage.
 
 ## Related Operations
 
-- **[Create Collection](create)**: Start by creating a collection to hold your resources.
-- **[Query Resources](query)**: Access and retrieve insights from the indexed resources.
-- **[Delete Collection](delete)**: Remove collections and their resources when no longer needed.
+- **[Markdown Converter Overview ](overview-markdown)**: Learn to convert any file, image or websites to markdown with wetrocloud
+- **[Markdown Converter for Files](markdown-files)**: Start converting your files to markdown
+- **[Markdown Converter for Images](markdown-images)**: Start converting your images to markdown

@@ -3,7 +3,7 @@ title: 'Images'
 description: 'Learn how to generate Markdown for images using Wetrocloud API'
 ---
 
-## How to Generate Markdown for files
+## How to Generate Markdown for Images
 
 Make a `POST` request to the `/v2/markdown-converter/` endpoint with the required parameters in the body and make sure you use the `image` type.
 
@@ -11,8 +11,7 @@ Make a `POST` request to the `/v2/markdown-converter/` endpoint with the require
 To use the `image` type, the resource should be provided as URLs.
 </Note>
 
-
-### Request Example
+### Request Example (File Path)
 <CodeGroup>
  
 ```python Python
@@ -21,17 +20,64 @@ from wetro import Wetrocloud
 # Initialize the Wetrocloud client
 client = Wetrocloud(api_key="your_api_key")
     
-# Insert a file into a Collection
-insert_response = client.collection.insert_resource(
-    collection_id="my_unique_collection_id",
-    resource="./essay/paul_graham_essay.pdf", # Replace with your actual file path
-    type="file"
+# Generate Markdown
+markdown_response = client.markdown_converter(
+  link = "./image/zy69smzbjqtogtjlszki.jpg", # Replace with your actual file path
+  resource_type = "image"
 )
-    
-print(insert_response)
+
+print(markdown_response)
 ```
 
 ```javascript JavaScript
+import Wetrocloud from "wetro-sdk";
+
+// Initialize the Wetrocloud client
+const client = new Wetrocloud({
+  apiKey: "your_api_key"
+});
+
+// Generate Markdown
+const response = await client.markDownConverter({
+  resource: "./image/zy69smzbjqtogtjlszki.jpg", // Replace with your actual file path
+  resource_type: "image"
+});
+
+console.log("converted to markdown", response);
+```
+
+```bash cURL
+curl --request POST \
+  --url https://api.wetrocloud.com/v2/markdown-converter/ \
+  --header 'Authorization: Token <api-key>' \
+  --header 'Content-Type: application/json' \
+  --data '{
+    # File Paths are not accepted via cURL, therefore files must be provided as URL
+    "resource": "https://res.cloudinary.com/dxcb59rb3/image/upload/v1747912102/zy69smzbjqtogtjlszki.jpg", 
+    "type": "image"
+  }'
+```
+</CodeGroup>
+
+### Request Example (File as URL)
+<CodeGroup>
+ 
+```python Python
+from wetro import Wetrocloud
+    
+# Initialize the Wetrocloud client
+client = Wetrocloud(api_key="your_api_key")
+    
+# Generate Markdown
+markdown_response = client.markdown_converter(
+  link = "https://res.cloudinary.com/dxcb59rb3/image/upload/v1747912102/zy69smzbjqtogtjlszki.jpg",
+  resource_type = "image"
+)
+
+print(markdown_response)
+```
+
+```javascript Javascript
 import Wetrocloud from "wetro-sdk";
 
 // Initialize the Wetrocloud client
