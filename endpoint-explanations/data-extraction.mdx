@@ -84,7 +84,7 @@ const response = await client.extract({
   json_schema: [{ name: "name of rich man", networth: "amount worth" }]
 });
 
-console.log("Data extraction:", response);
+console.log("Data extraction:", JSON.stringify(response));
 ```
 </CodeGroup>
 
