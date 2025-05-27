@@ -25,6 +25,27 @@
             ]
           },
           {
+                "group": "Data Extraction API",
+                "pages": [
+                  "endpoint-explanations/data-extraction",
+                  {
+                    "group": "Markdown Converter",
+                    "pages": [
+                      "endpoint-explanations/overview-markdown",
+                      "endpoint-explanations/markdown-files",
+                      "endpoint-explanations/markdown-webs", 
+                      "endpoint-explanations/markdown-images"
+                    ]
+                  }, 
+                {
+                  "group": "Transcript",
+                  "pages": [
+                    "endpoint-explanations/overview-transcript"
+                  ]
+                }
+                ]
+              },
+          {
             "group": "RAG API",
             "pages": [
               "endpoint-explanations/create",
@@ -60,7 +81,6 @@
               "endpoint-explanations/category",
               "endpoint-explanations/text-generation",
               "endpoint-explanations/image-to-text",
-              "endpoint-explanations/data-extraction",
               "token-optimization"
             ]
           }
@@ -139,6 +159,11 @@
     }
   },
   "contextual": {
-    "options": ["copy", "view", "chatgpt", "claude"]
+    "options": [
+      "copy",
+      "view",
+      "chatgpt",
+      "claude"
+    ]
   }
 }
