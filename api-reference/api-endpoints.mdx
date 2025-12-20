@@ -26,6 +26,60 @@ Extract specific information from any web page and receive it in a structured JS
 
 **Example Request:**
 
+<CodeGroup>
+```python Python
+import requests
+import json
+
+url = "https://api.wetrocloud.com/v1/extract/"
+
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Token <api_key>"
+}
+
+payload = {
+    "link": "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
+    "prompt": "Extract the names and networth of Billionares in the article",
+    "json_schema": [
+        {"name": "string"},
+        {"networth": "number"}
+    ],
+    "delay": 2
+}
+
+response = requests.post(url, headers=headers, data=json.dumps(payload))
+print(response.json())
+```
+
+```javascript JavaScript
+const url = "https://api.wetrocloud.com/v1/extract/";
+
+const headers = {
+  "Content-Type": "application/json",
+  "Authorization": "Token <api_key>"
+};
+
+const payload = {
+  link: "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
+  prompt: "Extract the names and networth of Billionares in the article",
+  json_schema: [
+    { name: "string" },
+    { networth: "number" }
+  ],
+  delay: 2
+};
+
+fetch(url, {
+  method: "POST",
+  headers: headers,
+  body: JSON.stringify(payload)
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error("Error:", error));
+```
+
 ```bash cURL
 curl --location 'https://api.wetrocloud.com/v1/extract/' \
   --header 'Content-Type: application/json' \
@@ -40,6 +94,7 @@ curl --location 'https://api.wetrocloud.com/v1/extract/' \
     "delay": 2
   }'
 ```
+</CodeGroup>
 
 **Response Format (Structured Output):**
 

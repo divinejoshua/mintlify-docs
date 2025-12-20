@@ -28,21 +28,6 @@ Let's extract billionaire names and net worth from a news article.
     Extract structured data from a website by providing a link, prompt, and JSON schema.
 
     <CodeGroup>
-```bash cURL
-curl --location 'https://api.wetrocloud.com/v1/extract/' \
-  --header 'Content-Type: application/json' \
-  --header 'Authorization: Token <api_key>' \
-  --data '{
-    "link": "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
-    "prompt": "Extract the names and networth of Billionares in the article",
-    "json_schema": [
-      {"name": "string"},
-      {"networth": "number"}
-    ],
-    "delay": 2
-  }'
-```
-
 ```python Python
 import requests
 import json
@@ -94,6 +79,21 @@ fetch(url, {
   .then(response => response.json())
   .then(data => console.log(data))
   .catch(error => console.error("Error:", error));
+```
+
+```bash cURL
+curl --location 'https://api.wetrocloud.com/v1/extract/' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Token <api_key>' \
+  --data '{
+    "link": "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
+    "prompt": "Extract the names and networth of Billionares in the article",
+    "json_schema": [
+      {"name": "string"},
+      {"networth": "number"}
+    ],
+    "delay": 2
+  }'
 ```
     </CodeGroup>
   </Step>
@@ -167,21 +167,6 @@ fetch(url, {
 
     **Extract product information:**
     <CodeGroup>
-```bash cURL
-curl --location 'https://api.wetrocloud.com/v1/extract/' \
-  --header 'Content-Type: application/json' \
-  --header 'Authorization: Token <api_key>' \
-  --data '{
-    "link": "https://example.com/products",
-    "prompt": "Extract all product details",
-    "json_schema": [
-      {"product_name": "string"},
-      {"price": "number"},
-      {"rating": "number"}
-    ]
-  }'
-```
-
 ```python Python
 import requests
 import json
@@ -229,25 +214,25 @@ fetch("https://api.wetrocloud.com/v1/extract/", {
   .then(response => response.json())
   .then(data => console.log(data));
 ```
-    </CodeGroup>
 
-    **Extract contact information:**
-    <CodeGroup>
 ```bash cURL
 curl --location 'https://api.wetrocloud.com/v1/extract/' \
   --header 'Content-Type: application/json' \
   --header 'Authorization: Token <api_key>' \
   --data '{
-    "link": "https://example.com/contact",
-    "prompt": "Extract contact details",
+    "link": "https://example.com/products",
+    "prompt": "Extract all product details",
     "json_schema": [
-      {"name": "string"},
-      {"email": "string"},
-      {"phone": "string"}
+      {"product_name": "string"},
+      {"price": "number"},
+      {"rating": "number"}
     ]
   }'
 ```
+    </CodeGroup>
 
+    **Extract contact information:**
+    <CodeGroup>
 ```python Python
 import requests
 import json
@@ -295,20 +280,25 @@ fetch("https://api.wetrocloud.com/v1/extract/", {
   .then(response => response.json())
   .then(data => console.log(data));
 ```
-    </CodeGroup>
 
-    **Get plain text response (without json_schema):**
-    <CodeGroup>
 ```bash cURL
 curl --location 'https://api.wetrocloud.com/v1/extract/' \
   --header 'Content-Type: application/json' \
   --header 'Authorization: Token <api_key>' \
   --data '{
-    "link": "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
-    "prompt": "Extract the names and networth of Billionares in the article"
+    "link": "https://example.com/contact",
+    "prompt": "Extract contact details",
+    "json_schema": [
+      {"name": "string"},
+      {"email": "string"},
+      {"phone": "string"}
+    ]
   }'
 ```
+    </CodeGroup>
 
+    **Get plain text response (without json_schema):**
+    <CodeGroup>
 ```python Python
 import requests
 import json
@@ -346,6 +336,16 @@ fetch("https://api.wetrocloud.com/v1/extract/", {
   .then(response => response.json())
   .then(data => console.log(data));
 ```
+
+```bash cURL
+curl --location 'https://api.wetrocloud.com/v1/extract/' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Token <api_key>' \
+  --data '{
+    "link": "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
+    "prompt": "Extract the names and networth of Billionares in the article"
+  }'
+```
     </CodeGroup>
 
     **Response:**
@@ -369,5 +369,5 @@ Now you can:
 - Check out advanced features like custom delays and complex schemas
 
 <Info>
-  **Need help?** Visit our [Discord community](https://discord.com/invite/3XqN6zWM5f) or email us at [hello@wetrocloud.com](mailto:hello@wetrocloud.com)
+  **Need help?** Email us at [hello@wetrocloud.com](mailto:hello@wetrocloud.com)
 </Info>

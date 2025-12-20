@@ -24,21 +24,6 @@ POST https://api.wetrocloud.com/v1/extract/
 This example shows how to extract data in a structured JSON format by providing a `json_schema`:
 
 <CodeGroup>
-```bash cURL
-curl --location 'https://api.wetrocloud.com/v1/extract/' \
-  --header 'Content-Type: application/json' \
-  --header 'Authorization: Token <api_key>' \
-  --data '{
-    "link": "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
-    "prompt": "Extract the names and networth of Billionares in the article",
-    "json_schema": [
-      {"name": "string"},
-      {"networth": "number"}
-    ],
-    "delay": 2
-  }'
-```
-
 ```python Python
 import requests
 import json
@@ -90,6 +75,21 @@ fetch(url, {
   .then(response => response.json())
   .then(data => console.log(data))
   .catch(error => console.error("Error:", error));
+```
+
+```bash cURL
+curl --location 'https://api.wetrocloud.com/v1/extract/' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Token <api_key>' \
+  --data '{
+    "link": "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
+    "prompt": "Extract the names and networth of Billionares in the article",
+    "json_schema": [
+      {"name": "string"},
+      {"networth": "number"}
+    ],
+    "delay": 2
+  }'
 ```
 </CodeGroup>
 
@@ -222,16 +222,6 @@ Use the `delay` parameter when extracting from dynamic websites that load conten
 When you omit the `json_schema`, you get a plain text response:
 
 <CodeGroup>
-```bash cURL
-curl --location 'https://api.wetrocloud.com/v1/extract/' \
-  --header 'Content-Type: application/json' \
-  --header 'Authorization: Token <api_key>' \
-  --data '{
-    "link": "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
-    "prompt": "Extract the names and networth of Billionares in the article"
-  }'
-```
-
 ```python Python
 import requests
 import json
@@ -274,6 +264,16 @@ fetch(url, {
   .then(data => console.log(data))
   .catch(error => console.error("Error:", error));
 ```
+
+```bash cURL
+curl --location 'https://api.wetrocloud.com/v1/extract/' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Token <api_key>' \
+  --data '{
+    "link": "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
+    "prompt": "Extract the names and networth of Billionares in the article"
+  }'
+```
 </CodeGroup>
 
 **Response:**
@@ -287,21 +287,6 @@ fetch(url, {
 ### Extract Product Information
 
 <CodeGroup>
-```bash cURL
-curl --location 'https://api.wetrocloud.com/v1/extract/' \
-  --header 'Content-Type: application/json' \
-  --header 'Authorization: Token <api_key>' \
-  --data '{
-    "link": "https://example-store.com/products",
-    "prompt": "Extract all product information including name, price, and availability",
-    "json_schema": [
-      {"product_name": "string"},
-      {"price": "number"},
-      {"available": "boolean"}
-    ]
-  }'
-```
-
 ```python Python
 import requests
 import json
@@ -352,28 +337,26 @@ fetch(url, {
   .then(data => console.log(data))
   .catch(error => console.error("Error:", error));
 ```
-</CodeGroup>
 
-### Extract Article Metadata
-
-<CodeGroup>
 ```bash cURL
 curl --location 'https://api.wetrocloud.com/v1/extract/' \
   --header 'Content-Type: application/json' \
   --header 'Authorization: Token <api_key>' \
   --data '{
-    "link": "https://example-blog.com/article",
-    "prompt": "Extract the article title, author, publication date, and read time",
+    "link": "https://example-store.com/products",
+    "prompt": "Extract all product information including name, price, and availability",
     "json_schema": [
-      {"title": "string"},
-      {"author": "string"},
-      {"date": "string"},
-      {"read_time": "number"}
-    ],
-    "delay": 1
+      {"product_name": "string"},
+      {"price": "number"},
+      {"available": "boolean"}
+    ]
   }'
 ```
+</CodeGroup>
 
+### Extract Article Metadata
+
+<CodeGroup>
 ```python Python
 import requests
 import json
@@ -427,6 +410,23 @@ fetch(url, {
   .then(response => response.json())
   .then(data => console.log(data))
   .catch(error => console.error("Error:", error));
+```
+
+```bash cURL
+curl --location 'https://api.wetrocloud.com/v1/extract/' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Token <api_key>' \
+  --data '{
+    "link": "https://example-blog.com/article",
+    "prompt": "Extract the article title, author, publication date, and read time",
+    "json_schema": [
+      {"title": "string"},
+      {"author": "string"},
+      {"date": "string"},
+      {"read_time": "number"}
+    ],
+    "delay": 1
+  }'
 ```
 </CodeGroup>
 
