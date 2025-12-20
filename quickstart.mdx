@@ -1,34 +1,31 @@
 ---
 title: 'Quickstart'
-description: "Learn how to create collections, insert resources, and query them using cURL in just a few minutes."
+description: "Extract structured data from any website in minutes with Wetrocloud's Data Extraction API"
 ---
+
 <Note>
 Before you begin!<br />
-Visit the [Wetrocloud console](https://console.wetrocloud.com/) to get your API key. If you have trouble obtaining it, refer to this [guide](/how-to-access-your-API-Key). 
+Visit the [Wetrocloud console](https://console.wetrocloud.com/) to get your API key. If you have trouble obtaining it, refer to this [guide](/how-to-access-your-API-Key).
 </Note>
 
-import WarningCallout from '/snippets/snippet-warning.mdx';
+## Introduction
 
-#### Introduction 
-This guide is for developers looking to get started with the WetroCloud API quickly. Using simple cURL commands, you'll learn how to:
+This quickstart guide will show you how to extract structured data from any website using the Wetrocloud API. In just a few minutes, you'll be able to:
 
-- Create a collection
-- Insert resources into the collection
-- Query collection for answers
-- Chat with collection for conversations
-- Categorize resources
-- Remove resources
-- Delete Collection
+- Extract data from any URL
+- Define your own JSON schema for structured output
+- Use AI-powered prompts to specify what data to extract
 
 **Prerequisites:**
 - An API key from the [Wetrocloud Console](https://console.wetrocloud.com)
 
-By the end, you'll have queried your first resource using Wetrocloud API.
+## Your First Data Extraction
 
-<WarningCallout/>
+Let's extract billionaire names and net worth from a news article.
 
 <Steps>
-  <Step title="Getting Started">
+  <Step title="Install SDK (Optional)">
+    While you can use the API directly with cURL, our SDKs make integration easier.
     <CodeGroup>
   ```bash Python
   pip install wetro
@@ -37,56 +34,51 @@ By the end, you'll have queried your first resource using Wetrocloud API.
   npm install wetro-sdk
   ```
   ```bash cURL
-    curl --base_url  https://api.wetrocloud.com/v1/
+  # No installation needed for cURL
+  curl --version
   ```
     </CodeGroup>
   </Step>
 
-  <Step title="Setting Up API Key">
+  <Step title="Make Your First Request">
+    Extract structured data from a website by providing a link, prompt, and JSON schema.
+
     <CodeGroup>
-
-```python Python
-from wetro import Wetrocloud
-
-# Initialize the main client and access modules
-client = Wetrocloud(api_key="your_api_key")
-```
-
-```javascript JavaScript
-import Wetrocloud from "wetro-sdk";
-
-// Initialize the main client and access modules
-const client = new Wetrocloud({
-  apiKey: "your_api_key"
-});
-```
-
 ```bash cURL
-curl --request GET \
-  --url https://api.wetrocloud.com/v1/ \
-  --header 'Authorization: Token <api-key>'
+curl --location 'https://api.wetrocloud.com/v1/extract/' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Token <api_key>' \
+  --data '{
+    "link": "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
+    "prompt": "Extract the names and networth of Billionares in the article",
+    "json_schema": [
+      {"name": "string"},
+      {"networth": "number"}
+    ],
+    "delay": 2
+  }'
 ```
 
-    </CodeGroup>
-  </Step>
-
-  <Step title="Create a Collection">
-    First, create a `collection_id` to group your resources.
-    <CodeGroup>
 ```python Python
 from wetro import Wetrocloud
 
-# Initialize the Wetrocloud client
+# Initialize the client
 client = Wetrocloud(api_key="your_api_key")
 
-# Create a collection
-collection = client.collection.create_collection(
-  collection_id="my_unique_collection_id"
+# Extract data from a website
+response = client.extract(
+    link="https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
+    prompt="Extract the names and networth of Billionares in the article",
+    json_schema=[
+        {"name": "string"},
+        {"networth": "number"}
+    ],
+    delay=2
 )
 
-print(collection)
+print(response)
 ```
-  
+
 ```javascript JavaScript
 import Wetrocloud from "wetro-sdk";
 
@@ -95,387 +87,179 @@ const client = new Wetrocloud({
   apiKey: "your_api_key"
 });
 
-// Create a collection (id is optional)
-const response = await client.createCollection({
-  collection_id: "my_unique_collection_id"
+// Extract data from a website
+const response = await client.extract({
+  link: "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
+  prompt: "Extract the names and networth of Billionares in the article",
+  json_schema: [
+    { name: "string" },
+    { networth: "number" }
+  ],
+  delay: 2
 });
 
 console.log(response);
 ```
-
-```bash cURL
-curl --request POST \
-  --url https://api.wetrocloud.com/v1/collection/create/ \
-  --header 'Authorization: Token <api-key>' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "collection_id": "my_unique_collection_id"
-  }'
-```
     </CodeGroup>
   </Step>
 
-  <Step title="List all available collections">
-    After creating a collection, you can get all your available collections on wetrocloud.
+  <Step title="Understanding the Response">
+    The API returns a structured JSON response matching your schema:
+
+```json
+{
+  "response": [
+    {
+      "name": "Elon Musk",
+      "networth": "$462 billion"
+    },
+    {
+      "name": "Larry Ellison",
+      "networth": "$340 billion"
+    },
+    {
+      "name": "Mark Zuckerberg",
+      "networth": "$258 billion"
+    },
+    {
+      "name": "Jeff Bezos",
+      "networth": "$244 billion"
+    },
+    {
+      "name": "Larry Page",
+      "networth": "$221 billion"
+    },
+    {
+      "name": "Sergey Brin",
+      "networth": "$207 billion"
+    },
+    {
+      "name": "Bernard Arnault",
+      "networth": "$197 billion"
+    },
+    {
+      "name": "Steve Ballmer",
+      "networth": "$179 billion"
+    },
+    {
+      "name": "Jensen Huang",
+      "networth": "$158 billion"
+    },
+    {
+      "name": "Michael Dell",
+      "networth": "$156 billion"
+    }
+  ],
+  "success": true
+}
+```
+
+| Field | Description |
+|-------|-------------|
+| `response` | Array of extracted data matching your JSON schema |
+| `success` | Boolean indicating if the extraction was successful |
+
+  </Step>
+
+  <Step title="Try Different Schemas">
+    You can customize the JSON schema to extract different types of data. Here are some examples:
+
+    **Extract product information:**
     <CodeGroup>
+```bash cURL
+curl --location 'https://api.wetrocloud.com/v1/extract/' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Token <api_key>' \
+  --data '{
+    "link": "https://example.com/products",
+    "prompt": "Extract all product details",
+    "json_schema": [
+      {"product_name": "string"},
+      {"price": "number"},
+      {"rating": "number"}
+    ]
+  }'
+```
+
 ```python Python
-from wetro import Wetrocloud
-
-# Initialize the Wetrocloud client
-client = Wetrocloud(api_key="your_api_key")
-
-# Get all collections
-all_collections = client.collection.get_collection_list()
-
-# print the response
-print(all_collections)
+response = client.extract(
+    link="https://example.com/products",
+    prompt="Extract all product details",
+    json_schema=[
+        {"product_name": "string"},
+        {"price": "number"},
+        {"rating": "number"}
+    ]
+)
 ```
 
 ```javascript JavaScript
-import Wetrocloud from "wetro-sdk";
-
-// Initialize the Wetrocloud client
-const client = new Wetrocloud({
-  apiKey: "your_api_key"
+const response = await client.extract({
+  link: "https://example.com/products",
+  prompt: "Extract all product details",
+  json_schema: [
+    { product_name: "string" },
+    { price: "number" },
+    { rating: "number" }
+  ]
 });
-
-// Get all collections
-const response = await client.listCollections();
-
-console.log("Available collections:", response);
-```
-
-```bash cURL
-curl --request GET \
-  --url https://api.wetrocloud.com/v1/collection/all/ \
-  --header 'Authorization: Token <api-key>'
 ```
     </CodeGroup>
-  </Step>
 
-  <Step title="Insert a Resource into the Collection">
-    Add a resource to your collection using the `collection_id` you created earlier
+    **Extract contact information:**
     <CodeGroup>
-  
-```python Python
-from wetro import Wetrocloud
-    
-# Initialize the Wetrocloud client
-client = Wetrocloud(api_key="your_api_key")
-
-# Insert a Resource into a Collection
-insert_response=client.collection.insert_resource(
-  collection_id="my_unique_collection_id",
-  resource="https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09",
-  type="web"
-)
-
-# Print the response
-print(insert_response)
-```
-
-```javascript JavaScript
-import Wetrocloud from "wetro-sdk";
-
-// Initialize the client
-const client = new Wetrocloud({
-  apiKey: "your_api_key"
-});
-
-// Insert a web resource
-const response = await client.insertResource({
-  collection_id: "my_unique_collection_id",
-  resource: "https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09",
-  type: "web"
-});
-
-console.log("Resource inserted:", response);
-```
-
 ```bash cURL
-curl --request POST \
-  --url https://api.wetrocloud.com/v1/resource/insert/ \
-  --header 'Authorization: Token <api-key>' \
+curl --location 'https://api.wetrocloud.com/v1/extract/' \
   --header 'Content-Type: application/json' \
+  --header 'Authorization: Token <api_key>' \
   --data '{
-    "collection_id": "my_unique_collection_id",
-    "resource": "https://medium.com/@wetrocloud/why-legal-tech-needs-wetrocloud-ai-rag-and-the-future-of-legal-practice-66fb38c4df09",
-    "type": "web"
+    "link": "https://example.com/contact",
+    "prompt": "Extract contact details",
+    "json_schema": [
+      {"name": "string"},
+      {"email": "string"},
+      {"phone": "string"}
+    ]
   }'
 ```
-    </CodeGroup>
-  </Step>
 
-  <Step title="Query Collection">
-    Query your collection using the `collection_id` created earlier by providing a query in the `request_query` field.
-    <CodeGroup>
 ```python Python
-from wetro import Wetrocloud
-
-# Initialize the Wetrocloud client
-client = Wetrocloud(api_key="your_api_key")
-
-# Query the collection
-query_response = client.collection.query_collection(
-    collection_id="my_unique_collection_id",
-    request_query="What are the key points of the article?"
+response = client.extract(
+    link="https://example.com/contact",
+    prompt="Extract contact details",
+    json_schema=[
+        {"name": "string"},
+        {"email": "string"},
+        {"phone": "string"}
+    ]
 )
-
-# Print the response
-print(query_response)
 ```
 
 ```javascript JavaScript
-import Wetrocloud from "wetro-sdk";
-
-// Initialize the Wetrocloud client
-const client = new Wetrocloud({
-  apiKey: "your_api_key"
+const response = await client.extract({
+  link: "https://example.com/contact",
+  prompt: "Extract contact details",
+  json_schema: [
+    { name: "string" },
+    { email: "string" },
+    { phone: "string" }
+  ]
 });
-
-// Query the collection
-const response = await client.queryCollection({
-  collection_id: "my_unique_collection_id",
-  request_query: "What are the key points of the article?"
-});
-
-console.log("Query response:", response);
-```
-
-```bash cURL
-curl --request POST \
-  --url https://api.wetrocloud.com/v1/collection/query/ \
-  --header 'Authorization: Token <api-key>' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "collection_id": "my_unique_collection_id",
-    "request_query": "What are the key points of the article?"
-  }'
-```
-    </CodeGroup> 
-    <Info>
-      To keep things simple we made use of the `/collection/query/` endpoint without `structured output`
-    </Info>
-  </Step>
-
-  <Step title="Chat with Collection">
-    Chat with your collection using the `collection_id` created earlier by providing a message in the `message` field and continue conversations by passing `chat_history`.
-    <CodeGroup>
-```python Python
-from wetro import Wetrocloud
-
-# Initialize the Wetrocloud client
-client = Wetrocloud(api_key="your_api_key")
-
-# Create a chat history
-chat_history = [
-    {"role": "user", "content": "What is this collection about?"}, 
-    {"role": "system", "content": "It stores research papers on AI technology."}
-]
-
-# Continue the conversation with context
-chat_response = client.collection.chat(
-    collection_id="my_unique_collection_id",
-    message="Can you explain the latest paper's methodology?",
-    chat_history=chat_history
-)
-
-# Print the chat response
-print(chat_response)
-``` 
-
-```javascript JavaScript
-import Wetrocloud from "wetro-sdk";
-
-// Initialize the Wetrocloud client
-const client = new Wetrocloud({
-  apiKey: "your_api_key"
-});
-
-// Create chat history
-const chatHistory = [
-  { role: "user", content: "What is this collection about?" },
-  { role: "system", content: "It stores research papers on AI technology." }
-];
-
-// Chat with context
-const response = await client.chat({
-  collection_id: "my_unique_collection_id",
-  message: "Can you explain the latest paper's methodology?",
-  chat_history: chatHistory
-});
-
-console.log("Chat response:", response);
-```
-   
-```bash cURL
-   curl --request POST \
-        --url https://api.wetrocloud.com/v1/collection/chat/ \
-        --header 'Authorization: Token <api-key>' \
-        --header 'Content-Type: application/json' \
-        --data '{
-          "collection_id": "my_unique_collection_id",
-          "message": "Can you explain the latest paper'\''s methodology?",
-          "chat_history": [
-            {"role": "user", "content": "What is this collection about?"},
-            {"role": "system", "content": "It stores research papers on AI technology."}
-          ]
-        }'
-```
-    </CodeGroup> 
-  </Step>
-
-  <Step title="Categorize a Resource">
-    <CodeGroup>
-```python Python
-from wetro import Wetrocloud
-
-# Initialize the Wetrocloud client
-client = Wetrocloud(api_key="your_api_key")
-
-# Categorize content
-categorize_response = client.categorize(
-    resource="match review: John Cena vs. The Rock.",
-    type="text",
-    json_schema={"label": "string"},
-    categories=["wrestling", "entertainment", "sports", "news"],
-    prompt="Categorize the text to see which category it best fits"
-)
-
-print(categorize_response)
-print("\nThe text is categorized as:", categorize_response.response["label"])
-```
-   
-```javascript JavaScript
-import Wetrocloud from "wetro-sdk";
-
-// Initialize the Wetrocloud client
-const client = new Wetrocloud({
-  apiKey: "your_api_key"
-});
-
-// Categorize content
-const response = await client.categorize({
-  resource: "match review: John Cena vs. The Rock",
-  type: "text",
-  json_schema: { label: "string" },
-  categories: ["wrestling", "entertainment", "sports", "news"],
-  prompt: "Categorize the text to see which category it best fits"
-});
-
-console.log("Categorization:", response);
-```
-
-```bash cURL
-curl --request POST \
-  --url https://api.wetrocloud.com/v1/categorize/ \
-  --header 'Authorization: Token <api-key>' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "resource": "match review: John Cena vs. The Rock.",
-    "type": "text",
-    "json_schema": {"label": "string"},
-    "categories": ["wrestling", "entertainment", "sports", "news"],
-    "prompt": "Categorize the text to see which category it best fits"
-  }'
-```
-    </CodeGroup>
-  </Step>
-
-  <Step title="Remove a Resource">
-    Remove a resource from your collection using the `collection_id` and `resource_id`.
-    <CodeGroup>
-```python Python
-from wetro import Wetrocloud
-
-# Initialize the Wetrocloud client
-client = Wetrocloud(api_key="your_api_key")
-
-# Delete the resource from the collection
-delete_response = client.collection.delete_resource(
-    collection_id="my_unique_collection_id",
-    resource_id="resource_id_to_delete"
-)
-
-print(delete_response)
-```
-
-```javascript JavaScript
-import Wetrocloud from "wetro-sdk";
-
-// Initialize the Wetrocloud client
-const client = new Wetrocloud({
-  apiKey: "your_api_key"
-});
-
-// Remove a resource
-const response = await client.deleteResource({
-  collection_id: "my_unique_collection_id",
-  resource_id: "resource_id_to_delete"
-});
-
-console.log("Resource deleted:", response);
-```
-
-```bash cURL
-curl --request DELETE \
-  --url https://api.wetrocloud.com/v1/resource/remove/ \
-  --header 'Authorization: Token <api-key>' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "collection_id": "my_unique_collection_id",
-    "resource_id": "resource_id_to_delete"
-  }'
-```
-    </CodeGroup>
-  </Step>
-
-  <Step title="Delete a Collection">
-    Delete a collection using its `collection_id`.
-    <CodeGroup>
-```python Python
-from wetro import Wetrocloud
-
-# Initialize the Wetrocloud client
-client = Wetrocloud(api_key="your_api_key")
-
-# Delete the collection
-delete_collection = client.collection.delete_collection(
-    collection_id="my_unique_collection_id"
-)
-
-print(delete_collection)
-```
-
-```javascript JavaScript
-import Wetrocloud from "wetro-sdk";
-
-// Initialize the Wetrocloud client
-const client = new Wetrocloud({
-  apiKey: "your_api_key"
-});
-
-// Delete collection
-const response = await client.deleteCollection({
-  collection_id: "my_unique_collection_id"
-});
-
-console.log("Collection deleted:", response);
-```
-
-```bash cURL
-curl --request DELETE \
-  --url https://api.wetrocloud.com/v1/collection/delete/ \
-  --header 'Authorization: Token <api-key>' \
-  --header 'Content-Type: application/json' \
-  --data '{
-    "collection_id": "my_unique_collection_id"
-  }'
 ```
     </CodeGroup>
   </Step>
 </Steps>
 
-Great, that was easy!
+## Next Steps
 
-If you want to get a more in depth understanding of how wetrocloud SDK works, head on over to the [API reference](/api-reference/api-endpoints).
+Great! You've successfully extracted structured data from a website.
+
+Now you can:
+
+- Learn more about the [Data Extraction API](/endpoint-explanations/data-extraction) and all available parameters
+- Explore the complete [API Reference](/api-reference/introduction)
+- Check out advanced features like custom delays and complex schemas
+
+<Info>
+  **Need help?** Visit our [Discord community](https://discord.com/invite/3XqN6zWM5f) or email us at [hello@wetrocloud.com](mailto:hello@wetrocloud.com)
+</Info>

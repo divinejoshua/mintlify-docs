@@ -18,70 +18,28 @@
             "pages": [
               "introduction",
               "how-to-access-your-API-Key",
-              "quickstart",
-              "endpoint-explanations/models",
-              "endpoint-explanations/openai-compatibility",
-              "sdk"
+              "quickstart"
             ]
           },
           {
-                "group": "Data Extraction API",
-                "pages": [
-                  "endpoint-explanations/data-extraction",
-                  {
-                    "group": "Markdown Converter",
-                    "pages": [
-                      "endpoint-explanations/overview-markdown",
-                      "endpoint-explanations/markdown-files",
-                      "endpoint-explanations/markdown-webs", 
-                      "endpoint-explanations/markdown-images"
-                    ]
-                  }, 
-                {
-                  "group": "Transcript",
-                  "pages": [
-                    "endpoint-explanations/overview-transcript"
-                  ]
-                }
-                ]
-              },
-          {
-            "group": "RAG API",
+            "group": "Data Extraction API",
             "pages": [
-              "endpoint-explanations/create",
-              "endpoint-explanations/list-collections",
+              "endpoint-explanations/data-extraction",
               {
-                "group": "Insert resources",
+                "group": "Markdown Converter",
                 "pages": [
-                  "endpoint-explanations/overview-insert",
-                  "endpoint-explanations/insert-files",
-                  "endpoint-explanations/insert-web",
-                  "endpoint-explanations/insert-text",
-                  "endpoint-explanations/insert-youtube",
-                  "endpoint-explanations/insert-media"
+                  "endpoint-explanations/overview-markdown",
+                  "endpoint-explanations/markdown-files",
+                  "endpoint-explanations/markdown-webs",
+                  "endpoint-explanations/markdown-images"
                 ]
               },
               {
-                "group": "Query collections",
+                "group": "Transcript",
                 "pages": [
-                  "endpoint-explanations/overview-query",
-                  "endpoint-explanations/query-free-text",
-                  "endpoint-explanations/query-streaming",
-                  "endpoint-explanations/query-json-schema"
+                  "endpoint-explanations/overview-transcript"
                 ]
-              },
-              "endpoint-explanations/chat",
-              "endpoint-explanations/remove-resource",
-              "endpoint-explanations/delete"
-            ]
-          },
-          {
-            "group": "Features",
-            "pages": [
-              "endpoint-explanations/category",
-              "endpoint-explanations/text-generation",
-              "endpoint-explanations/image-to-text",
-              "token-optimization"
+              }
             ]
           }
         ]
@@ -101,17 +59,7 @@
           {
             "group": "Endpoint Examples",
             "pages": [
-              "api-reference/endpoints/create-collection",
-              "api-reference/endpoints/list-collections",
-              "api-reference/endpoints/insert-resource",
-              "api-reference/endpoints/query-resource",
-              "api-reference/endpoints/chat-collection",
-              "api-reference/endpoints/categorize-resource",
-              "api-reference/endpoints/remove-resource",
-              "api-reference/endpoints/delete-collection",
-              "api-reference/endpoints/data-extraction",
-              "api-reference/endpoints/image-to-text",
-              "api-reference/endpoints/text-generation"
+              "api-reference/endpoints/data-extraction"
             ]
           }
         ]
