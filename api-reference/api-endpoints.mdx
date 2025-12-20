@@ -1,164 +1,91 @@
 ---
 title: 'API Endpoints'
-description: 'Explore the available WetroCloud API endpoints for creating, inserting, querying, and categorizing resources, with detailed response formats.'
+description: 'Explore the available WetroCloud API endpoints for data extraction and AI-powered operations.'
 ---
+
 ### Endpoints
+
 | Endpoint           | Method    | Description                                                                 |
 |:-------------------|:----------|:----------------------------------------------------------------------------|
-| **`/collection/create/`**      | POST      | Used to create a new collection where your resources will be organized.     |
-| **`/collection/all/`**  | GET       | Returns a list of all existing collections.             |
-| **`/resource/insert/`**      | POST      | Allows you to add resources, such as documents or files, into a specified collection. |
-| **`/collection/query/`**       | POST      | Enables you to search or retrieve information from your collections based on specific prompts. |
-| **`/collection/delete/`**      | DELETE    | Removes an entire collection and its associated resources.                  |
-| **`/categorize/`**    | POST      | Categorizes your data according to specific rules or schema definitions.    |
+| **`/v1/extract/`**      | POST      | Extract structured data from any website using AI-powered extraction with custom JSON schemas. |
 
+## Data Extraction Endpoint
 
-### Response Formats by Endpoint
-The WetroCloud API returns responses in a consistent JSON format. Each endpoint includes fields relevant to the specific operation.
+### POST `/v1/extract/`
 
-#### Create Collection Endpoint (`/collection/create/`) <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
+Extract specific information from any web page and receive it in a structured JSON format that matches your requirements.
 
+**Request Parameters:**
 
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| `link` | String | Yes | The URL of the website to extract data from |
+| `prompt` | String | Yes | Instructions describing what data to extract |
+| `json_schema` | Array | No | The structure defining your desired output format. If not provided, returns plain text |
+| `delay` | Integer | No | Delay in seconds before extraction (useful for dynamic content). Default: 0 |
 
-Used to create a new collection. The response includes the unique ID of the collection and a success status.
-<Frame>
-  <img
-    src="/images/postman-images/Create-collection.png"
-    alt="Postmandocs"
-  />
-</Frame>
+**Example Request:**
+
+```bash cURL
+curl --location 'https://api.wetrocloud.com/v1/extract/' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Token <api_key>' \
+  --data '{
+    "link": "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
+    "prompt": "Extract the names and networth of Billionares in the article",
+    "json_schema": [
+      {"name": "string"},
+      {"networth": "number"}
+    ],
+    "delay": 2
+  }'
+```
+
+**Response Format (Structured Output):**
+
 ```json
 {
-  "collection_id": "string", // A unique identifier, typically a UUID
-  "success": boolean
+  "response": [
+    {
+      "name": "Elon Musk",
+      "networth": "$462 billion"
+    },
+    {
+      "name": "Larry Ellison",
+      "networth": "$340 billion"
+    }
+    // ... more results
+  ],
+  "success": true
 }
 ```
 
----
-
-#### Insert Endpoint (`/resource/insert/`)  <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
-<Frame>
-  <img
-    src="/images/postman-images/Insert-response.png"
-    alt="Postmandocs"
-  />
-</Frame>
-Adds resources to a collection. The response confirms success and tracks token usage.
+**Response Format (Plain Text - when json_schema is omitted):**
 
 ```json
 {
-  "success": boolean,
-  "tokens": integer
+  "response": "Here are the names and net worths of the billionaires listed in the article:\n\n1. **Elon Musk:** $462 billion\n2. **Larry Ellison:** $340 billion...",
+  "success": true
 }
 ```
 
----
+| Field | Type | Description |
+|-------|------|-------------|
+| `response` | Array or String | Extracted data matching your JSON schema (array) or plain text (string) if no schema provided |
+| `success` | Boolean | Indicates whether the extraction was successful |
 
-#### Query Endpoint (`/collection/query/`)  <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
+**Status Codes:**
 
-Fetches information from a collection based on a query. The response contains the result, token usage, and success status.
-<Frame>
-  <img
-    src="/images/postman-images/Query-response.png"
-    alt="Postmandocs"
-  />
-</Frame>
+- `200 OK` - Request successful
+- `400 Bad Request` - Invalid parameters or malformed JSON schema
+- `401 Unauthorized` - Invalid or missing API key
+- `404 Not Found` - URL not accessible
+
+**Error Response:**
+
 ```json
 {
-  "response": // This structure is defined by the schema
-  "success": boolean,
-  "tokens": integer
+  "error": "Error message describing what went wrong",
+  "success": false
 }
-```
-
----
-
-#### Delete Collection Endpoint (`/collection/delete/`)  <img src="/logo/DELETE.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
-
-Deletes a collection and returns the operation status with a message.
-<Frame>
-  <img
-    src="/images/postman-images/delete-response.png"
-    alt="Postmandocs"
-  />
-</Frame>
-```json
-{
-  "success": boolean,
-  "message": "string"
-}
-```
-
----
-
-#### Categorize Endpoint (`/categorize/`) <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
-
-Categorizes data according to rules or schemas. The response provides the assigned label, token usage, and success status.
-<Frame>
-  <img
-    src="/images/postman-images/category-response.png"
-    alt="Postmandocs"
-  />
-</Frame>
-```json
-{
-  "response": // This structure is defined by the schema,
-  "tokens": integer,
-  "success": boolean
-}
-
-```
-
-#### Text Generation Endpoint (`/text-generation/`) <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
-
-Generates a text response to any query (Without RAG) and supports conversational interactions. The response is the result, token usage, and success status.
-<Frame>
-  <img
-    src="/images/postman-images/text-generation-response.png"
-    alt="Postmandocs"
-  />
-</Frame>
-```json
-{
-  "response": string,
-  "tokens": integer,
-  "success": boolean
-}
-
-```
-
-#### Image to Text (OCR) Endpoint (`/image-to-text/`) <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
-
-Analyzes and fetch information from an image based on a query. The response provides the result, token usage, and success status.
-<Frame>
-  <img
-    src="/images/postman-images/image-to-text-response.png"
-    alt="Postmandocs"
-  />
-</Frame>
-```json
-{
-  "response": string,
-  "tokens": integer,
-  "success": boolean
-}
-
-```
-
-#### Data Extraction Endpoint (`/data-extraction/`) <img src="/logo/POST.svg" style={{ display: 'inline',verticalAlign: 'middle'}} />
-
-Extracts content from websites according to rules or schemas. The response provides the result, token usage, and success status.
-<Frame>
-  <img
-    src="/images/postman-images/webscrape-response.png"
-    alt="Postmandocs"
-  />
-</Frame>
-```json
-{
-  "response": // This structure is defined by the schema,
-  "tokens": integer,
-  "success": boolean
-}
-
 ```

@@ -28,16 +28,7 @@
               {
                 "group": "Markdown Converter",
                 "pages": [
-                  "endpoint-explanations/overview-markdown",
-                  "endpoint-explanations/markdown-files",
-                  "endpoint-explanations/markdown-webs",
-                  "endpoint-explanations/markdown-images"
-                ]
-              },
-              {
-                "group": "Transcript",
-                "pages": [
-                  "endpoint-explanations/overview-transcript"
+                  "endpoint-explanations/overview-markdown"
                 ]
               }
             ]
@@ -51,8 +42,6 @@
             "group": "API Documentation",
             "pages": [
               "api-reference/introduction",
-              "api-reference/request-and-responses",
-              "api-reference/supported-resource-types",
               "api-reference/api-endpoints"
             ]
           },

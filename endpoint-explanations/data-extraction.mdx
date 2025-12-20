@@ -19,15 +19,128 @@ The API uses advanced AI to:
 POST https://api.wetrocloud.com/v1/extract/
 ```
 
-## Authentication
+## Example Request (Structured Output)
 
-All requests require an API key in the Authorization header:
+This example shows how to extract data in a structured JSON format by providing a `json_schema`:
 
-```bash
-Authorization: Token <your_api_key>
+<CodeGroup>
+```bash cURL
+curl --location 'https://api.wetrocloud.com/v1/extract/' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Token <api_key>' \
+  --data '{
+    "link": "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
+    "prompt": "Extract the names and networth of Billionares in the article",
+    "json_schema": [
+      {"name": "string"},
+      {"networth": "number"}
+    ],
+    "delay": 2
+  }'
 ```
 
-Get your API key from the [Wetrocloud Console](https://console.wetrocloud.com).
+```python Python
+import requests
+import json
+
+url = "https://api.wetrocloud.com/v1/extract/"
+
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Token <api_key>"
+}
+
+payload = {
+    "link": "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
+    "prompt": "Extract the names and networth of Billionares in the article",
+    "json_schema": [
+        {"name": "string"},
+        {"networth": "number"}
+    ],
+    "delay": 2
+}
+
+response = requests.post(url, headers=headers, data=json.dumps(payload))
+print(response.json())
+```
+
+```javascript JavaScript
+const url = "https://api.wetrocloud.com/v1/extract/";
+
+const headers = {
+  "Content-Type": "application/json",
+  "Authorization": "Token <api_key>"
+};
+
+const payload = {
+  link: "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
+  prompt: "Extract the names and networth of Billionares in the article",
+  json_schema: [
+    { name: "string" },
+    { networth: "number" }
+  ],
+  delay: 2
+};
+
+fetch(url, {
+  method: "POST",
+  headers: headers,
+  body: JSON.stringify(payload)
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error("Error:", error));
+```
+</CodeGroup>
+
+**Response:**
+```json
+{
+  "response": [
+    {
+      "name": "Elon Musk",
+      "networth": "$462 billion"
+    },
+    {
+      "name": "Larry Ellison",
+      "networth": "$340 billion"
+    },
+    {
+      "name": "Mark Zuckerberg",
+      "networth": "$258 billion"
+    },
+    {
+      "name": "Jeff Bezos",
+      "networth": "$244 billion"
+    },
+    {
+      "name": "Larry Page",
+      "networth": "$221 billion"
+    },
+    {
+      "name": "Sergey Brin",
+      "networth": "$207 billion"
+    },
+    {
+      "name": "Bernard Arnault",
+      "networth": "$197 billion"
+    },
+    {
+      "name": "Steve Ballmer",
+      "networth": "$179 billion"
+    },
+    {
+      "name": "Jensen Huang",
+      "networth": "$158 billion"
+    },
+    {
+      "name": "Michael Dell",
+      "networth": "$156 billion"
+    }
+  ],
+  "success": true
+}
+```
 
 ## Request Parameters
 
@@ -35,12 +148,16 @@ Get your API key from the [Wetrocloud Console](https://console.wetrocloud.com).
 |-----------|------|----------|-------------|
 | `link` | String | Yes | The URL of the website to extract data from |
 | `prompt` | String | Yes | Instructions describing what data to extract |
-| `json_schema` | Array | Yes | The structure defining your desired output format |
+| `json_schema` | Array | No | The structure defining your desired output format. If not provided, returns plain text |
 | `delay` | Integer | No | Delay in seconds before extraction (useful for dynamic content). Default: 0 |
 
-### The `json_schema` Parameter
+### The `json_schema` Parameter (Optional)
 
 The `json_schema` parameter defines the structure of the data you want to extract. It's an array of objects where each object represents a field in your output.
+
+**When to use:**
+- Use `json_schema` when you want structured data in a specific format
+- Omit `json_schema` when you want a plain text response
 
 **Format:**
 ```json
@@ -98,9 +215,11 @@ Use the `delay` parameter when extracting from dynamic websites that load conten
 - Dynamic dashboards
 - Sites with JavaScript-rendered content
 
-## Example Requests
+## More Examples
 
-### Extract Billionaire Data
+### Extract Billionaire Data (Plain Text Response)
+
+When you omit the `json_schema`, you get a plain text response:
 
 <CodeGroup>
 ```bash cURL
@@ -109,103 +228,58 @@ curl --location 'https://api.wetrocloud.com/v1/extract/' \
   --header 'Authorization: Token <api_key>' \
   --data '{
     "link": "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
-    "prompt": "Extract the names and networth of Billionares in the article",
-    "json_schema": [
-      {"name": "string"},
-      {"networth": "number"}
-    ],
-    "delay": 2
+    "prompt": "Extract the names and networth of Billionares in the article"
   }'
 ```
 
 ```python Python
-from wetro import Wetrocloud
+import requests
+import json
 
-# Initialize the client
-client = Wetrocloud(api_key="your_api_key")
+url = "https://api.wetrocloud.com/v1/extract/"
 
-# Extract billionaire data
-response = client.extract(
-    link="https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
-    prompt="Extract the names and networth of Billionares in the article",
-    json_schema=[
-        {"name": "string"},
-        {"networth": "number"}
-    ],
-    delay=2
-)
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Token <api_key>"
+}
 
-print(response)
+payload = {
+    "link": "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
+    "prompt": "Extract the names and networth of Billionares in the article"
+}
+
+response = requests.post(url, headers=headers, data=json.dumps(payload))
+print(response.json())
 ```
 
 ```javascript JavaScript
-import Wetrocloud from "wetro-sdk";
+const url = "https://api.wetrocloud.com/v1/extract/";
 
-// Initialize the client
-const client = new Wetrocloud({
-  apiKey: "your_api_key"
-});
+const headers = {
+  "Content-Type": "application/json",
+  "Authorization": "Token <api_key>"
+};
 
-// Extract billionaire data
-const response = await client.extract({
+const payload = {
   link: "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
-  prompt: "Extract the names and networth of Billionares in the article",
-  json_schema: [
-    { name: "string" },
-    { networth: "number" }
-  ],
-  delay: 2
-});
+  prompt: "Extract the names and networth of Billionares in the article"
+};
 
-console.log(response);
+fetch(url, {
+  method: "POST",
+  headers: headers,
+  body: JSON.stringify(payload)
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error("Error:", error));
 ```
 </CodeGroup>
 
 **Response:**
 ```json
 {
-  "response": [
-    {
-      "name": "Elon Musk",
-      "networth": "$462 billion"
-    },
-    {
-      "name": "Larry Ellison",
-      "networth": "$340 billion"
-    },
-    {
-      "name": "Mark Zuckerberg",
-      "networth": "$258 billion"
-    },
-    {
-      "name": "Jeff Bezos",
-      "networth": "$244 billion"
-    },
-    {
-      "name": "Larry Page",
-      "networth": "$221 billion"
-    },
-    {
-      "name": "Sergey Brin",
-      "networth": "$207 billion"
-    },
-    {
-      "name": "Bernard Arnault",
-      "networth": "$197 billion"
-    },
-    {
-      "name": "Steve Ballmer",
-      "networth": "$179 billion"
-    },
-    {
-      "name": "Jensen Huang",
-      "networth": "$158 billion"
-    },
-    {
-      "name": "Michael Dell",
-      "networth": "$156 billion"
-    }
-  ],
+  "response": "Here are the names and net worths of the billionaires listed in the article \"Who are the 10 richest people in the world in 2025?\":\n\n1.  **Elon Musk:** $462 billion\n2.  **Larry Ellison:** $340 billion\n3.  **Mark Zuckerberg:** $258 billion\n4.  **Jeff Bezos:** $244 billion\n5.  **Larry Page:** $221 billion\n6.  **Sergey Brin:** $207 billion\n7.  **Bernard Arnault:** $197 billion\n8.  **Steve Ballmer:** $179 billion\n9.  **Jensen Huang:** $158 billion\n10. **Michael Dell:** $156 billion",
   "success": true
 }
 ```
@@ -229,19 +303,34 @@ curl --location 'https://api.wetrocloud.com/v1/extract/' \
 ```
 
 ```python Python
-response = client.extract(
-    link="https://example-store.com/products",
-    prompt="Extract all product information including name, price, and availability",
-    json_schema=[
+import requests
+import json
+
+url = "https://api.wetrocloud.com/v1/extract/"
+
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Token <api_key>"
+}
+
+payload = {
+    "link": "https://example-store.com/products",
+    "prompt": "Extract all product information including name, price, and availability",
+    "json_schema": [
         {"product_name": "string"},
         {"price": "number"},
         {"available": "boolean"}
     ]
-)
+}
+
+response = requests.post(url, headers=headers, data=json.dumps(payload))
+print(response.json())
 ```
 
 ```javascript JavaScript
-const response = await client.extract({
+const url = "https://api.wetrocloud.com/v1/extract/";
+
+const payload = {
   link: "https://example-store.com/products",
   prompt: "Extract all product information including name, price, and availability",
   json_schema: [
@@ -249,7 +338,19 @@ const response = await client.extract({
     { price: "number" },
     { available: "boolean" }
   ]
-});
+};
+
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Token <api_key>"
+  },
+  body: JSON.stringify(payload)
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error("Error:", error));
 ```
 </CodeGroup>
 
@@ -274,21 +375,36 @@ curl --location 'https://api.wetrocloud.com/v1/extract/' \
 ```
 
 ```python Python
-response = client.extract(
-    link="https://example-blog.com/article",
-    prompt="Extract the article title, author, publication date, and read time",
-    json_schema=[
+import requests
+import json
+
+url = "https://api.wetrocloud.com/v1/extract/"
+
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Token <api_key>"
+}
+
+payload = {
+    "link": "https://example-blog.com/article",
+    "prompt": "Extract the article title, author, publication date, and read time",
+    "json_schema": [
         {"title": "string"},
         {"author": "string"},
         {"date": "string"},
         {"read_time": "number"}
     ],
-    delay=1
-)
+    "delay": 1
+}
+
+response = requests.post(url, headers=headers, data=json.dumps(payload))
+print(response.json())
 ```
 
 ```javascript JavaScript
-const response = await client.extract({
+const url = "https://api.wetrocloud.com/v1/extract/";
+
+const payload = {
   link: "https://example-blog.com/article",
   prompt: "Extract the article title, author, publication date, and read time",
   json_schema: [
@@ -298,7 +414,19 @@ const response = await client.extract({
     { read_time: "number" }
   ],
   delay: 1
-});
+};
+
+fetch(url, {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Token <api_key>"
+  },
+  body: JSON.stringify(payload)
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error("Error:", error));
 ```
 </CodeGroup>
 
@@ -306,6 +434,7 @@ const response = await client.extract({
 
 All successful requests return a JSON object with the following structure:
 
+**With `json_schema` (Structured Output):**
 ```json
 {
   "response": [...],
@@ -313,9 +442,17 @@ All successful requests return a JSON object with the following structure:
 }
 ```
 
+**Without `json_schema` (Plain Text):**
+```json
+{
+  "response": "Plain text response...",
+  "success": true
+}
+```
+
 | Field | Type | Description |
 |-------|------|-------------|
-| `response` | Array | Extracted data matching your JSON schema |
+| `response` | Array or String | Extracted data matching your JSON schema (array) or plain text (string) if no schema provided |
 | `success` | Boolean | Indicates whether the extraction was successful |
 
 ## Error Handling
@@ -355,12 +492,21 @@ The Data Extraction API is perfect for:
 - **Real estate**: Gather property listings and details
 - **Job boards**: Collect job postings and requirements
 
+## Authentication
+
+All requests require an API key in the Authorization header:
+
+```bash
+Authorization: Token <your_api_key>
+```
+
+Get your API key from the [Wetrocloud Console](https://console.wetrocloud.com). If you need help obtaining your API key, refer to [this guide](/how-to-access-your-API-Key).
+
 ## Rate Limits
 
 Please refer to your plan details in the [Wetrocloud Console](https://console.wetrocloud.com) for rate limit information.
 
 ## Need Help?
 
-- Visit our [Discord community](https://discord.com/invite/3XqN6zWM5f)
 - Email us at [hello@wetrocloud.com](mailto:hello@wetrocloud.com)
 - Check out the [API Reference](/api-reference/introduction) for more details

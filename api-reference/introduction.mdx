@@ -1,22 +1,45 @@
 ---
 title: 'Introduction'
-description: 'Learn how to easily integrate Retrieval Augmented Generation (RAG) into your applications.'
+description: 'Learn how to easily integrate AI-powered data extraction into your applications.'
 ---
 
 <Note>
 Before you begin!<br />
-Visit the [Wetrocloud console](https://console.wetrocloud.com/) to get your API key. If you have trouble obtaining it, refer to this [guide](/how-to-access-your-API-Key). 
+Visit the [Wetrocloud console](https://console.wetrocloud.com/) to get your API key. If you have trouble obtaining it, refer to this [guide](/how-to-access-your-API-Key).
 </Note>
 
-The WetroCloud API provides access to core features for building RAG systems that you can integrate directly into your application. It follows a clean, organized structure around the main resources you'll work with, designed to keep things simple and efficient.
+The WetroCloud API provides powerful data extraction capabilities that allow you to extract structured data from any website using AI. Simply provide a URL, describe what you want to extract, and define your desired output schema.
 
 ### Sample Requests
-We provide sample API calls next to each method, using cURL. Simply replace the placeholders with your specific parameters and test the calls directly from the command line. If you're new to cURL, check out this tutorial on [using cURL with APIs](https://www.baeldung.com/curl-rest).
-
-If you're more comfortable with graphical tools, you can also [use Postman](https://www.postman.com/downloads/) if you aren't familiar with cURL. Postman is a user-friendly platform for developing and testing APIs. You can explore the [Wetrocloud Postman Collection](https://www.wetrocloud.com) to see how our API works.
+We provide sample API calls next to each method, using cURL, Python, and JavaScript. Simply replace the placeholders with your specific parameters and test the calls directly.
 
 <Warning>
   Important! <br />Always prefix your API key with `Token ` (including a space). Example: `Token YOUR_API_KEY`. Requests without this format will be rejected.
 </Warning>
 
+## Getting Started
 
+The API is designed to be simple and straightforward:
+
+1. **Authenticate**: Include your API key in the `Authorization` header
+2. **Make a request**: Send a POST request with your extraction parameters
+3. **Receive structured data**: Get back JSON-formatted data matching your schema
+
+## Base URL
+
+All API endpoints are prefixed with:
+```
+https://api.wetrocloud.com
+```
+
+## Authentication
+
+All requests require authentication using an API key. Include it in the `Authorization` header:
+
+```bash
+Authorization: Token YOUR_API_KEY
+```
+
+## Rate Limits
+
+Please refer to your plan details in the [Wetrocloud Console](https://console.wetrocloud.com) for rate limit information.

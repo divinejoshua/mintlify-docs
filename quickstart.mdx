@@ -24,22 +24,6 @@ This quickstart guide will show you how to extract structured data from any webs
 Let's extract billionaire names and net worth from a news article.
 
 <Steps>
-  <Step title="Install SDK (Optional)">
-    While you can use the API directly with cURL, our SDKs make integration easier.
-    <CodeGroup>
-  ```bash Python
-  pip install wetro
-  ```
-  ```bash JavaScript
-  npm install wetro-sdk
-  ```
-  ```bash cURL
-  # No installation needed for cURL
-  curl --version
-  ```
-    </CodeGroup>
-  </Step>
-
   <Step title="Make Your First Request">
     Extract structured data from a website by providing a link, prompt, and JSON schema.
 
@@ -60,35 +44,39 @@ curl --location 'https://api.wetrocloud.com/v1/extract/' \
 ```
 
 ```python Python
-from wetro import Wetrocloud
+import requests
+import json
 
-# Initialize the client
-client = Wetrocloud(api_key="your_api_key")
+url = "https://api.wetrocloud.com/v1/extract/"
 
-# Extract data from a website
-response = client.extract(
-    link="https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
-    prompt="Extract the names and networth of Billionares in the article",
-    json_schema=[
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Token <api_key>"
+}
+
+payload = {
+    "link": "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
+    "prompt": "Extract the names and networth of Billionares in the article",
+    "json_schema": [
         {"name": "string"},
         {"networth": "number"}
     ],
-    delay=2
-)
+    "delay": 2
+}
 
-print(response)
+response = requests.post(url, headers=headers, data=json.dumps(payload))
+print(response.json())
 ```
 
 ```javascript JavaScript
-import Wetrocloud from "wetro-sdk";
+const url = "https://api.wetrocloud.com/v1/extract/";
 
-// Initialize the client
-const client = new Wetrocloud({
-  apiKey: "your_api_key"
-});
+const headers = {
+  "Content-Type": "application/json",
+  "Authorization": "Token <api_key>"
+};
 
-// Extract data from a website
-const response = await client.extract({
+const payload = {
   link: "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
   prompt: "Extract the names and networth of Billionares in the article",
   json_schema: [
@@ -96,9 +84,16 @@ const response = await client.extract({
     { networth: "number" }
   ],
   delay: 2
-});
+};
 
-console.log(response);
+fetch(url, {
+  method: "POST",
+  headers: headers,
+  body: JSON.stringify(payload)
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error("Error:", error));
 ```
     </CodeGroup>
   </Step>
@@ -161,8 +156,14 @@ console.log(response);
 
   </Step>
 
-  <Step title="Try Different Schemas">
-    You can customize the JSON schema to extract different types of data. Here are some examples:
+  <Step title="Try Different Schemas or Plain Text">
+    You can customize the JSON schema to extract different types of data, or omit it entirely for plain text responses.
+
+    <Info>
+      **Pro tip:** The `json_schema` parameter is optional. Omit it to get a plain text response instead of structured JSON.
+    </Info>
+
+    Here are some examples:
 
     **Extract product information:**
     <CodeGroup>
@@ -182,19 +183,32 @@ curl --location 'https://api.wetrocloud.com/v1/extract/' \
 ```
 
 ```python Python
-response = client.extract(
-    link="https://example.com/products",
-    prompt="Extract all product details",
-    json_schema=[
+import requests
+import json
+
+url = "https://api.wetrocloud.com/v1/extract/"
+
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Token <api_key>"
+}
+
+payload = {
+    "link": "https://example.com/products",
+    "prompt": "Extract all product details",
+    "json_schema": [
         {"product_name": "string"},
         {"price": "number"},
         {"rating": "number"}
     ]
-)
+}
+
+response = requests.post(url, headers=headers, data=json.dumps(payload))
+print(response.json())
 ```
 
 ```javascript JavaScript
-const response = await client.extract({
+const payload = {
   link: "https://example.com/products",
   prompt: "Extract all product details",
   json_schema: [
@@ -202,7 +216,18 @@ const response = await client.extract({
     { price: "number" },
     { rating: "number" }
   ]
-});
+};
+
+fetch("https://api.wetrocloud.com/v1/extract/", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Token <api_key>"
+  },
+  body: JSON.stringify(payload)
+})
+  .then(response => response.json())
+  .then(data => console.log(data));
 ```
     </CodeGroup>
 
@@ -224,19 +249,32 @@ curl --location 'https://api.wetrocloud.com/v1/extract/' \
 ```
 
 ```python Python
-response = client.extract(
-    link="https://example.com/contact",
-    prompt="Extract contact details",
-    json_schema=[
+import requests
+import json
+
+url = "https://api.wetrocloud.com/v1/extract/"
+
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Token <api_key>"
+}
+
+payload = {
+    "link": "https://example.com/contact",
+    "prompt": "Extract contact details",
+    "json_schema": [
         {"name": "string"},
         {"email": "string"},
         {"phone": "string"}
     ]
-)
+}
+
+response = requests.post(url, headers=headers, data=json.dumps(payload))
+print(response.json())
 ```
 
 ```javascript JavaScript
-const response = await client.extract({
+const payload = {
   link: "https://example.com/contact",
   prompt: "Extract contact details",
   json_schema: [
@@ -244,9 +282,79 @@ const response = await client.extract({
     { email: "string" },
     { phone: "string" }
   ]
-});
+};
+
+fetch("https://api.wetrocloud.com/v1/extract/", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Token <api_key>"
+  },
+  body: JSON.stringify(payload)
+})
+  .then(response => response.json())
+  .then(data => console.log(data));
 ```
     </CodeGroup>
+
+    **Get plain text response (without json_schema):**
+    <CodeGroup>
+```bash cURL
+curl --location 'https://api.wetrocloud.com/v1/extract/' \
+  --header 'Content-Type: application/json' \
+  --header 'Authorization: Token <api_key>' \
+  --data '{
+    "link": "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
+    "prompt": "Extract the names and networth of Billionares in the article"
+  }'
+```
+
+```python Python
+import requests
+import json
+
+url = "https://api.wetrocloud.com/v1/extract/"
+
+headers = {
+    "Content-Type": "application/json",
+    "Authorization": "Token <api_key>"
+}
+
+payload = {
+    "link": "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
+    "prompt": "Extract the names and networth of Billionares in the article"
+}
+
+response = requests.post(url, headers=headers, data=json.dumps(payload))
+print(response.json())
+```
+
+```javascript JavaScript
+const payload = {
+  link: "https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world",
+  prompt: "Extract the names and networth of Billionares in the article"
+};
+
+fetch("https://api.wetrocloud.com/v1/extract/", {
+  method: "POST",
+  headers: {
+    "Content-Type": "application/json",
+    "Authorization": "Token <api_key>"
+  },
+  body: JSON.stringify(payload)
+})
+  .then(response => response.json())
+  .then(data => console.log(data));
+```
+    </CodeGroup>
+
+    **Response:**
+    ```json
+    {
+      "response": "Here are the names and net worths of the billionaires...\n\n1. **Elon Musk:** $462 billion\n2. **Larry Ellison:** $340 billion...",
+      "success": true
+    }
+    ```
   </Step>
 </Steps>
 
