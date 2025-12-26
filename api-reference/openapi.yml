@@ -15,6 +15,167 @@ security:
   - ApiKeyAuth: []
 
 paths:
+  /v1/extract/:
+    post:
+      tags:
+        - default
+      summary: Extract Data
+      description: >-
+        This endpoint allows you to extract specific information from any web page
+        and receive it in a structured JSON format that matches your requirements.
+
+
+        #### Request Body
+
+
+        - `link` (string): The URL of the website to extract data from.
+
+        - `prompt` (string): Instructions describing what data to extract.
+
+        - `json_schema` (array, optional): The structure defining your desired output format. If not provided, returns plain text.
+
+        - `delay` (integer, optional): Delay in seconds before extraction (useful for dynamic content). Default: 0.
+
+
+        #### Response
+
+
+        The response is a JSON object with the following properties:
+
+
+        - `response` (array): Extracted data matching your JSON schema.
+
+        - `success` (boolean): Indicates whether the extraction was successful.
+
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                link:
+                  type: string
+                  example: 'https://theweek.com/news/people/954994/billionaires-richest-person-in-the-world'
+                prompt:
+                  type: string
+                  example: 'Extract the names and networth of Billionares in the article'
+                json_schema:
+                  type: array
+                  example: [{"name": "string"}, {"networth": "number"}]
+                delay:
+                  type: integer
+                  example: 2
+              required:
+                - link
+                - prompt
+      responses:
+        '200':
+          description: OK
+          headers:
+            Date:
+              schema:
+                type: string
+                example: Fri, 20 Dec 2024 10:56:51 GMT
+            Content-Type:
+              schema:
+                type: string
+                example: application/json
+            Connection:
+              schema:
+                type: string
+                example: keep-alive
+            Server:
+              schema:
+                type: string
+                example: nginx/1.27.2
+          content:
+            application/json:
+              schema:
+                type: object
+              examples:
+                Structured Output:
+                  summary: Structured Output (with json_schema)
+                  value:
+                    response: [
+                        {
+                            "name": "Elon Musk",
+                            "networth": "$462 billion"
+                        },
+                        {
+                            "name": "Larry Ellison",
+                            "networth": "$340 billion"
+                        },
+                        {
+                            "name": "Mark Zuckerberg",
+                            "networth": "$258 billion"
+                        },
+                        {
+                            "name": "Jeff Bezos",
+                            "networth": "$244 billion"
+                        },
+                        {
+                            "name": "Larry Page",
+                            "networth": "$221 billion"
+                        },
+                        {
+                            "name": "Sergey Brin",
+                            "networth": "$207 billion"
+                        },
+                        {
+                            "name": "Bernard Arnault",
+                            "networth": "$197 billion"
+                        },
+                        {
+                            "name": "Steve Ballmer",
+                            "networth": "$179 billion"
+                        },
+                        {
+                            "name": "Jensen Huang",
+                            "networth": "$158 billion"
+                        },
+                        {
+                            "name": "Michael Dell",
+                            "networth": "$156 billion"
+                        }
+                      ]
+                    success: true
+                Plain Text Response:
+                  summary: Plain Text Response (without json_schema)
+                  value:
+                    response: "Here are the names and net worths of the billionaires listed in the article \"Who are the 10 richest people in the world in 2025?\":\n\n1.  **Elon Musk:** $462 billion\n2.  **Larry Ellison:** $340 billion\n3.  **Mark Zuckerberg:** $258 billion\n4.  **Jeff Bezos:** $244 billion\n5.  **Larry Page:** $221 billion\n6.  **Sergey Brin:** $207 billion\n7.  **Bernard Arnault:** $197 billion\n8.  **Steve Ballmer:** $179 billion\n9.  **Jensen Huang:** $158 billion\n10. **Michael Dell:** $156 billion"
+                    success: true
+        '400':
+          description: Bad Request
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                error: "Invalid parameters or malformed JSON schema"
+                success: false
+        '401':
+          description: Unauthorized
+          headers:
+            WWW-Authenticate:
+              schema:
+                type: string
+                example: Token
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                detail: Invalid token.
+        '404':
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+              example:
+                error: "URL not accessible"
+                success: false
+
   /v1/collection/create/:
     post:
       tags:
