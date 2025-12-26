@@ -83,7 +83,7 @@
     "primary": {
       "type": "button",
       "label": "Dashboard",
-      "href": "https://console.wetrocloud.com"
+      "href": "https://wetrocloud.com/console"
     }
   },
   "integrations": {
